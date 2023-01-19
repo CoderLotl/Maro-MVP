@@ -41,7 +41,7 @@ namespace Presenter
 
 			iCharacters.RemoveCharacter += (e, o) =>
 			{
-				RemoveChar((IndexEventArgs)o);
+				RemoveChar(o);
 			};
 			
 			iCharacters.LoadFile += (e, o) =>
@@ -71,10 +71,10 @@ namespace Presenter
 		//------------------ [ METHODS ]
 		//-----------------------------------------------------
 
-		private void RemoveChar(IndexEventArgs index)
+		private void RemoveChar(int index)
 		{
-			SyncCharsAtRemoval(_iCharacters.Main.Presenter.Characters[index.index]);
-			_iCharacters.Main.Presenter.Characters.RemoveAt(index.index);
+			SyncCharsAtRemoval(_iCharacters.Main.Presenter.Characters[index]);
+			_iCharacters.Main.Presenter.Characters.RemoveAt(index);
 		}
 
 		private void SaveData()

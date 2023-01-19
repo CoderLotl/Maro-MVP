@@ -53,8 +53,10 @@ namespace Views
         //------------------ [ BUTTONS ]
         //-----------------------------------------------------
         
-        private void btn_Characters_Click(object sender, EventArgs e)
+        private void btn_AddCharacter_Click(object sender, EventArgs e)
         {
+            // NOTE 19/1/23 I HAVE TO MOVE THE NEW CHAR AND ID TO THE CHARACTER SHEET.
+
 //            Character newCharacter = new Character(1);
 //            newCharacter.ID = Lists.ID + 1; // <<--- THIS IS IMPORTANT. THE NEW CHAR NEEDS A PROVISORY ID IF I WANT TO BE ABLE TO ADD
 //            // FAMILY TIES TO IT.
@@ -204,10 +206,8 @@ namespace Views
                 DialogResult dialogResult = MessageBox.Show("Are you sure you want to remove this character?","Remove character",MessageBoxButtons.YesNo);
 
                 if (dialogResult == DialogResult.Yes)
-                {                    
-                    IndexEventArgs index = new IndexEventArgs(dataGridView1.CurrentRow.Index);
-
-                    RemoveCharacter.Invoke(this, index);
+                {
+                    RemoveCharacter.Invoke(this, dataGridView1.CurrentRow.Index);
 
                     DrawDataTable(1);
                     UpdateInfo();
@@ -268,7 +268,7 @@ namespace Views
 
 		public event EventHandler RetrieveData;
 		public event EventHandler AddCharacter;
-        public event EventHandler RemoveCharacter;
+        public event EventHandler<int> RemoveCharacter;
         public event EventHandler LoadFile;
 		public event EventHandler SaveFile;
 		public event EventHandler Clear;

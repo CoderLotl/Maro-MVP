@@ -138,7 +138,7 @@
         	this.btn_AddCharacter.TabIndex = 0;
         	this.btn_AddCharacter.Text = "Add a new Character";
         	this.btn_AddCharacter.UseVisualStyleBackColor = false;
-        	this.btn_AddCharacter.Click += new System.EventHandler(this.btn_Characters_Click);
+        	this.btn_AddCharacter.Click += new System.EventHandler(this.btn_AddCharacter_Click);
         	// 
         	// dataGridView1
         	// 

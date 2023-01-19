@@ -12,7 +12,7 @@ namespace Views
 		string Lbl_Characters { set; }
 				
 		event EventHandler AddCharacter;
-		event EventHandler RemoveCharacter;
+		event EventHandler<int> RemoveCharacter;
 		event EventHandler LoadFile;
 		event EventHandler SaveFile;
 		event EventHandler Clear;

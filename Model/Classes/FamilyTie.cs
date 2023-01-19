@@ -19,6 +19,12 @@ namespace Model
             this.tie = tie;
         }
 
+        public FamilyTieNode(int id)
+        {
+            this.id = id;
+            this.tie = "";
+        }
+
         public FamilyTieNode()
         {
 			//EMPTY CONSTRUCTOR. NEEDED FOR SERIALIZATION.

@@ -54,25 +54,32 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Character.cs" />
-    <Compile Include="Model\CharAttribute.cs" />
-    <Compile Include="Model\Class1.cs" />
-    <Compile Include="Model\DataSerializer.cs" />
-    <Compile Include="Model\Date.cs" />
-    <Compile Include="Model\FamilyTie.cs" />
-    <Compile Include="Model\FamilyTieNodeComparer.cs" />
-    <Compile Include="Model\Lists.cs" />
-    <Compile Include="Model\PictureSerializer.cs" />
+    <Compile Include="Model\Classes\Character.cs" />
+    <Compile Include="Model\Classes\CharAttribute.cs" />
+    <Compile Include="Model\EventArgs\CharacterEventArgs.cs" />
+    <Compile Include="Model\EventArgs\IndexEventArgs.cs" />
+    <Compile Include="Model\Classes\DataSerializer.cs" />
+    <Compile Include="Model\Classes\Date.cs" />
+    <Compile Include="Model\Classes\FamilyTie.cs" />
+    <Compile Include="Model\Services\FamilyTieNodeComparer.cs" />
+    <Compile Include="Model\Services\PictureSerializer.cs" />
     <Compile Include="Model\Services\DateRetriever.cs" />
-    <Compile Include="Model\TimeoutConnectionException.cs" />
-    <Compile Include="Model\Variables.cs" />
-    <Compile Include="Model\XpProgressBar.cs">
+    <Compile Include="Model\Exceptions\TimeoutConnectionException.cs" />
+    <Compile Include="Model\Classes\Variables.cs" />
+    <Compile Include="Presenters\CharacterSheetPresenter.cs" />
+    <Compile Include="Views\Controls\XpProgressBar.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Presenter\CharactersPresenter.cs" />
-    <Compile Include="Presenter\MainPresenter.cs" />
+    <Compile Include="Presenters\CharactersPresenter.cs" />
+    <Compile Include="Presenters\MainPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Forms\FrmCharacterSheet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Forms\FrmCharacterSheet.designer.cs">
+      <DependentUpon>FrmCharacterSheet.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Forms\FrmCharactersMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,6 +91,7 @@
     </Compile>
     <Compile Include="Views\Forms\MainForm.Designer.cs" />
     <Compile Include="Views\Interfaces\ICharacters.cs" />
+    <Compile Include="Views\Interfaces\ICharacterSheet.cs" />
     <Compile Include="Views\Interfaces\IMainView.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -91,8 +99,11 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Model\XpProgressBar.resx">
+    <EmbeddedResource Include="Views\Controls\XpProgressBar.resx">
       <DependentUpon>XpProgressBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Forms\FrmCharacterSheet.resx">
+      <DependentUpon>FrmCharacterSheet.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Forms\FrmCharactersMain.resx">
       <DependentUpon>FrmCharactersMain.cs</DependentUpon>
