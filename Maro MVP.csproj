@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="Model\Character.cs" />
     <Compile Include="Model\CharAttribute.cs" />
+    <Compile Include="Model\Class1.cs" />
     <Compile Include="Model\DataSerializer.cs" />
     <Compile Include="Model\Date.cs" />
     <Compile Include="Model\FamilyTie.cs" />

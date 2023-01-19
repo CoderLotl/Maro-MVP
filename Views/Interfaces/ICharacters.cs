@@ -9,11 +9,13 @@ namespace Views
 	{
 		MainForm Main	{	get;	}
 		
-		string Lbl_Characters { set; }		
+		string Lbl_Characters { set; }
 				
 		event EventHandler AddCharacter;
+		event EventHandler RemoveCharacter;
 		event EventHandler LoadFile;
 		event EventHandler SaveFile;
-		event EventHandler Clear;		
+		event EventHandler Clear;
+		event EventHandler UpdateAmountOfCharacters;
 	}
 }

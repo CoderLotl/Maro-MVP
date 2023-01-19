@@ -1,17 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using Model;
 using Presenter;
-using System.Threading;
-using System.Runtime.Serialization;
 
 namespace Views
 {
@@ -19,6 +11,7 @@ namespace Views
     {
 
         //*************************************************
+        
         MainForm main;
 		readonly MainPresenter presenter;
 		readonly CharactersPresenter charPresenter;
@@ -34,7 +27,7 @@ namespace Views
             charPresenter = new CharactersPresenter(this);
 			presenter = new MainPresenter(this);
 			RetrieveData.Invoke(this, EventArgs.Empty);
-            //DrawDataTable(0);
+            DrawDataTable(0);
         }
 
         //-----------------------------------------------------
@@ -98,7 +91,7 @@ namespace Views
 			{
 				Clear.Invoke(this, EventArgs.Empty);
 				DrawDataTable(1);
-				//UpdateInfo();
+				UpdateInfo();
             }
 		}
 		
@@ -116,12 +109,14 @@ namespace Views
                     {
                     	LoadFile.Invoke(this, EventArgs.Empty);
                     	DrawDataTable(0);
+                        UpdateInfo();
                     }
                 }
                 else
                 {
                 	LoadFile.Invoke(this, EventArgs.Empty);
-					DrawDataTable(0);                	
+					DrawDataTable(0);
+                    UpdateInfo();
                 }
             }
             else
@@ -146,7 +141,7 @@ namespace Views
 
         private void FrmCharactersMain_Load(object sender, EventArgs e)
         {
-//            UpdateInfo();
+            UpdateInfo();
         }
         
         //------------------
@@ -204,84 +199,59 @@ namespace Views
 		
 		void DataGridView1CellContentClick(object sender, DataGridViewCellEventArgs e)
 		{
-//			if (dataGridView1.Columns[e.ColumnIndex].Name == "DGV_RemoveChar")
-//			{
-//				FrmRemoveCharacter removeCharacter = new FrmRemoveCharacter();
-//				if(removeCharacter.ShowDialog() == DialogResult.OK)
-//				{
-//					int index = dataGridView1.CurrentRow.Index;
-//
-//                    SyncCharsAtRemoval(Lists.Characters[dataGridView1.CurrentRow.Index]);
-//                    // THIS MAY LOOK TRIVIAL, BUT IT'S VERY IMPORTANT SINCE IT'S AN UPDATE. - NOT ALL CHANGES ARE PERFORMED AT THE CHAR SHEET
-//                    // AND THIS IS ONE OF THOSE.
-//
-//					Lists.Characters.RemoveAt(index);		
-//					DrawDataTable(1);
-//                    UpdateInfo();
-//                }        		
-//        	}
-//			
-//			if(dataGridView1.Columns[e.ColumnIndex].Name == "DGV_ViewChar")
-//			{
-//				FrmCharacterSheet viewChar = new FrmCharacterSheet(Lists.Characters[dataGridView1.CurrentRow.Index], 0, 0);				
-//				if(viewChar.ShowDialog() == DialogResult.OK)
-//				{
-//					Lists.Characters[dataGridView1.CurrentRow.Index] = viewChar.Character;
-//					DrawDataTable(1);
-//				}
-//				else
-//				{
-//					DrawDataTable(1);
-//				}
-//			}	        	
-		}
+            if (dataGridView1.Columns[e.ColumnIndex].Name == "DGV_RemoveChar")
+            {
+                DialogResult dialogResult = MessageBox.Show("Are you sure you want to remove this character?","Remove character",MessageBoxButtons.YesNo);
+
+                if (dialogResult == DialogResult.Yes)
+                {                    
+                    IndexEventArgs index = new IndexEventArgs(dataGridView1.CurrentRow.Index);
+
+                    RemoveCharacter.Invoke(this, index);
+
+                    DrawDataTable(1);
+                    UpdateInfo();
+                }
+            }
+            //			
+            //			if(dataGridView1.Columns[e.ColumnIndex].Name == "DGV_ViewChar")
+            //			{
+            //				FrmCharacterSheet viewChar = new FrmCharacterSheet(Lists.Characters[dataGridView1.CurrentRow.Index], 0, 0);				
+            //				if(viewChar.ShowDialog() == DialogResult.OK)
+            //				{
+            //					Lists.Characters[dataGridView1.CurrentRow.Index] = viewChar.Character;
+            //					DrawDataTable(1);
+            //				}
+            //				else
+            //				{
+            //					DrawDataTable(1);
+            //				}
+            //			}	        	
+        }
 		
 		//------------------
-
-        private void SyncCharsAtRemoval(Character charToRemove)
-        {
-//            foreach(Character character in Lists.Characters)
-//            {
-//                foreach(FamilyTieNode familyTieNode in character.Family)
-//                {
-//                    if(familyTieNode.Id == charToRemove.ID)
-//                    {
-//                        character.Family.Remove(familyTieNode);
-//                        break;
-//                    }
-//                }
-//            }
-        }
-
-        //------------------
         
         private void UpdateInfo()
-        {            
-//			lbl_CharactersCount.Text = Lists.Characters.Count.ToString();
-//
-//            if(Lists.Characters.Count > 0)
-//            {
-//            	//btn_ClearList.ForeColor = Color.Black;
-//            	btn_ClearList.Enabled = true;
-//            	
-//            	//btn_CalcAgeAll.ForeColor = Color.Black;
-//            	btn_CalcAgeAll.Enabled = true;
-//            }
-//            else
-//            {
-//            	//btn_ClearList.ForeColor = Color.Gray;
-//            	btn_ClearList.Enabled = false;
-//            	
-//            	//btn_CalcAgeAll.ForeColor = Color.Gray;
-//            	btn_CalcAgeAll.Enabled = false;
-//            }
-//			/*if(loaded!=0){
-//				lbl_LoadedValue.Text = "Yes";
-//			}
-//			else{
-//				lbl_LoadedValue.Text = "No";
-//			}*/
-		}
+        {
+            UpdateAmountOfCharacters.Invoke(this, EventArgs.Empty);
+
+            if (Main.Presenter.Characters.Count > 0)
+            {                
+                btn_ClearList.Enabled = true;                                
+                btn_CalcAgeAll.Enabled = true;
+            }
+            else
+            {                
+                btn_ClearList.Enabled = false;                
+                btn_CalcAgeAll.Enabled = false;
+            }
+            //			/*if(loaded!=0){
+            //				lbl_LoadedValue.Text = "Yes";
+            //			}
+            //			else{
+            //				lbl_LoadedValue.Text = "No";
+            //			}*/
+        }
 
 		void Btn_CalcAgeAllClick(object sender, EventArgs e)
 		{
@@ -298,11 +268,13 @@ namespace Views
 
 		public event EventHandler RetrieveData;
 		public event EventHandler AddCharacter;
-		public event EventHandler LoadFile;
+        public event EventHandler RemoveCharacter;
+        public event EventHandler LoadFile;
 		public event EventHandler SaveFile;
 		public event EventHandler Clear;
-		
-		private void FrmCharactersMain_KeyDown(object sender, KeyEventArgs e)
+        public event EventHandler UpdateAmountOfCharacters;
+
+        private void FrmCharactersMain_KeyDown(object sender, KeyEventArgs e)
         {
         	if (e.KeyCode == Keys.Escape)
         	{

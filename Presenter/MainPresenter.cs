@@ -11,6 +11,7 @@ namespace Presenter
 		
 		private readonly IMainView _iMainView;		
 		List<Character> characters;
+		int id;
 		string date;
 		
 		//*************************************************	
@@ -24,6 +25,12 @@ namespace Presenter
 			get { return characters; }
 			set { characters = value; }
 		}
+
+		public int ID
+		{
+			get { return id; }
+			set { id = value; }
+		}
 		
 		//-----------------------------------------------------
 		
@@ -32,6 +39,7 @@ namespace Presenter
 			_iMainView = iMainView;
 			
 			characters = new List<Character>();
+			id = 0;
 			
 			iMainView.RetrieveData += (o, e) =>
 			{				

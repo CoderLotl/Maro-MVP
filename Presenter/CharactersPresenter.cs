@@ -32,11 +32,17 @@ namespace Presenter
 			set {	charsDTDV = value;	}
 		}
 
-		//-----------------------------------------------------
-		public CharactersPresenter(ICharacters iCharacters)
+        //-----------------------------------------------------
+        //------------------ [ CONSTRUCTOR ]
+        //-----------------------------------------------------
+        public CharactersPresenter(ICharacters iCharacters)
 		{
 			_iCharacters = iCharacters;
-			
+
+			iCharacters.RemoveCharacter += (e, o) =>
+			{
+				RemoveChar((IndexEventArgs)o);
+			};
 			
 			iCharacters.LoadFile += (e, o) =>
 			{
@@ -46,7 +52,7 @@ namespace Presenter
 			
 			iCharacters.SaveFile += (e, o) =>
 			{
-				
+				SaveData();
 			};
 			
 			iCharacters.Clear += (e, o) =>
@@ -54,12 +60,23 @@ namespace Presenter
 				_iCharacters.Main.Presenter.Characters.Clear();
 				UpdateCharacterLabel();
 			};
+
+			iCharacters.UpdateAmountOfCharacters += (e, o) =>
+			{
+				UpdateCharacterLabel();
+			};
 		}
-		
+
 		//-----------------------------------------------------
 		//------------------ [ METHODS ]
 		//-----------------------------------------------------
-		
+
+		private void RemoveChar(IndexEventArgs index)
+		{
+			SyncCharsAtRemoval(_iCharacters.Main.Presenter.Characters[index.index]);
+			_iCharacters.Main.Presenter.Characters.RemoveAt(index.index);
+		}
+
 		private void SaveData()
 		{
 			JSONSerializer<List<Character>> jsonSerializer = new JSONSerializer<List<Character>>("Characters");
@@ -74,16 +91,30 @@ namespace Presenter
             JSONSerializer<List<Character>> jsonSerializer = new JSONSerializer<List<Character>>("Characters");
 
             _iCharacters.Main.Presenter.Characters = jsonSerializer.DeSerialize();
-//
-//            DrawDataTable(1);
-//
-//            Lists.ID = Lists.Characters[Lists.Characters.Count - 1].ID;
-//            UpdateInfo();
+
+			_iCharacters.Main.Presenter.ID = _iCharacters.Main.Presenter.Characters[_iCharacters.Main.Presenter.Characters.Count - 1].ID;
         }
 		
 		private void UpdateCharacterLabel()
 		{
 			_iCharacters.Lbl_Characters = _iCharacters.Main.Presenter.Characters.Count.ToString();
+		}
+
+        private void SyncCharsAtRemoval(Character charToRemove)
+		{
+            // THIS MAY LOOK TRIVIAL, BUT IT'S VERY IMPORTANT SINCE IT'S AN UPDATE. - NOT ALL CHANGES ARE PERFORMED AT THE CHAR SHEET
+            // AND THIS IS ONE OF THOSE.
+            foreach (Character character in _iCharacters.Main.Presenter.Characters)
+			{
+				foreach (FamilyTieNode familyTieNode in character.Family)
+				{
+					if (familyTieNode.Id == charToRemove.ID)
+					{
+						character.Family.Remove(familyTieNode);
+						break;
+					}
+				}
+			}
 		}
 
 	}
