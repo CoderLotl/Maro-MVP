@@ -1,4 +1,4 @@
-﻿namespace Main
+﻿namespace Views
 {
 	partial class FrmCharacterSheet
 	{
@@ -114,7 +114,7 @@
             this.btn_EditDeathday = new System.Windows.Forms.Button();
             this.txtBox_Deathday = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btn_LoadPictore = new System.Windows.Forms.Button();
+            this.btn_LoadPicture = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btn_DiscardPicture = new System.Windows.Forms.Button();
             this.grpBox_Name.SuspendLayout();
@@ -1241,19 +1241,19 @@
             // 
             // btn_LoadPictore
             //             
-            this.btn_LoadPictore.Location = new System.Drawing.Point(8, 30);
-            this.btn_LoadPictore.Name = "btn_LoadPictore";
-            this.btn_LoadPictore.Size = new System.Drawing.Size(23, 23);
-            this.btn_LoadPictore.TabIndex = 25;
-            this.btn_LoadPictore.UseVisualStyleBackColor = true;
-            this.btn_LoadPictore.Click += new System.EventHandler(this.btn_LoadPictore_Click);
+            this.btn_LoadPicture.Location = new System.Drawing.Point(8, 30);
+            this.btn_LoadPicture.Name = "btn_LoadPictore";
+            this.btn_LoadPicture.Size = new System.Drawing.Size(23, 23);
+            this.btn_LoadPicture.TabIndex = 25;
+            this.btn_LoadPicture.UseVisualStyleBackColor = true;
+            this.btn_LoadPicture.Click += new System.EventHandler(this.btn_LoadPictore_Click);
             // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.Transparent;
             this.groupBox1.Controls.Add(this.btn_DiscardPicture);
             this.groupBox1.Controls.Add(this.pictureBox1);
-            this.groupBox1.Controls.Add(this.btn_LoadPictore);
+            this.groupBox1.Controls.Add(this.btn_LoadPicture);
             this.groupBox1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(360, 82);
             this.groupBox1.Name = "groupBox1";
@@ -1437,7 +1437,7 @@
         private System.Windows.Forms.Button btn_EditDeathday;
 		private System.Windows.Forms.Button btn_Undo;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button btn_LoadPictore;
+        private System.Windows.Forms.Button btn_LoadPicture;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btn_DiscardPicture;
     }

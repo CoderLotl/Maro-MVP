@@ -6,10 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Model;
 using Views;
-using Main;
 using Presenter;
 
-namespace Presenters
+namespace Presenter
 {
     internal class CharacterSheetPresenter
     {
@@ -29,11 +28,13 @@ namespace Presenters
             _iCharacterSheet = frmCharacterSheet;
 
             _iCharacterSheet.CharacterEventArgs = new Character(1);
+            _iCharacterSheet.ProgressBarFiller = new ProgressBarFiller();
 
             switch (option)
             {
                 case 0: // VIEW
                     this.character = character;
+                    fakeCharacter = CopyCharacter(this.character);
                     break;
                 case 1: // CREATE
                     this.newCharacter = true;
@@ -41,10 +42,11 @@ namespace Presenters
                     break;
                 case 2: // EDIT
                     this.character = character;
-                    CopyCharacter(fakeCharacter, this.character);
+                    fakeCharacter = CopyCharacter(this.character);
                     break;
             }
-
+            //fakeCharacter = new Character(1);
+            //fakeCharacter = CopyCharacter(Character);
             Subscribe();
         }
 
@@ -72,12 +74,12 @@ namespace Presenters
         {
             _iCharacterSheet.Undo += (e, o) =>
             {
-                CopyCharacter(fakeCharacter, this.character);
+                 fakeCharacter = CopyCharacter(this.character);
             };
 
             _iCharacterSheet.EditCharData += (e, o) =>
             {
-                CopyCharacter(this.character, o);
+                character = CopyCharacter(o);
             };
 
             _iCharacterSheet.AddFamilyTie += (e, o) =>
@@ -91,44 +93,48 @@ namespace Presenters
             };
         }
 
-        private void CopyCharacter(Character copyTo_Character, Character copyFrom_Character)
+        private Character CopyCharacter(Character copyFrom_Character)
         {
-            copyTo_Character = new Character(copyFrom_Character.ID, copyFrom_Character.Name, copyFrom_Character.Age, copyFrom_Character.Race,
+
+
+            Character auxChar = new Character(copyFrom_Character.ID, copyFrom_Character.Name, copyFrom_Character.Age, copyFrom_Character.Race,
                                         copyFrom_Character.Gender, copyFrom_Character.Condition, copyFrom_Character.SpecialCondition);
 
             foreach (FamilyTieNode familyNode in copyFrom_Character.Family)
             {
                 FamilyTieNode newNode = new FamilyTieNode(familyNode.Id, familyNode.Tie);
-                copyTo_Character.Family.Add(newNode);
+                auxChar.Family.Add(newNode);
             }
 
-            copyTo_Character.Description = copyFrom_Character.Description;
-            copyTo_Character.IsAlive = copyFrom_Character.IsAlive;
+            auxChar.Description = copyFrom_Character.Description;
+            auxChar.IsAlive = copyFrom_Character.IsAlive;
 
-            copyTo_Character.CharPicture = copyFrom_Character.CharPicture;
+            auxChar.CharPicture = copyFrom_Character.CharPicture;
 
-            copyTo_Character.Birthday = copyFrom_Character.Birthday;
-            copyTo_Character.Deathday = copyFrom_Character.Deathday;
-            copyTo_Character.Strength = copyFrom_Character.Strength;
-            copyTo_Character.Melee = copyFrom_Character.Melee;
-            copyTo_Character.Mining = copyFrom_Character.Mining;
-            copyTo_Character.Harvesting = copyFrom_Character.Harvesting;
-            copyTo_Character.Smithing = copyFrom_Character.Smithing;
-            copyTo_Character.Dexterity = copyFrom_Character.Dexterity;
-            copyTo_Character.Marksman = copyFrom_Character.Marksman;
-            copyTo_Character.Ranching = copyFrom_Character.Ranching;
-            copyTo_Character.Tailoring = copyTo_Character.Tailoring;
-            copyTo_Character.Cooking = copyFrom_Character.Cooking;
-            copyTo_Character.Knowledge = copyFrom_Character.Knowledge;
-            copyTo_Character.Alchemy = copyFrom_Character.Alchemy;
-            copyTo_Character.Engineering = copyFrom_Character.Engineering;
-            copyTo_Character.Guile = copyFrom_Character.Guile;
-            copyTo_Character.Manufacturing = copyFrom_Character.Manufacturing;            
+            auxChar.Birthday = copyFrom_Character.Birthday;
+            auxChar.Deathday = copyFrom_Character.Deathday;
+            auxChar.Strength = copyFrom_Character.Strength;
+            auxChar.Melee = copyFrom_Character.Melee;
+            auxChar.Mining = copyFrom_Character.Mining;
+            auxChar.Harvesting = copyFrom_Character.Harvesting;
+            auxChar.Smithing = copyFrom_Character.Smithing;
+            auxChar.Dexterity = copyFrom_Character.Dexterity;
+            auxChar.Marksman = copyFrom_Character.Marksman;
+            auxChar.Ranching = copyFrom_Character.Ranching;
+            auxChar.Tailoring = copyFrom_Character.Tailoring;
+            auxChar.Cooking = copyFrom_Character.Cooking;
+            auxChar.Knowledge = copyFrom_Character.Knowledge;
+            auxChar.Alchemy = copyFrom_Character.Alchemy;
+            auxChar.Engineering = copyFrom_Character.Engineering;
+            auxChar.Guile = copyFrom_Character.Guile;
+            auxChar.Manufacturing = copyFrom_Character.Manufacturing;
+
+            return auxChar;
         }
 
-        private void AddFamilyNode(Character character)
+        private void AddFamilyNode(FamilyTieNodeEventArgs familyTieNodeEventArgs)
         {
-            FamilyTieNode node = new FamilyTieNode(character.ID);
+            FamilyTieNode node = new FamilyTieNode(familyTieNodeEventArgs.Character.ID, familyTieNodeEventArgs.Tie);
 
             //--------------------------------------------
 
@@ -142,9 +148,9 @@ namespace Presenters
 
             //--------------------------------------------
 
-            fakeCharacter.Family.Add(node); // OTHERWISE I ADD THE FAMILY NODE TO THE FAKE CHAR.
+            fakeCharacter.Family.Add(node); // OTHERWISE I ADD THE FAMILY NODE TO THE FAKE CHAR.            
 
-            _iCharacterSheet.CharacterEventArgs = character;
+            //_iCharacterSheet.CharacterEventArgs = CopyCharacter(character);
         }
 
         private void RemoveFamilyNode(int index)

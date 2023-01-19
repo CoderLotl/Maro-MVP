@@ -13,9 +13,11 @@ namespace Views
         Character CharacterEventArgs { get; set; }
         string AuxString { get; set; }
 
+        ProgressBarFiller ProgressBarFiller { get; set; }
+
         event EventHandler Undo;
         event EventHandler<Character> EditCharData;
-        event EventHandler<Character> AddFamilyTie;
+        event EventHandler<FamilyTieNodeEventArgs> AddFamilyTie;
         event EventHandler<int> RemoveFamilyTie;
     }
 }

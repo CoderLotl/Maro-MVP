@@ -13,8 +13,8 @@ namespace Views
         //*************************************************
         
         MainForm main;
-		readonly MainPresenter presenter;
-		readonly CharactersPresenter charPresenter;
+		readonly MainPresenter _presenter;
+		readonly CharactersPresenter _charPresenter;
 
         //*************************************************
 
@@ -24,8 +24,8 @@ namespace Views
             InitializeComponent();
             main = mainform;       
 			
-            charPresenter = new CharactersPresenter(this);
-			presenter = new MainPresenter(this);
+            _charPresenter = new CharactersPresenter(this);
+			_presenter = new MainPresenter(this);
 			RetrieveData.Invoke(this, EventArgs.Empty);
             DrawDataTable(0);
         }
@@ -171,28 +171,28 @@ namespace Views
             {
                 dataGridView1.DataSource = null;
                 dataGridView1.Columns.Clear();
-                charPresenter.CharsDT.Rows.Clear();
+                _charPresenter.CharsDT.Rows.Clear();
             }
 
-            charPresenter.CharsDT = new DataTable();
-            charPresenter.CharsDTDV = charPresenter.CharsDT.DefaultView;
+            _charPresenter.CharsDT = new DataTable();
+            _charPresenter.CharsDTDV = _charPresenter.CharsDT.DefaultView;
 
-            charPresenter.CharsDT.Columns.Add("ID", typeof(int));
-            charPresenter.CharsDT.Columns.Add("Name", typeof(string));
-            charPresenter.CharsDT.Columns.Add("Age", typeof(int));
-            charPresenter.CharsDT.Columns.Add("Gender", typeof(string));
-            charPresenter.CharsDT.Columns.Add("Race", typeof(string));
-            charPresenter.CharsDT.Columns.Add("Condition", typeof(string));
-            charPresenter.CharsDT.Columns.Add("Special Condition", typeof(string));
-            charPresenter.CharsDT.Columns.Add("Is Alive?", typeof(string));
+            _charPresenter.CharsDT.Columns.Add("ID", typeof(int));
+            _charPresenter.CharsDT.Columns.Add("Name", typeof(string));
+            _charPresenter.CharsDT.Columns.Add("Age", typeof(int));
+            _charPresenter.CharsDT.Columns.Add("Gender", typeof(string));
+            _charPresenter.CharsDT.Columns.Add("Race", typeof(string));
+            _charPresenter.CharsDT.Columns.Add("Condition", typeof(string));
+            _charPresenter.CharsDT.Columns.Add("Special Condition", typeof(string));
+            _charPresenter.CharsDT.Columns.Add("Is Alive?", typeof(string));
 
             foreach (Character aCharacter in main.Presenter.Characters)
             {
-                charPresenter.CharsDT.Rows.Add(aCharacter.ID,aCharacter.Name,aCharacter.Age,aCharacter.Gender,aCharacter.Race,
+                _charPresenter.CharsDT.Rows.Add(aCharacter.ID,aCharacter.Name,aCharacter.Age,aCharacter.Gender,aCharacter.Race,
             	                 aCharacter.Condition,aCharacter.SpecialCondition,aCharacter.IsAliveStr);
             }
 
-            dataGridView1.DataSource = charPresenter.CharsDT;
+            dataGridView1.DataSource = _charPresenter.CharsDT;
             dataGridView1.Columns.Add(removeChar);
             dataGridView1.Columns.Add(viewChar);
         }
@@ -213,20 +213,20 @@ namespace Views
                     UpdateInfo();
                 }
             }
-            //			
-            //			if(dataGridView1.Columns[e.ColumnIndex].Name == "DGV_ViewChar")
-            //			{
-            //				FrmCharacterSheet viewChar = new FrmCharacterSheet(Lists.Characters[dataGridView1.CurrentRow.Index], 0, 0);				
-            //				if(viewChar.ShowDialog() == DialogResult.OK)
-            //				{
-            //					Lists.Characters[dataGridView1.CurrentRow.Index] = viewChar.Character;
-            //					DrawDataTable(1);
-            //				}
-            //				else
-            //				{
-            //					DrawDataTable(1);
-            //				}
-            //			}	        	
+
+            if (dataGridView1.Columns[e.ColumnIndex].Name == "DGV_ViewChar")
+            {
+                FrmCharacterSheet viewChar = new FrmCharacterSheet(main.Presenter.Characters[dataGridView1.CurrentRow.Index], 2, main.Presenter);
+                if (viewChar.ShowDialog() == DialogResult.OK)
+                {
+                    main.Presenter.Characters[dataGridView1.CurrentRow.Index] = viewChar.PresenterCharacter;
+                    DrawDataTable(1);
+                }
+                else
+                {
+                    DrawDataTable(1);
+                }
+            }
         }
 		
 		//------------------

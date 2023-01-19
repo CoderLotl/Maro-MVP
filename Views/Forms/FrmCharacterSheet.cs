@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Views;
 using Model;
-using Presenters;
 using Presenter;
 
-namespace Main
+namespace Views
 {
 
 	/// <summary>
@@ -21,11 +19,10 @@ namespace Main
 	public partial class FrmCharacterSheet : Form , ICharacterSheet
 	{
 		//*************************************************
-		Character character;
-		Character fakeCharacter;
 
 		Character characterEventArgs;
 		string auxString;
+		ProgressBarFiller progressBarFiller;
 
 		int edited = 0;	// EDITED = 0: NO CHANGES WERE PERFORMED. EDITED = 1: CHANGES WERE PERFORMED BUT NOT CONFIRMED. EDITED = 2: CHANGES WERE EPRFORMED AND CONFIRMED.
         int option = 0;
@@ -40,8 +37,8 @@ namespace Main
         {
             InitializeComponent();
 
-            _characterSheetPresenter = new CharacterSheetPresenter(this, _mainPresenter, character, option);
 			_mainPresenter = mainPresenter;
+            _characterSheetPresenter = new CharacterSheetPresenter(this, _mainPresenter, character, option);
 
             if (option == 0) // IF THE FORM IS ONLY TO VIEW A CHAR, I DISABLE THE EDIT.
             {
@@ -89,6 +86,17 @@ namespace Main
 			set { auxString = value; }
 		}
 
+		public ProgressBarFiller ProgressBarFiller
+		{
+			get { return progressBarFiller; }
+			set { progressBarFiller = value; }
+		}
+
+		public Character PresenterCharacter
+		{
+			get { return _characterSheetPresenter.Character; }			
+		}
+
         //-----------------------------------------------------
         //------------------ [ BUTTONS ]
         //-----------------------------------------------------
@@ -104,8 +112,8 @@ namespace Main
 		private void Btn_Undo_Click(object sender, EventArgs e)
 		{
 			Undo.Invoke(this, EventArgs.Empty);
-			LoadCharacter();
-			//DisableAll();
+
+			LoadCharacter();			
 			FillBars();
 			if (option != 1)
 			{
@@ -118,9 +126,9 @@ namespace Main
 		private void Btn_Accept_Click(object sender, EventArgs e)
 		{
 			edited = 2;		
-			ConfirmEdit(characterEventArgs); // IF THE CHANGES ARE ACCEPTED, THE NEW VALUES ARE SET ON THE FAKE CHAR.
+			ConfirmEdit(_characterSheetPresenter.FakeCharacter); // IF THE CHANGES ARE ACCEPTED, THE NEW VALUES ARE SET ON THE FAKE CHAR.
 
-			EditCharData.Invoke(this, characterEventArgs);
+			EditCharData.Invoke(this, _characterSheetPresenter.FakeCharacter);
 
 			MessageBox.Show("Changes saved.");
 			this.Close();
@@ -134,12 +142,13 @@ namespace Main
 			{
 				if (tv_Family.SelectedNode.Level == 1 && cmbBox_Characters.SelectedItem != null)
 				{
-					AddFamilyTie(this, (Character)cmbBox_Characters.SelectedItem);
+					FamilyTieNodeEventArgs familyTieNodeEventArgs = new FamilyTieNodeEventArgs((Character)cmbBox_Characters.SelectedItem, tv_Family.SelectedNode.Text);
+					AddFamilyTie(this, familyTieNodeEventArgs);
 
 					TreeNode newNode = new TreeNode(); // I CREATE A NEW TREE NODE.
 
-                    newNode.Text = characterEventArgs.ToString(); // SET THE NODE'S TEXT AS THE CHAR IT REPRESENTS
-                    newNode.Name = characterEventArgs.ID.ToString(); // AND THE ID IS THE CHAR'S ID.
+                    newNode.Text = familyTieNodeEventArgs.Character.ToString(); // SET THE NODE'S TEXT AS THE CHAR IT REPRESENTS
+                    newNode.Name = familyTieNodeEventArgs.Character.ID.ToString(); // AND THE ID IS THE CHAR'S ID.
 
                     tv_Family.SelectedNode.Nodes.Add(newNode); // ADD THE NODE TO THE TREE
 					tv_Family.SelectedNode.ExpandAll(); // AND EXPAND.
@@ -187,13 +196,16 @@ namespace Main
 		/// </summary>
 		private void tv_Family_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
 		{
-			foreach (Character aCharacter in Lists.Characters)
+			if (tv_Family.SelectedNode.Level == 2)
 			{
-				if (aCharacter.ID == Convert.ToInt32(e.Node.Name))
+				foreach (Character aCharacter in _mainPresenter.Characters)
 				{
-					FrmCharacterSheet viewThisChar = new FrmCharacterSheet(aCharacter, 0, _mainPresenter);
-					viewThisChar.Show();
-					break;
+					if (aCharacter.ID == Convert.ToInt32(e.Node.Name))
+					{
+						FrmCharacterSheet viewThisChar = new FrmCharacterSheet(aCharacter, 0, _mainPresenter);
+						viewThisChar.Show();
+						break;
+					}
 				}
 			}
 		}
@@ -212,29 +224,29 @@ namespace Main
 			{
 				cmbBox_Race.Items.Add(value.ToString());
 			}
-			cmbBox_Race.Text = character.Race.ToString();
+			cmbBox_Race.Text = _characterSheetPresenter.Character.Race.ToString();
 
 			foreach (var value in Enum.GetValues(typeof(Gender)))
 			{
 				cmbBox_Gender.Items.Add(value.ToString());
 			}
-			cmbBox_Gender.Text = character.Gender.ToString();
+			cmbBox_Gender.Text = _characterSheetPresenter.Character.Gender.ToString();
 
 			foreach (var value in Enum.GetValues(typeof(Condition)))
 			{
 				cmbBox_Condition.Items.Add(value.ToString());
 			}
-			cmbBox_Condition.Text = character.Condition.ToString();
+			cmbBox_Condition.Text = _characterSheetPresenter.Character.Condition.ToString();
 
 			foreach (var value in Enum.GetValues(typeof(SpecialCondition)))
 			{
 				cmbBox_SpCondition.Items.Add(value.ToString());
 			}
-			cmbBox_SpCondition.Text = character.SpecialCondition.ToString();
+			cmbBox_SpCondition.Text = _characterSheetPresenter.Character.SpecialCondition.ToString();
 
 			cmbBox_IsAlive.Items.Add("Yes");
 			cmbBox_IsAlive.Items.Add("No");
-			cmbBox_IsAlive.Text = character.IsAliveStr;
+			cmbBox_IsAlive.Text = _characterSheetPresenter.Character.IsAliveStr;
 
 
 			FillBars();
@@ -360,9 +372,9 @@ namespace Main
 			// THIS IS DUE ALL THE OPERATION IS CONFIRMED TO BE APPLIED. OTHERWISE NOTHING OF THIS HAPPENS.
 			
 			//ConfirmEdit();
-			Utilities.AssignFakeValuesToOriginal(fakeCharacter, character);
+			//Utilities.AssignFakeValuesToOriginal(fakeCharacter, character);
 
-			Utilities.SyncFamilyTies(fakeCharacter, character);
+			//Utilities.SyncFamilyTies(fakeCharacter, character);
 		}
 
 		//-----------------------------------------------------
@@ -451,7 +463,7 @@ namespace Main
 
 		private void DrawTreeView()
 		{
-			tv_Family.Nodes.Add("Character: " + character.Name);
+			tv_Family.Nodes.Add("Character: " + _characterSheetPresenter.Character.Name);
 			tv_Family.Nodes[0].Nodes.Add("Parents");
 			tv_Family.Nodes[0].Nodes.Add("Siblings");
 			tv_Family.Nodes[0].Nodes.Add("Spouses");
@@ -468,9 +480,9 @@ namespace Main
 		{
 			// OK, I NEED TO DOCUMENT THIS 'CUZ I'M STARTING TO LOSE THE FOCUS.
 
-			foreach (FamilyTieNode tieNode in character.Family) // I CHECK THE FAMILY OF THE CHAR...
+			foreach (FamilyTieNode tieNode in _characterSheetPresenter.Character.Family) // I CHECK THE FAMILY OF THE CHAR...
 			{
-				foreach (Character aCharacter in Lists.Characters) // ... AGAINST THE LIST OF CHARS...
+				foreach (Character aCharacter in _mainPresenter.Characters) // ... AGAINST THE LIST OF CHARS...
 				{
 					if (aCharacter.ID == tieNode.Id) // WHENEVER I FIND THE CHAR...
 					{
@@ -532,7 +544,7 @@ namespace Main
 
 		private void LoadCharacter()
 		{
-			Bitmap charPicture = PictureSerializer.TurnStringToImage(fakeCharacter.CharPicture);
+			Bitmap charPicture = PictureSerializer.TurnStringToImage(_characterSheetPresenter.Character.CharPicture);
 
 			if (charPicture != null)
 			{
@@ -544,80 +556,82 @@ namespace Main
 				pictureBox1.BackgroundImage = null;
 			}
 
-			txtBox_Name.Text = fakeCharacter.Name;
-			rchTxtBox_Description.Rtf = fakeCharacter.Description;
-			txtBox_Age.Text = fakeCharacter.Age.ToString();
-			nud_Age.Value = fakeCharacter.Age;
-			if (fakeCharacter.Birthday == null || fakeCharacter.Birthday.Year == null || fakeCharacter.Birthday.Day == null || fakeCharacter.Birthday.Hour == null)
+			txtBox_Name.Text = _characterSheetPresenter.Character.Name;
+			rchTxtBox_Description.Rtf = _characterSheetPresenter.Character.Description;
+			txtBox_Age.Text = _characterSheetPresenter.Character.Age.ToString();
+			nud_Age.Value = _characterSheetPresenter.Character.Age;
+			if (_characterSheetPresenter.Character.Birthday == null || _characterSheetPresenter.Character.Birthday.Year == null ||
+				_characterSheetPresenter.Character.Birthday.Day == null || _characterSheetPresenter.Character.Birthday.Hour == null)
 			{
 				txtBox_Birthday.Text = "-- / -- / --";
-				if (fakeCharacter.Birthday == null)
+				if (_characterSheetPresenter.Character.Birthday == null)
 				{
 					Date newBirthday = new Date("--", "--", "--");
-					fakeCharacter.Birthday = newBirthday;
+					_characterSheetPresenter.Character.Birthday = newBirthday;
 				}
 			}
 			else
 			{
-				txtBox_Birthday.Text = fakeCharacter.Birthday.ToString();
+				txtBox_Birthday.Text = _characterSheetPresenter.Character.Birthday.ToString();
 			}
-			if (fakeCharacter.Deathday == null || fakeCharacter.Deathday.Year == null || fakeCharacter.Deathday.Day == null || fakeCharacter.Deathday.Hour == null)
+			if (_characterSheetPresenter.Character.Deathday == null || _characterSheetPresenter.Character.Deathday.Year == null ||
+				_characterSheetPresenter.Character.Deathday.Day == null || _characterSheetPresenter.Character.Deathday.Hour == null)
 			{
 				txtBox_Deathday.Text = "-- / -- / --";
-				if (fakeCharacter.Deathday == null)
+				if (_characterSheetPresenter.Character.Deathday == null)
 				{
 					Date newDeathday = new Date("--", "--", "--"); // NOTE TO MYSELF: REWRITE THIS!! - 10/30/22 NAH, IT'S FINE.
-					fakeCharacter.Deathday = newDeathday;
+					_characterSheetPresenter.Character.Deathday = newDeathday;
 				}
 			}
 			else
 			{
-				txtBox_Deathday.Text = fakeCharacter.Deathday.ToString();
+				txtBox_Deathday.Text = _characterSheetPresenter.Character.Deathday.ToString();
 			}
-			cmbBox_Race.Text = fakeCharacter.Race.ToString();
-			cmbBox_Gender.Text = fakeCharacter.Gender.ToString();
-			cmbBox_Condition.Text = fakeCharacter.Condition.ToString();
-			cmbBox_SpCondition.Text = fakeCharacter.SpecialCondition.ToString();
+			cmbBox_Race.Text = _characterSheetPresenter.Character.Race.ToString();
+			cmbBox_Gender.Text = _characterSheetPresenter.Character.Gender.ToString();
+			cmbBox_Condition.Text = _characterSheetPresenter.Character.Condition.ToString();
+			cmbBox_SpCondition.Text = _characterSheetPresenter.Character.SpecialCondition.ToString();
 
-			Utilities.RaceImagePicker(fakeCharacter.Race.ToString(), picBox_Race, raceImage);
+			//Utilities.RaceImagePicker(_characterSheetPresenter.Character.Race.ToString(), picBox_Race, raceImage);
 		}
 
 		//--------------------------------------------
 
 		private void FillBars()
 		{
-			Utilities.ProgressBarFiller(pBar_Strength, "Strength", fakeCharacter.Strength);
-			Utilities.ProgressBarFiller(pBar_Melee, "Melee", fakeCharacter.Melee);
-			Utilities.ProgressBarFiller(pBar_Mining, "Mining", fakeCharacter.Mining);
-			Utilities.ProgressBarFiller(pBar_Harvesting, "Harvesting", fakeCharacter.Harvesting);
-			Utilities.ProgressBarFiller(pBar_Smithing, "Smithing", fakeCharacter.Smithing);
-			nud_Strength.Value = fakeCharacter.Strength;
-			nud_Melee.Value = fakeCharacter.Melee;
-			nud_Mining.Value = fakeCharacter.Mining;
-			nud_Harvesting.Value = fakeCharacter.Harvesting;
-			nud_Smithing.Value = fakeCharacter.Smithing;
+			progressBarFiller.FillProgressBar(pBar_Strength, "Strength", _characterSheetPresenter.FakeCharacter.Strength);
+			progressBarFiller.FillProgressBar(pBar_Melee, "Melee", _characterSheetPresenter.FakeCharacter.Melee);
+			progressBarFiller.FillProgressBar(pBar_Mining, "Mining", _characterSheetPresenter.FakeCharacter.Mining);
+			progressBarFiller.FillProgressBar(pBar_Harvesting, "Harvesting", _characterSheetPresenter.FakeCharacter.Harvesting);
+			progressBarFiller.FillProgressBar(pBar_Smithing, "Smithing", _characterSheetPresenter.FakeCharacter.Smithing);
+			nud_Strength.Value = _characterSheetPresenter.FakeCharacter.Strength;
+			nud_Melee.Value = _characterSheetPresenter.FakeCharacter.Melee;
+			nud_Mining.Value = _characterSheetPresenter.FakeCharacter.Mining;
+			nud_Harvesting.Value = _characterSheetPresenter.FakeCharacter.Harvesting;
+			nud_Smithing.Value = _characterSheetPresenter.FakeCharacter.Smithing;
 
-			Utilities.ProgressBarFiller(pBar_Dexterity, "Dexterity", fakeCharacter.Dexterity);
-			Utilities.ProgressBarFiller(pBar_Marksman, "Marksman", fakeCharacter.Marksman);
-			Utilities.ProgressBarFiller(pBar_Ranching, "Ranching", fakeCharacter.Ranching);
-			Utilities.ProgressBarFiller(pBar_Tailoring, "Tailoring", fakeCharacter.Tailoring);
-			Utilities.ProgressBarFiller(pBar_Cooking, "Cooking", fakeCharacter.Cooking);
-			nud_Dexterity.Value = fakeCharacter.Dexterity;
-			nud_Marksman.Value = fakeCharacter.Marksman;
-			nud_Ranching.Value = fakeCharacter.Ranching;
-			nud_Tailoring.Value = fakeCharacter.Tailoring;
-			nud_Cooking.Value = fakeCharacter.Cooking;
+			progressBarFiller.FillProgressBar(pBar_Dexterity, "Dexterity", _characterSheetPresenter.FakeCharacter.Dexterity);
+			progressBarFiller.FillProgressBar(pBar_Marksman, "Marksman", _characterSheetPresenter.FakeCharacter.Marksman);
+			progressBarFiller.FillProgressBar(pBar_Ranching, "Ranching", _characterSheetPresenter.FakeCharacter.Ranching);
+			progressBarFiller.FillProgressBar(pBar_Tailoring, "Tailoring", _characterSheetPresenter.FakeCharacter.Tailoring);
+			progressBarFiller.FillProgressBar(pBar_Cooking, "Cooking", _characterSheetPresenter.FakeCharacter.Cooking);
+			nud_Dexterity.Value = _characterSheetPresenter.FakeCharacter.Dexterity;
+			nud_Marksman.Value = _characterSheetPresenter.FakeCharacter.Marksman;
+			nud_Ranching.Value = _characterSheetPresenter.FakeCharacter.Ranching;
+			nud_Tailoring.Value = _characterSheetPresenter.FakeCharacter.Tailoring;
+			nud_Cooking.Value = _characterSheetPresenter.FakeCharacter.Cooking;
 
-			Utilities.ProgressBarFiller(pBar_Knowledge, "Knowledge", fakeCharacter.Knowledge);
-			Utilities.ProgressBarFiller(pBar_Alchemy, "Alchemy", fakeCharacter.Alchemy);
-			Utilities.ProgressBarFiller(pBar_Engineering, "Engineering", fakeCharacter.Engineering);
-			Utilities.ProgressBarFiller(pBar_Guile, "Guile", fakeCharacter.Guile);
-			Utilities.ProgressBarFiller(pBar_Manufacturing, "Manufacturing", fakeCharacter.Manufacturing);
-			nud_Knowledge.Value = fakeCharacter.Knowledge;
-			nud_Alchemy.Value = fakeCharacter.Alchemy;
-			nud_Engineering.Value = fakeCharacter.Engineering;
-			nud_Guile.Value = fakeCharacter.Guile;
-			nud_Manufacturing.Value = fakeCharacter.Manufacturing;
+			progressBarFiller.FillProgressBar(pBar_Knowledge, "Knowledge", _characterSheetPresenter.FakeCharacter.Knowledge);
+			progressBarFiller.FillProgressBar(pBar_Alchemy, "Alchemy", _characterSheetPresenter.FakeCharacter.Alchemy);
+			progressBarFiller.FillProgressBar(pBar_Engineering, "Engineering", _characterSheetPresenter.FakeCharacter.Engineering);
+			progressBarFiller.FillProgressBar(pBar_Guile, "Guile", _characterSheetPresenter.FakeCharacter.Guile);
+			progressBarFiller.FillProgressBar(pBar_Manufacturing, "Manufacturing", _characterSheetPresenter.FakeCharacter.Manufacturing);
+			nud_Knowledge.Value = _characterSheetPresenter.FakeCharacter.Knowledge;
+			nud_Alchemy.Value = _characterSheetPresenter.FakeCharacter.Alchemy;
+			nud_Engineering.Value = _characterSheetPresenter.FakeCharacter.Engineering;
+			nud_Guile.Value = _characterSheetPresenter.FakeCharacter.Guile;
+			nud_Manufacturing.Value = _characterSheetPresenter.FakeCharacter.Manufacturing;
 		}
 
 		//--------------------------------------------
@@ -635,10 +649,15 @@ namespace Main
 			cmbBox_SpCondition.Enabled = false;
 			cmbBox_IsAlive.Enabled = false;
 
-			//---------- TEXT BUTTONS
+			//---------- BUTTONS
 			btn_Bold.Enabled = false;
 			btn_Italic.Enabled = false;
 			btn_Underline.Enabled = false;
+			btn_LoadPicture.Enabled = false;
+			btn_DiscardPicture.Enabled = false;
+			btn_EditBirthday.Enabled = false;
+			btn_AddFamilyTie.Enabled = false;
+			btn_RmvFamilyTie.Enabled = false;
 
 			//---------- NUDS
 			nud_Age.Enabled = false;
@@ -661,8 +680,6 @@ namespace Main
 			nud_Manufacturing.Enabled = false;
 
 			cmbBox_Characters.Enabled = false;
-			btn_AddFamilyTie.Enabled = false;
-			btn_RmvFamilyTie.Enabled = false;
 		}
 
 		//--------------------------------------------
@@ -717,84 +734,84 @@ namespace Main
 		//--------------------------------------------
 
 		void Nud_StrengthValueChanged(object sender, EventArgs e)
-		{
-			InitializedConditional();
-			Utilities.ProgressBarFiller(pBar_Strength, "Strength", Convert.ToInt32(nud_Strength.Value));
+		{            
+            InitializedConditional();
+			progressBarFiller.FillProgressBar(pBar_Strength, "Strength", Convert.ToInt32(nud_Strength.Value));
 		}
 		void Nud_MeleeValueChanged(object sender, EventArgs e)
-		{
+		{			
 			InitializedConditional();
-			Utilities.ProgressBarFiller(pBar_Melee, "Melee", Convert.ToInt32(nud_Melee.Value));
+			progressBarFiller.FillProgressBar(pBar_Melee, "Melee", Convert.ToInt32(nud_Melee.Value));
 		}
 		void Nud_MiningValueChanged(object sender, EventArgs e)
 		{
 			InitializedConditional();
-			Utilities.ProgressBarFiller(pBar_Mining, "Mining", Convert.ToInt32(nud_Mining.Value));
+			progressBarFiller.FillProgressBar(pBar_Mining, "Mining", Convert.ToInt32(nud_Mining.Value));
 		}
 		void Nud_HarvestingValueChanged(object sender, EventArgs e)
 		{
 			InitializedConditional();
-			Utilities.ProgressBarFiller(pBar_Harvesting, "Harvesting", Convert.ToInt32(nud_Harvesting.Value));
+			progressBarFiller.FillProgressBar(pBar_Harvesting, "Harvesting", Convert.ToInt32(nud_Harvesting.Value));
 		}
 		void Nud_SmithingValueChanged(object sender, EventArgs e)
 		{
 			InitializedConditional();
-			Utilities.ProgressBarFiller(pBar_Smithing, "Smithing", Convert.ToInt32(nud_Smithing.Value));
+			progressBarFiller.FillProgressBar(pBar_Smithing, "Smithing", Convert.ToInt32(nud_Smithing.Value));
 		}
 		void Nud_DexterityValueChanged(object sender, EventArgs e)
 		{
 			InitializedConditional();
-			Utilities.ProgressBarFiller(pBar_Dexterity, "Dexterity", Convert.ToInt32(nud_Dexterity.Value));
+			progressBarFiller.FillProgressBar(pBar_Dexterity, "Dexterity", Convert.ToInt32(nud_Dexterity.Value));
 		}
 		void Nud_MarksmanValueChanged(object sender, EventArgs e)
 		{
 			InitializedConditional();
-			Utilities.ProgressBarFiller(pBar_Marksman, "Marksman", Convert.ToInt32(nud_Marksman.Value));
+			progressBarFiller.FillProgressBar(pBar_Marksman, "Marksman", Convert.ToInt32(nud_Marksman.Value));
 		}
 		void Nud_RanchingValueChanged(object sender, EventArgs e)
 		{
 			InitializedConditional();
-			Utilities.ProgressBarFiller(pBar_Ranching, "Ranching", Convert.ToInt32(nud_Ranching.Value));
+			progressBarFiller.FillProgressBar(pBar_Ranching, "Ranching", Convert.ToInt32(nud_Ranching.Value));
 		}
 		void Nud_TailoringValueChanged(object sender, EventArgs e)
 		{
 			InitializedConditional();
-			Utilities.ProgressBarFiller(pBar_Tailoring, "Tailoring", Convert.ToInt32(nud_Tailoring.Value));
+			progressBarFiller.FillProgressBar(pBar_Tailoring, "Tailoring", Convert.ToInt32(nud_Tailoring.Value));
 		}
 		void Nud_CookingValueChanged(object sender, EventArgs e)
 		{
 			InitializedConditional();
-			Utilities.ProgressBarFiller(pBar_Cooking, "Cooking", Convert.ToInt32(nud_Cooking.Value));
+			progressBarFiller.FillProgressBar(pBar_Cooking, "Cooking", Convert.ToInt32(nud_Cooking.Value));
 		}
 
 		private void nud_Knowledge_ValueChanged(object sender, EventArgs e)
 		{
 			InitializedConditional();
-			Utilities.ProgressBarFiller(pBar_Knowledge, "Knowledge", Convert.ToInt32(nud_Knowledge.Value));
+			progressBarFiller.FillProgressBar(pBar_Knowledge, "Knowledge", Convert.ToInt32(nud_Knowledge.Value));
 		}
 
 		private void nud_Alchemy_ValueChanged(object sender, EventArgs e)
 		{
 			InitializedConditional();
-			Utilities.ProgressBarFiller(pBar_Alchemy, "Alchemy", Convert.ToInt32(nud_Alchemy.Value));
+			progressBarFiller.FillProgressBar(pBar_Alchemy, "Alchemy", Convert.ToInt32(nud_Alchemy.Value));
 		}
 
 		private void nud_Engineering_ValueChanged(object sender, EventArgs e)
 		{
 			InitializedConditional();
-			Utilities.ProgressBarFiller(pBar_Engineering, "Engineering", Convert.ToInt32(nud_Engineering.Value));
+			progressBarFiller.FillProgressBar(pBar_Engineering, "Engineering", Convert.ToInt32(nud_Engineering.Value));
 		}
 
 		private void nud_Guile_ValueChanged(object sender, EventArgs e)
 		{
 			InitializedConditional();
-			Utilities.ProgressBarFiller(pBar_Guile, "Guile", Convert.ToInt32(nud_Guile.Value));
+			progressBarFiller.FillProgressBar(pBar_Guile, "Guile", Convert.ToInt32(nud_Guile.Value));
 		}
 
 		private void nud_Manufacturing_ValueChanged(object sender, EventArgs e)
 		{
 			InitializedConditional();
-			Utilities.ProgressBarFiller(pBar_Manufacturing, "Manufacturing", Convert.ToInt32(nud_Manufacturing.Value));
+			progressBarFiller.FillProgressBar(pBar_Manufacturing, "Manufacturing", Convert.ToInt32(nud_Manufacturing.Value));
 		}
 
 		//--------------------------------------------
@@ -833,7 +850,7 @@ namespace Main
 				}
 			}
 
-			Utilities.RaceImagePicker(cmbBox_Race.Text, picBox_Race, raceImage);
+			//Utilities.RaceImagePicker(cmbBox_Race.Text, picBox_Race, raceImage);
 		}
 
 		//--------------------------------------------
@@ -841,19 +858,19 @@ namespace Main
 		private void cmbBox_Gender_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			InitializedConditional();
-			Utilities.GenderImagePicker(cmbBox_Gender.Text, picBox_Gender, genderImage);
+			//Utilities.GenderImagePicker(cmbBox_Gender.Text, picBox_Gender, genderImage);
 		}
 
 		private void cmbBox_Condition_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			InitializedConditional();
-			Utilities.ConditionImagePicker(cmbBox_Condition.Text, picBox_Condition, conditionImage);
+			//Utilities.ConditionImagePicker(cmbBox_Condition.Text, picBox_Condition, conditionImage);
 		}
 
 		private void cmbBox_SpCondition_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			InitializedConditional();
-			Utilities.SpConditionImagePicker(cmbBox_SpCondition.Text, picBox_SpCondition, spConditionImage);
+			//Utilities.SpConditionImagePicker(cmbBox_SpCondition.Text, picBox_SpCondition, spConditionImage);
 		}
 
 		private void tv_Family_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -894,37 +911,37 @@ namespace Main
 			if (cmbBox_IsAlive.Text == "Yes")
 			{
 				grpBox_DeathDay.Enabled = false;
-				fakeCharacter.Deathday.Year = "--";
-				fakeCharacter.Deathday.Day = "--";
-				fakeCharacter.Deathday.Hour = "--";
-				txtBox_Deathday.Text = fakeCharacter.Deathday.ToString();
+				_characterSheetPresenter.FakeCharacter.Deathday.Year = "--";
+				_characterSheetPresenter.FakeCharacter.Deathday.Day = "--";
+				_characterSheetPresenter.FakeCharacter.Deathday.Hour = "--";
+				txtBox_Deathday.Text = _characterSheetPresenter.FakeCharacter.Deathday.ToString();
 
 			}
 			else
 			{
 				grpBox_DeathDay.Enabled = true;
-				txtBox_Deathday.Text = fakeCharacter.Deathday.ToString();
+				txtBox_Deathday.Text = _characterSheetPresenter.FakeCharacter.Deathday.ToString();
 			}
 		}
 		void Btn_EditBirthdayClick(object sender, EventArgs e)
 		{
 			InitializedConditional();
-			FrmDateSetter dateSetting = new FrmDateSetter(fakeCharacter.Birthday);
+			FrmDateSetter dateSetting = new FrmDateSetter(_characterSheetPresenter.FakeCharacter.Birthday);
 			if (dateSetting.ShowDialog() == DialogResult.OK)
 			{
-				fakeCharacter.Birthday = dateSetting.GetDate;
+				_characterSheetPresenter.FakeCharacter.Birthday = dateSetting.GetDate;
 			}
-			txtBox_Birthday.Text = fakeCharacter.Birthday.ToString();
+			txtBox_Birthday.Text = _characterSheetPresenter.FakeCharacter.Birthday.ToString();
 		}
 		void Btn_EditDeathdayClick(object sender, EventArgs e)
 		{
 			InitializedConditional();
-			FrmDateSetter dateSetting = new FrmDateSetter(fakeCharacter.Deathday);
+			FrmDateSetter dateSetting = new FrmDateSetter(_characterSheetPresenter.FakeCharacter.Deathday);
 			if (dateSetting.ShowDialog() == DialogResult.OK)
 			{
-				fakeCharacter.Deathday = dateSetting.GetDate;
+				_characterSheetPresenter.FakeCharacter.Deathday = dateSetting.GetDate;
 			}
-			txtBox_Deathday.Text = fakeCharacter.Deathday.ToString();
+			txtBox_Deathday.Text = _characterSheetPresenter.FakeCharacter.Deathday.ToString();
 		}
 
 		protected override CreateParams CreateParams
@@ -939,9 +956,9 @@ namespace Main
 
 		private void btn_LoadPictore_Click(object sender, EventArgs e)
 		{
-			fakeCharacter.CharPicture = PictureSerializer.UploadImageAsString();
+			_characterSheetPresenter.FakeCharacter.CharPicture = PictureSerializer.UploadImageAsString();
 
-			Bitmap newImage = PictureSerializer.TurnStringToImage(fakeCharacter.CharPicture);
+			Bitmap newImage = PictureSerializer.TurnStringToImage(_characterSheetPresenter.FakeCharacter.CharPicture);
 
 			if (newImage != null)
 			{
@@ -956,7 +973,7 @@ namespace Main
 
 		private void btn_DiscardPicture_Click(object sender, EventArgs e)
 		{
-			fakeCharacter.CharPicture = "";
+			_characterSheetPresenter.FakeCharacter.CharPicture = "";
 
 			pictureBox1.BackgroundImage = null;
 		}
@@ -967,7 +984,7 @@ namespace Main
 
 		public event EventHandler Undo;
 		public event EventHandler<Character> EditCharData;
-		public event EventHandler<Character> AddFamilyTie;
+		public event EventHandler<FamilyTieNodeEventArgs> AddFamilyTie;
 		public event EventHandler<int> RemoveFamilyTie;
 
         void FrmViewCharKeyDown(object sender, KeyEventArgs e)

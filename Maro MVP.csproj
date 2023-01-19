@@ -56,16 +56,16 @@
   <ItemGroup>
     <Compile Include="Model\Classes\Character.cs" />
     <Compile Include="Model\Classes\CharAttribute.cs" />
-    <Compile Include="Model\EventArgs\CharacterEventArgs.cs" />
-    <Compile Include="Model\EventArgs\IndexEventArgs.cs" />
     <Compile Include="Model\Classes\DataSerializer.cs" />
     <Compile Include="Model\Classes\Date.cs" />
     <Compile Include="Model\Classes\FamilyTie.cs" />
+    <Compile Include="Model\EventArgs\FamilyTieNodeEventArgs.cs" />
     <Compile Include="Model\Services\FamilyTieNodeComparer.cs" />
     <Compile Include="Model\Services\PictureSerializer.cs" />
     <Compile Include="Model\Services\DateRetriever.cs" />
     <Compile Include="Model\Exceptions\TimeoutConnectionException.cs" />
     <Compile Include="Model\Classes\Variables.cs" />
+    <Compile Include="Model\Services\Utilities.cs" />
     <Compile Include="Presenters\CharacterSheetPresenter.cs" />
     <Compile Include="Views\Controls\XpProgressBar.cs">
       <SubType>Component</SubType>
@@ -86,6 +86,12 @@
     <Compile Include="Views\Forms\FrmCharactersMain.Designer.cs">
       <DependentUpon>FrmCharactersMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Forms\FrmDateSetter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Forms\FrmDateSetter.designer.cs">
+      <DependentUpon>FrmDateSetter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,6 +99,7 @@
     <Compile Include="Views\Interfaces\ICharacters.cs" />
     <Compile Include="Views\Interfaces\ICharacterSheet.cs" />
     <Compile Include="Views\Interfaces\IMainView.cs" />
+    <Compile Include="Views\View Services\ProgressBarFiller.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -107,6 +114,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Forms\FrmCharactersMain.resx">
       <DependentUpon>FrmCharactersMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Forms\FrmDateSetter.resx">
+      <DependentUpon>FrmDateSetter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

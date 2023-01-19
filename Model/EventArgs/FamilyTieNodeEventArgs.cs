@@ -6,15 +6,18 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public class CharacterEventArgs : EventArgs
+    public class FamilyTieNodeEventArgs : EventArgs
     {
         Character character;
+        string tie;
 
-        public CharacterEventArgs()
+        public FamilyTieNodeEventArgs(Character character, string tie)
         {
-            this.character = new Character(1);
+            this.character = character;
+            this.tie = tie;
         }
 
         public Character Character { get => character; set => character = value; }
+        public string Tie { get => tie; set => tie = value; }
     }
 }
