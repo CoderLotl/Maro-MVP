@@ -61,6 +61,7 @@
     <Compile Include="Model\Classes\FamilyTie.cs" />
     <Compile Include="Model\EventArgs\FamilyTieNodeEventArgs.cs" />
     <Compile Include="Model\Services\FamilyTieNodeComparer.cs" />
+    <Compile Include="Model\Services\FamilyTiesSyncer.cs" />
     <Compile Include="Model\Services\PictureSerializer.cs" />
     <Compile Include="Model\Services\DateRetriever.cs" />
     <Compile Include="Model\Exceptions\TimeoutConnectionException.cs" />

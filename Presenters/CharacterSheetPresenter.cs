@@ -21,11 +21,13 @@ namespace Presenter
         Image raceImage; Image genderImage; Image conditionImage; Image spConditionImage;
 
         readonly ICharacterSheet _iCharacterSheet;
+        readonly MainPresenter _mainPresenter;
         //*************************************************
 
         public CharacterSheetPresenter(ICharacterSheet frmCharacterSheet, MainPresenter mainPresenter, Character character, int option)
         {
             _iCharacterSheet = frmCharacterSheet;
+            _mainPresenter = mainPresenter;
 
             _iCharacterSheet.CharacterEventArgs = new Character(1);
             _iCharacterSheet.ProgressBarFiller = new ProgressBarFiller();
@@ -45,8 +47,7 @@ namespace Presenter
                     fakeCharacter = CopyCharacter(this.character);
                     break;
             }
-            //fakeCharacter = new Character(1);
-            //fakeCharacter = CopyCharacter(Character);
+
             Subscribe();
         }
 
@@ -79,6 +80,9 @@ namespace Presenter
 
             _iCharacterSheet.EditCharData += (e, o) =>
             {
+                FamilyTiesSyncer familyTiesSyncer = new FamilyTiesSyncer();
+
+                familyTiesSyncer.SyncFamilyTies(fakeCharacter, character, _mainPresenter.Characters);
                 character = CopyCharacter(o);
             };
 
@@ -95,8 +99,6 @@ namespace Presenter
 
         private Character CopyCharacter(Character copyFrom_Character)
         {
-
-
             Character auxChar = new Character(copyFrom_Character.ID, copyFrom_Character.Name, copyFrom_Character.Age, copyFrom_Character.Race,
                                         copyFrom_Character.Gender, copyFrom_Character.Condition, copyFrom_Character.SpecialCondition);
 
@@ -149,8 +151,6 @@ namespace Presenter
             //--------------------------------------------
 
             fakeCharacter.Family.Add(node); // OTHERWISE I ADD THE FAMILY NODE TO THE FAKE CHAR.            
-
-            //_iCharacterSheet.CharacterEventArgs = CopyCharacter(character);
         }
 
         private void RemoveFamilyNode(int index)
