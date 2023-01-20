@@ -55,23 +55,12 @@ namespace Views
         
         private void btn_AddCharacter_Click(object sender, EventArgs e)
         {
-            // NOTE 19/1/23 I HAVE TO MOVE THE NEW CHAR AND ID TO THE CHARACTER SHEET.
-
-//            Character newCharacter = new Character(1);
-//            newCharacter.ID = Lists.ID + 1; // <<--- THIS IS IMPORTANT. THE NEW CHAR NEEDS A PROVISORY ID IF I WANT TO BE ABLE TO ADD
-//            // FAMILY TIES TO IT.
-//
-//            FrmCharacterSheet addCharacter = new FrmCharacterSheet(newCharacter, 0, 1);            
-//            if(addCharacter.ShowDialog() == DialogResult.OK)
-//            {
-//                Character aNewCharacter = addCharacter.Character;
-//                
-//                Lists.ID++; // IF THE NEW CHAR IS CONFIRMED THEN I ADD 1 TO THE ID.
-//                Lists.Characters.Add(aNewCharacter);
-//
-//                DrawDataTable(1);
-//                UpdateInfo();
-//            }        	
+            FrmCharacterSheet frmCharacterSheet = new FrmCharacterSheet(null, 1, main.Presenter);
+            if(frmCharacterSheet.ShowDialog() == DialogResult.OK)
+            {
+                DrawDataTable(1);
+                UpdateInfo();
+            }
         }     
                 
         //------------------
@@ -255,24 +244,25 @@ namespace Views
 
 		void Btn_CalcAgeAllClick(object sender, EventArgs e)
 		{
-//			Action<string> message = (string text) => MessageBox.Show(text);
-//			//DELEGATE. USED TO PASS A LAMBDA METHOD.
-//			
-//			Utilities.CalcCharsAge(message);
-//			DrawDataTable(1);
-		}
-		
-		//-----------------------------------------------------
-		//------------------ [ EVENTS ]
-		//-----------------------------------------------------	
+            Action<string> message = (string text) => MessageBox.Show(text);
+            //DELEGATE. USED TO PASS A LAMBDA METHOD.
+            //			
+            CalculateCharsAge(this, message);
+            DrawDataTable(1);
+        }
 
-		public event EventHandler RetrieveData;
+        //-----------------------------------------------------
+        //------------------ [ EVENTS ]
+        //-----------------------------------------------------	
+
+        public event EventHandler RetrieveData;
 		public event EventHandler AddCharacter;
         public event EventHandler<int> RemoveCharacter;
         public event EventHandler LoadFile;
 		public event EventHandler SaveFile;
 		public event EventHandler Clear;
         public event EventHandler UpdateAmountOfCharacters;
+        public event EventHandler<Action<string>> CalculateCharsAge;
 
         private void FrmCharactersMain_KeyDown(object sender, KeyEventArgs e)
         {

@@ -60,6 +60,7 @@
     <Compile Include="Model\Classes\Date.cs" />
     <Compile Include="Model\Classes\FamilyTie.cs" />
     <Compile Include="Model\EventArgs\FamilyTieNodeEventArgs.cs" />
+    <Compile Include="Model\Services\CalculateCharactersAge.cs" />
     <Compile Include="Model\Services\FamilyTieNodeComparer.cs" />
     <Compile Include="Model\Services\FamilyTiesSyncer.cs" />
     <Compile Include="Model\Services\PictureSerializer.cs" />

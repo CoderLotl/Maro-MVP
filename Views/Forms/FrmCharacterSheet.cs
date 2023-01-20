@@ -944,16 +944,6 @@ namespace Views
 			txtBox_Deathday.Text = _characterSheetPresenter.FakeCharacter.Deathday.ToString();
 		}
 
-		protected override CreateParams CreateParams
-		{
-			get
-			{
-				CreateParams createParams = base.CreateParams;
-				createParams.ExStyle |= 0x02000000;    // Turn on WS_EX_COMPOSITED
-				return createParams;
-			}
-		}
-
 		private void btn_LoadPictore_Click(object sender, EventArgs e)
 		{
 			_characterSheetPresenter.FakeCharacter.CharPicture = PictureSerializer.UploadImageAsString();

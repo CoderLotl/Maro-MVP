@@ -41,6 +41,8 @@ namespace Presenter
                 case 1: // CREATE
                     this.newCharacter = true;
                     this.character = new Character(1);
+                    this.character.ID = _mainPresenter.ID + 1;
+                    fakeCharacter = CopyCharacter(this.character);
                     break;
                 case 2: // EDIT
                     this.character = character;
@@ -84,6 +86,12 @@ namespace Presenter
 
                 familyTiesSyncer.SyncFamilyTies(fakeCharacter, character, _mainPresenter.Characters);
                 character = CopyCharacter(o);
+
+                if(newCharacter == true)
+                {
+                    _mainPresenter.ID += 1;
+                    _mainPresenter.Characters.Add(this.character);
+                }
             };
 
             _iCharacterSheet.AddFamilyTie += (e, o) =>

@@ -17,5 +17,6 @@ namespace Views
 		event EventHandler SaveFile;
 		event EventHandler Clear;
 		event EventHandler UpdateAmountOfCharacters;
+		event EventHandler<Action<string>> CalculateCharsAge;
 	}
 }

@@ -39,31 +39,36 @@ namespace Presenter
 		{
 			_iCharacters = iCharacters;
 
-			iCharacters.RemoveCharacter += (e, o) =>
+			_iCharacters.RemoveCharacter += (e, o) =>
 			{
 				RemoveChar(o);
 			};
 			
-			iCharacters.LoadFile += (e, o) =>
+			_iCharacters.LoadFile += (e, o) =>
 			{
 				LoadData();
 				UpdateCharacterLabel();
 			};
 			
-			iCharacters.SaveFile += (e, o) =>
+			_iCharacters.SaveFile += (e, o) =>
 			{
 				SaveData();
 			};
 			
-			iCharacters.Clear += (e, o) =>
+			_iCharacters.Clear += (e, o) =>
 			{
 				_iCharacters.Main.Presenter.Characters.Clear();
 				UpdateCharacterLabel();
 			};
 
-			iCharacters.UpdateAmountOfCharacters += (e, o) =>
+			_iCharacters.UpdateAmountOfCharacters += (e, o) =>
 			{
 				UpdateCharacterLabel();
+			};
+
+			_iCharacters.CalculateCharsAge += (e, o) =>
+			{
+				CalculateCharactersAge(o);
 			};
 		}
 
@@ -115,6 +120,12 @@ namespace Presenter
 					}
 				}
 			}
+		}
+
+		private void CalculateCharactersAge(Action<string> message)
+		{
+			CalculateCharactersAge calculateCharactersAge = new CalculateCharactersAge(_iCharacters.Main.Presenter);
+			calculateCharactersAge.CalcCharsAge(message);
 		}
 
 	}
