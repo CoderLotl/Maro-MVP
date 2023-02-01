@@ -17,7 +17,7 @@ namespace Model
             this.tie = tie;
         }
 
-        public Character Character { get => character; set => character = value; }
-        public string Tie { get => tie; set => tie = value; }
+        public Character Character { get { return character; }	set { character = value; }	}
+        public string Tie { get { return tie; }	set { tie = value; }	}
     }
 }

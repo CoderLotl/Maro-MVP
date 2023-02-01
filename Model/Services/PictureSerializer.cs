@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Model
 {
-    public static class PictureSerializer
+    public class PictureSerializer
     {
-        public static Bitmap TurnStringToImage(string bitmampString)
+        public Bitmap TurnStringToImage(string bitmampString)
         {
             Bitmap bitmap; // DECLARE A BITMAP
 
@@ -35,14 +31,14 @@ namespace Model
 
         // * * * * * * * * * *
 
-        public static string UploadImageAsString()
+        public string UploadImageAsString()
         {
             OpenFileDialog loadPicture = new OpenFileDialog();
             string returnString = "";
 
             loadPicture.Filter = "Image Files( *.jpg; *.jpeg; *.png)| *.jpg; *.jpeg; *.png";
 
-            if (loadPicture.ShowDialog() == DialogResult.OK)
+            if (loadPicture.ShowDialog() == DialogResult.OK && loadPicture.CheckPathExists == true && loadPicture.CheckFileExists == true)
             {
                 ImageConverter converter = new ImageConverter();
 
@@ -63,7 +59,7 @@ namespace Model
 
         // * * * * * * * * * *
 
-        public static bool ValidFile(string filename, long limitInBytes, int limitWidth, int limitHeight)
+        public bool ValidFile(string filename, long limitInBytes, int limitWidth, int limitHeight)
         {
             var fileSizeInBytes = new FileInfo(filename).Length;
             if (fileSizeInBytes > limitInBytes)
@@ -81,7 +77,7 @@ namespace Model
 
         // * * * * * * * * * *
 
-        public static bool ValidFile(string filename, long limitInBytes)
+        public bool ValidFile(string filename, long limitInBytes)
         {
             var fileSizeInBytes = new FileInfo(filename).Length;
             if (fileSizeInBytes > limitInBytes)

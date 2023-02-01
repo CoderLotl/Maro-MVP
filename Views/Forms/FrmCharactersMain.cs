@@ -13,7 +13,7 @@ namespace Views
         //*************************************************
         
         MainForm main;
-		readonly MainPresenter _presenter;
+        readonly MainPresenter _mainPresenter;
 		readonly CharactersPresenter _charPresenter;
 
         //*************************************************
@@ -25,7 +25,7 @@ namespace Views
             main = mainform;       
 			
             _charPresenter = new CharactersPresenter(this);
-			_presenter = new MainPresenter(this);
+            _mainPresenter = new MainPresenter(this);
 			RetrieveData.Invoke(this, EventArgs.Empty);
             DrawDataTable(0);
         }

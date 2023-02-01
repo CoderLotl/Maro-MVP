@@ -54,6 +54,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Services\ImagePicker.cs" />
+    <Compile Include="Views\Forms\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Forms\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\Classes\Character.cs" />
     <Compile Include="Model\Classes\CharAttribute.cs" />
     <Compile Include="Model\Classes\DataSerializer.cs" />
@@ -69,6 +76,11 @@
     <Compile Include="Model\Classes\Variables.cs" />
     <Compile Include="Model\Services\Utilities.cs" />
     <Compile Include="Presenters\CharacterSheetPresenter.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Views\Controls\XpProgressBar.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -94,10 +106,6 @@
     <Compile Include="Views\Forms\FrmDateSetter.designer.cs">
       <DependentUpon>FrmDateSetter.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Forms\MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\Forms\MainForm.Designer.cs" />
     <Compile Include="Views\Interfaces\ICharacters.cs" />
     <Compile Include="Views\Interfaces\ICharacterSheet.cs" />
     <Compile Include="Views\Interfaces\IMainView.cs" />
@@ -106,8 +114,14 @@
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <None Include="Resources\istockphoto-1154965077-612x612.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Controls\XpProgressBar.resx">
       <DependentUpon>XpProgressBar.cs</DependentUpon>
     </EmbeddedResource>
@@ -123,6 +137,108 @@
     <EmbeddedResource Include="Views\Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\marosia_avian_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\marosia_daemon_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\marosia_fae_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\marosia_folk_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\marosia_golem_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\marosia_kobold_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\marosia_naga_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\marosia_sanguine_ico.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\marosia_therian_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mars.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\paper_on_wood_2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\paper_on_wood_3.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\reject.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shattered_moon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\third-gender.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trash-bin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\undo%281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\undo%282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\undo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\unknown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Untitled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\usuario.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\venus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\voodoo-doll.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\061e840d94ef189cf0ceb37b53b3dbe3.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\6954909-navy-marble-blue-marble-blue-granite-marble-wallpaper-by-jenlats22.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\accept.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\banner.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\emoticon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\favicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\god.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\hand.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\image-gallery.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

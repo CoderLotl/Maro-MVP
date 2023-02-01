@@ -28,6 +28,7 @@ namespace Views
         int option = 0;
         int initialized = 0;
 		Image raceImage; Image genderImage; Image conditionImage; Image spConditionImage;
+		ImagePicker _imagePicker;
 
 		readonly CharacterSheetPresenter _characterSheetPresenter;
 		readonly MainPresenter _mainPresenter;
@@ -39,6 +40,7 @@ namespace Views
 
 			_mainPresenter = mainPresenter;
             _characterSheetPresenter = new CharacterSheetPresenter(this, _mainPresenter, character, option);
+			_imagePicker = new ImagePicker();
 
             if (option == 0) // IF THE FORM IS ONLY TO VIEW A CHAR, I DISABLE THE EDIT.
             {
@@ -544,7 +546,8 @@ namespace Views
 
 		private void LoadCharacter()
 		{
-			Bitmap charPicture = PictureSerializer.TurnStringToImage(_characterSheetPresenter.Character.CharPicture);
+			PictureSerializer pictureSerializer = new PictureSerializer();
+			Bitmap charPicture = pictureSerializer.TurnStringToImage(_characterSheetPresenter.Character.CharPicture);
 
 			if (charPicture != null)
 			{
@@ -848,29 +851,28 @@ namespace Views
 				{
 					cmbBox_Condition.Enabled = true;
 				}
-			}
-
-			//Utilities.RaceImagePicker(cmbBox_Race.Text, picBox_Race, raceImage);
+			}			
+			_imagePicker.ImagePickerMain("Race", cmbBox_Race.Text, picBox_Race);
 		}
 
 		//--------------------------------------------
 
 		private void cmbBox_Gender_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			InitializedConditional();
-			//Utilities.GenderImagePicker(cmbBox_Gender.Text, picBox_Gender, genderImage);
+			InitializedConditional();			
+			_imagePicker.ImagePickerMain("Gender", cmbBox_Gender.Text, picBox_Gender);			
 		}
 
 		private void cmbBox_Condition_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			InitializedConditional();
-			//Utilities.ConditionImagePicker(cmbBox_Condition.Text, picBox_Condition, conditionImage);
+			InitializedConditional();			
+			_imagePicker.ImagePickerMain("Condition", cmbBox_Condition.Text, picBox_Condition);
 		}
 
 		private void cmbBox_SpCondition_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			InitializedConditional();
-			//Utilities.SpConditionImagePicker(cmbBox_SpCondition.Text, picBox_SpCondition, spConditionImage);
+			InitializedConditional();			
+			_imagePicker.ImagePickerMain("SpCondition", cmbBox_SpCondition.Text, picBox_SpCondition);
 		}
 
 		private void tv_Family_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -946,9 +948,10 @@ namespace Views
 
 		private void btn_LoadPictore_Click(object sender, EventArgs e)
 		{
-			_characterSheetPresenter.FakeCharacter.CharPicture = PictureSerializer.UploadImageAsString();
+            PictureSerializer pictureSerializer = new PictureSerializer();
+            _characterSheetPresenter.FakeCharacter.CharPicture = pictureSerializer.UploadImageAsString();
 
-			Bitmap newImage = PictureSerializer.TurnStringToImage(_characterSheetPresenter.FakeCharacter.CharPicture);
+			Bitmap newImage = pictureSerializer.TurnStringToImage(_characterSheetPresenter.FakeCharacter.CharPicture);
 
 			if (newImage != null)
 			{
