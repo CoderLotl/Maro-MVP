@@ -1,22 +1,21 @@
 ﻿using Presenter;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Model
 {
     public class CalculateCharactersAge
-    {
-        MainPresenter _mainPresenter;
+    {        
         string _date;
         int _year;
         int _day;
 
-        public CalculateCharactersAge(MainPresenter mainPresenter)
-        {
-            _mainPresenter = mainPresenter;
+        public CalculateCharactersAge()
+        {            
         }
 
-        public void CalcCharsAge(Action<string> message)
+        public void CalcCharsAge(Action<string> message, List<Character> characters)
         {
             DateRetriever dateRetriever = new DateRetriever();
             _date = dateRetriever.GetMaroDate();
@@ -24,7 +23,7 @@ namespace Model
 
             bool calcPerformed = false;
 
-            foreach (Character character in _mainPresenter.Characters)
+            foreach (Character character in characters)
             {
                 if (character.IsAlive == true)
                 {

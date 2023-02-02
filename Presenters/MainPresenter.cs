@@ -9,37 +9,16 @@ namespace Presenter
 	{
 		//*************************************************	
 		
-		private readonly IMainView _iMainView;		
-		List<Character> characters;
-		int id;
+		private readonly IMainView _iMainView;
+		readonly public ICharactersService charactersService;
 		string date;
 		
 		//*************************************************	
 		
-		//-----------------------------------------------------
-		//------------------ [ PROPERTIES ]
-		//-----------------------------------------------------
-		
-		public List<Character> Characters
-		{
-			get { return characters; }
-			set { characters = value; }
-		}
-
-		public int ID
-		{
-			get { return id; }
-			set { id = value; }
-		}
-		
-		//-----------------------------------------------------
-		
 		public MainPresenter(IMainView iMainView)
 		{
 			_iMainView = iMainView;
-			
-			characters = new List<Character>();
-			id = 0;
+			charactersService = new CharactersService();
 			
 			iMainView.RetrieveData += (o, e) =>
 			{				

@@ -31,15 +31,15 @@ namespace Views
 		ImagePicker _imagePicker;
 
 		readonly CharacterSheetPresenter _characterSheetPresenter;
-		readonly MainPresenter _mainPresenter;
+		readonly ICharactersService _characterService;
 		//*************************************************
 
-        public FrmCharacterSheet(Character character, int option, MainPresenter mainPresenter)
+        public FrmCharacterSheet(Character character, int option, ICharactersService charactersService)
         {
             InitializeComponent();
 
-			_mainPresenter = mainPresenter;
-            _characterSheetPresenter = new CharacterSheetPresenter(this, _mainPresenter, character, option);
+			_characterService = charactersService;
+            _characterSheetPresenter = new CharacterSheetPresenter(this, _characterService, character, option);
 			_imagePicker = new ImagePicker();
 
             if (option == 0) // IF THE FORM IS ONLY TO VIEW A CHAR, I DISABLE THE EDIT.
@@ -205,11 +205,11 @@ namespace Views
 		{
 			if (tv_Family.SelectedNode.Level == 2)
 			{
-				foreach (Character aCharacter in _mainPresenter.Characters)
+				foreach (Character aCharacter in _characterService.Characters)
 				{
 					if (aCharacter.ID == Convert.ToInt32(e.Node.Name))
 					{
-						FrmCharacterSheet viewThisChar = new FrmCharacterSheet(aCharacter, 0, _mainPresenter);
+						FrmCharacterSheet viewThisChar = new FrmCharacterSheet(aCharacter, 0, _characterService);
 						viewThisChar.Show();
 						break;
 					}
@@ -470,7 +470,7 @@ namespace Views
 
 			foreach (FamilyTieNode tieNode in _characterSheetPresenter.Character.Family) // I CHECK THE FAMILY OF THE CHAR...
 			{
-				foreach (Character aCharacter in _mainPresenter.Characters) // ... AGAINST THE LIST OF CHARS...
+				foreach (Character aCharacter in _characterService.Characters) // ... AGAINST THE LIST OF CHARS...
 				{
 					if (aCharacter.ID == tieNode.Id) // WHENEVER I FIND THE CHAR...
 					{

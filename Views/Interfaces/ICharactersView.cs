@@ -5,7 +5,7 @@ using Presenter;
 namespace Views
 {
 
-	public interface ICharacters
+	public interface ICharactersView
 	{
 		MainForm Main	{	get;	}
 		

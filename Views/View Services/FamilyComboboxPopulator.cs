@@ -11,12 +11,12 @@ namespace Views
 {
     public class FamilyComboboxPopulator
     {
-        readonly MainPresenter _mainPresenter;
+        readonly ICharactersService _charactersService;
         readonly CharacterSheetPresenter _characterSheetPresenter;
 
-        public FamilyComboboxPopulator(MainPresenter mainPresenter, CharacterSheetPresenter characterSheetPresenter)
+        public FamilyComboboxPopulator(ICharactersService charactersService, CharacterSheetPresenter characterSheetPresenter)
         {
-            _mainPresenter = mainPresenter;
+            _charactersService = charactersService;
             _characterSheetPresenter = characterSheetPresenter;
         }
 
@@ -24,7 +24,7 @@ namespace Views
         {
             comboBox.Items.Clear();
 
-            foreach (Character aCharacter in _mainPresenter.Characters)
+            foreach (Character aCharacter in _charactersService.Characters)
             {
                 if (aCharacter.ID != _characterSheetPresenter.Character.ID)
                 {

@@ -7,26 +7,26 @@ using Presenter;
 
 namespace Views
 {
-	public partial class FrmCharactersMain : Form, IMainView, ICharacters
+	public partial class FrmCharactersMain : Form, ICharactersView
     {
 
         //*************************************************
-        
+
         MainForm main;
-        readonly MainPresenter _mainPresenter;
 		readonly CharactersPresenter _charPresenter;
+        readonly ICharactersService _charactersService;
 
         //*************************************************
 
-        public FrmCharactersMain(MainForm mainform)
+        public FrmCharactersMain(MainForm mainform, ICharactersService charactersService)
 
         {
             InitializeComponent();
-            main = mainform;       
-			
-            _charPresenter = new CharactersPresenter(this);
-            _mainPresenter = new MainPresenter(this);
-			RetrieveData.Invoke(this, EventArgs.Empty);
+            main = mainform;
+            _charactersService = charactersService;
+
+            _charPresenter = new CharactersPresenter(this, charactersService);
+            lbl_MaroDate.Text = main.Lbl_MaroDate;
             DrawDataTable(0);
         }
 
@@ -55,7 +55,7 @@ namespace Views
         
         private void btn_AddCharacter_Click(object sender, EventArgs e)
         {
-            FrmCharacterSheet frmCharacterSheet = new FrmCharacterSheet(null, 1, main.Presenter);
+            FrmCharacterSheet frmCharacterSheet = new FrmCharacterSheet(null, 1, _charactersService);
             if(frmCharacterSheet.ShowDialog() == DialogResult.OK)
             {
                 DrawDataTable(1);
@@ -92,7 +92,7 @@ namespace Views
 		{
             if (File.Exists("Characters.json"))
             {
-                if(main.Presenter.Characters != null && main.Presenter.Characters.Count > 0)
+                if(_charactersService.Characters != null && _charactersService.Characters.Count > 0)
                 {
                     DialogResult dialogResult = MessageBox.Show("Are you sure you want to load a list of characters?\n\n" +
                     "All the current characters are gonna be erased and this cannot be undone.", "Load Characters List", MessageBoxButtons.YesNo);
@@ -175,7 +175,7 @@ namespace Views
             _charPresenter.CharsDT.Columns.Add("Special Condition", typeof(string));
             _charPresenter.CharsDT.Columns.Add("Is Alive?", typeof(string));
 
-            foreach (Character aCharacter in main.Presenter.Characters)
+            foreach (Character aCharacter in _charactersService.Characters)
             {
                 _charPresenter.CharsDT.Rows.Add(aCharacter.ID,aCharacter.Name,aCharacter.Age,aCharacter.Gender,aCharacter.Race,
             	                 aCharacter.Condition,aCharacter.SpecialCondition,aCharacter.IsAliveStr);
@@ -205,10 +205,10 @@ namespace Views
 
             if (dataGridView1.Columns[e.ColumnIndex].Name == "DGV_ViewChar")
             {
-                FrmCharacterSheet viewChar = new FrmCharacterSheet(main.Presenter.Characters[dataGridView1.CurrentRow.Index], 2, main.Presenter);
+                FrmCharacterSheet viewChar = new FrmCharacterSheet(_charactersService.Characters[dataGridView1.CurrentRow.Index], 2, _charactersService);
                 if (viewChar.ShowDialog() == DialogResult.OK)
                 {
-                    main.Presenter.Characters[dataGridView1.CurrentRow.Index] = viewChar.PresenterCharacter;
+                    _charactersService.Characters[dataGridView1.CurrentRow.Index] = viewChar.PresenterCharacter;
                     DrawDataTable(1);
                 }
                 else
@@ -224,7 +224,7 @@ namespace Views
         {
             UpdateAmountOfCharacters.Invoke(this, EventArgs.Empty);
 
-            if (Main.Presenter.Characters.Count > 0)
+            if (_charactersService.Characters.Count > 0)
             {                
                 btn_ClearList.Enabled = true;                                
                 btn_CalcAgeAll.Enabled = true;
@@ -254,8 +254,7 @@ namespace Views
         //-----------------------------------------------------
         //------------------ [ EVENTS ]
         //-----------------------------------------------------	
-
-        public event EventHandler RetrieveData;
+                
 		public event EventHandler AddCharacter;
         public event EventHandler<int> RemoveCharacter;
         public event EventHandler LoadFile;

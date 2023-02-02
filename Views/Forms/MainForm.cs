@@ -30,12 +30,8 @@ namespace Views
 
         public string Lbl_MaroDate
         {
+            get { return lbl_MaroDate.Text;  }
             set { lbl_MaroDate.Text = value; }
-        }
-
-        public MainPresenter Presenter
-        {
-            get { return presenter; }
         }
 
         //-----------------------------------------------------
@@ -46,7 +42,7 @@ namespace Views
 
         void Btn_CharactersClick(object sender, EventArgs e)
         {
-            FrmCharactersMain characters = new FrmCharactersMain(this);
+            FrmCharactersMain characters = new FrmCharactersMain(this, presenter.charactersService);
             characters.Show();
             this.Hide();
         }

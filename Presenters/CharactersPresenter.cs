@@ -10,7 +10,8 @@ namespace Presenter
 	{
 		//*************************************************	
 		
-		private readonly ICharacters _iCharacters;
+		private readonly ICharactersView _iCharacters;
+		private readonly ICharactersService _charactersService;
         DataTable charsDT;
         DataView charsDTDV;
         
@@ -35,29 +36,30 @@ namespace Presenter
         //-----------------------------------------------------
         //------------------ [ CONSTRUCTOR ]
         //-----------------------------------------------------
-        public CharactersPresenter(ICharacters iCharacters)
+        public CharactersPresenter(ICharactersView iCharacters, ICharactersService charactersService)
 		{
 			_iCharacters = iCharacters;
+			_charactersService = charactersService;
 
 			_iCharacters.RemoveCharacter += (e, o) =>
 			{
-				RemoveChar(o);
+				_charactersService.RemoveChar(o);
 			};
 			
 			_iCharacters.LoadFile += (e, o) =>
 			{
-				LoadData();
+				_charactersService.LoadData();
 				UpdateCharacterLabel();
 			};
 			
 			_iCharacters.SaveFile += (e, o) =>
 			{
-				SaveData();
+				_charactersService.SaveData();
 			};
 			
 			_iCharacters.Clear += (e, o) =>
 			{
-				_iCharacters.Main.Presenter.Characters.Clear();
+				_charactersService.Characters.Clear();
 				UpdateCharacterLabel();
 			};
 
@@ -68,65 +70,17 @@ namespace Presenter
 
 			_iCharacters.CalculateCharsAge += (e, o) =>
 			{
-				CalculateCharactersAge(o);
+				_charactersService.CalculateCharactersAge(o);
 			};
 		}
 
 		//-----------------------------------------------------
 		//------------------ [ METHODS ]
 		//-----------------------------------------------------
-
-		private void RemoveChar(int index)
-		{
-			SyncCharsAtRemoval(_iCharacters.Main.Presenter.Characters[index]);
-			_iCharacters.Main.Presenter.Characters.RemoveAt(index);
-		}
-
-		private void SaveData()
-		{
-			JSONSerializer<List<Character>> jsonSerializer = new JSONSerializer<List<Character>>("Characters");
-
-			jsonSerializer.Serialize(_iCharacters.Main.Presenter.Characters);
-		}
-		
-		private void LoadData()
-        {
-            _iCharacters.Main.Presenter.Characters.Clear();
-
-            JSONSerializer<List<Character>> jsonSerializer = new JSONSerializer<List<Character>>("Characters");
-
-            _iCharacters.Main.Presenter.Characters = jsonSerializer.DeSerialize();
-
-			_iCharacters.Main.Presenter.ID = _iCharacters.Main.Presenter.Characters[_iCharacters.Main.Presenter.Characters.Count - 1].ID;
-        }
 		
 		private void UpdateCharacterLabel()
 		{
-			_iCharacters.Lbl_Characters = _iCharacters.Main.Presenter.Characters.Count.ToString();
+			_iCharacters.Lbl_Characters = _charactersService.Characters.Count.ToString();
 		}
-
-        private void SyncCharsAtRemoval(Character charToRemove)
-		{
-            // THIS MAY LOOK TRIVIAL, BUT IT'S VERY IMPORTANT SINCE IT'S AN UPDATE. - NOT ALL CHANGES ARE PERFORMED AT THE CHAR SHEET
-            // AND THIS IS ONE OF THOSE.
-            foreach (Character character in _iCharacters.Main.Presenter.Characters)
-			{
-				foreach (FamilyTieNode familyTieNode in character.Family)
-				{
-					if (familyTieNode.Id == charToRemove.ID)
-					{
-						character.Family.Remove(familyTieNode);
-						break;
-					}
-				}
-			}
-		}
-
-		private void CalculateCharactersAge(Action<string> message)
-		{
-			CalculateCharactersAge calculateCharactersAge = new CalculateCharactersAge(_iCharacters.Main.Presenter);
-			calculateCharactersAge.CalcCharsAge(message);
-		}
-
 	}
 }

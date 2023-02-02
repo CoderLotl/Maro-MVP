@@ -20,16 +20,14 @@ namespace Presenter
         bool newCharacter;
         int initialized = 0;
         Image raceImage; Image genderImage; Image conditionImage; Image spConditionImage;
-
-        readonly ICharacterSheet _iCharacterSheet;
-        readonly MainPresenter _mainPresenter;
+        readonly ICharactersService _characterService;
+        readonly ICharacterSheet _iCharacterSheet;        
         //*************************************************
 
-        public CharacterSheetPresenter(ICharacterSheet frmCharacterSheet, MainPresenter mainPresenter, Character character, int option)
+        public CharacterSheetPresenter(ICharacterSheet frmCharacterSheet, ICharactersService charactersService, Character character, int option)
         {
             _iCharacterSheet = frmCharacterSheet;
-            _mainPresenter = mainPresenter;
-
+            _characterService = charactersService;
             _iCharacterSheet.CharacterEventArgs = new Character(1);
             _iCharacterSheet.ProgressBarFiller = new ProgressBarFiller();
 
@@ -42,7 +40,7 @@ namespace Presenter
                 case 1: // CREATE
                     this.newCharacter = true;
                     this.character = new Character(1);
-                    this.character.ID = _mainPresenter.ID + 1;
+                    this.character.ID = _characterService.ID + 1;
                     fakeCharacter = CopyCharacter(this.character);
                     break;
                 case 2: // EDIT
@@ -85,13 +83,13 @@ namespace Presenter
             {
                 FamilyTiesSyncer familyTiesSyncer = new FamilyTiesSyncer();
 
-                familyTiesSyncer.SyncFamilyTies(fakeCharacter, character, _mainPresenter.Characters);
+                familyTiesSyncer.SyncFamilyTies(fakeCharacter, character, _characterService.Characters);
                 character = CopyCharacter(o);
 
                 if(newCharacter == true)
                 {
-                    _mainPresenter.ID += 1;
-                    _mainPresenter.Characters.Add(this.character);
+                    _characterService.ID += 1;
+                    _characterService.Characters.Add(this.character);
                 }
             };
 
@@ -181,7 +179,7 @@ namespace Presenter
 
         private void PopulateFamilyCombobox(ComboBox comboBox)
         {
-            FamilyComboboxPopulator familyComboboxPopulator = new FamilyComboboxPopulator(_mainPresenter, this);
+            FamilyComboboxPopulator familyComboboxPopulator = new FamilyComboboxPopulator(_characterService, this);
             familyComboboxPopulator.PopulateCharsCmbBox(comboBox);
         }
     }

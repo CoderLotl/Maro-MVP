@@ -57,6 +57,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\ServicesInterface\ICharactersService.cs" />
+    <Compile Include="Model\Services\CharactersService.cs" />
     <Compile Include="Model\Services\ImagePicker.cs" />
     <Compile Include="Views\Forms\FrmNewFamilyNode.cs">
       <SubType>Form</SubType>
@@ -115,7 +117,7 @@
     <Compile Include="Views\Forms\FrmDateSetter.designer.cs">
       <DependentUpon>FrmDateSetter.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Interfaces\ICharacters.cs" />
+    <Compile Include="Views\Interfaces\ICharactersView.cs" />
     <Compile Include="Views\Interfaces\ICharacterSheet.cs" />
     <Compile Include="Views\Interfaces\IMainView.cs" />
     <Compile Include="Views\View Services\FamilyComboboxPopulator.cs" />
