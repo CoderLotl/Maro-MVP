@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Views
 {
@@ -19,5 +20,6 @@ namespace Views
         event EventHandler<Character> EditCharData;
         event EventHandler<FamilyTieNodeEventArgs> AddFamilyTie;
         event EventHandler<int> RemoveFamilyTie;
+        event EventHandler<ComboBox> PopulateFamilyCombobox;
     }
 }

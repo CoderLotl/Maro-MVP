@@ -27,7 +27,7 @@ namespace Views
 		int edited = 0;	// EDITED = 0: NO CHANGES WERE PERFORMED. EDITED = 1: CHANGES WERE PERFORMED BUT NOT CONFIRMED. EDITED = 2: CHANGES WERE EPRFORMED AND CONFIRMED.
         int option = 0;
         int initialized = 0;
-		Image raceImage; Image genderImage; Image conditionImage; Image spConditionImage;
+		
 		ImagePicker _imagePicker;
 
 		readonly CharacterSheetPresenter _characterSheetPresenter;
@@ -126,19 +126,24 @@ namespace Views
 		//--------------------------------------------
 
 		private void Btn_Accept_Click(object sender, EventArgs e)
-		{
-			edited = 2;		
-			ConfirmEdit(_characterSheetPresenter.FakeCharacter); // IF THE CHANGES ARE ACCEPTED, THE NEW VALUES ARE SET ON THE FAKE CHAR.
+        {
+            AcceptChanges();
+            this.Close();
+        }
 
-			EditCharData.Invoke(this, _characterSheetPresenter.FakeCharacter);
+        private void AcceptChanges()
+        {
+            edited = 2;
+            ConfirmEdit(_characterSheetPresenter.FakeCharacter); // IF THE CHANGES ARE ACCEPTED, THE NEW VALUES ARE SET ON THE FAKE CHAR.
 
-			MessageBox.Show("Changes saved.");
-			this.Close();
-		}
+            EditCharData.Invoke(this, _characterSheetPresenter.FakeCharacter);
 
-		//--------------------------------------------
+            MessageBox.Show("Changes saved.");            
+        }
 
-		private void btn_AddFamilyTie_Click(object sender, EventArgs e)
+        //--------------------------------------------
+
+        private void btn_AddFamilyTie_Click(object sender, EventArgs e)
 		{
 			try
 			{
@@ -288,7 +293,6 @@ namespace Views
 				}
 				else if (option == 1 && edited == 2) // IN THE SPECIFIC CASE OF A NEW CHAR WITH CONFIRMED CHANGES
 				{
-					SaveCharData();
 					this.DialogResult = DialogResult.OK;
 					return; // I ESCAPE THE METHOD
 				}
@@ -302,9 +306,8 @@ namespace Views
 
 				if (warning == DialogResult.Yes)
 				{
-					SaveCharData();
 					this.DialogResult = DialogResult.OK;
-
+					AcceptChanges();
 				}
 				else
 				{
@@ -313,7 +316,6 @@ namespace Views
 			}
 			else if (edited == 2) // IF CHANGES ARE CONFIRMED
 			{
-				SaveCharData();
 				this.DialogResult = DialogResult.OK;
 			}
 			else
@@ -361,22 +363,6 @@ namespace Views
             characterEventArgs.Engineering = Convert.ToInt32(nud_Engineering.Value);
             characterEventArgs.Guile = Convert.ToInt32(nud_Guile.Value);
             characterEventArgs.Manufacturing = Convert.ToInt32(nud_Manufacturing.Value);
-
-			//DisableAll();
-
-		}
-
-		//--------------------------------------------
-
-		private void SaveCharData()
-		{
-			// HERE ALL THE CHANGES ARE PASSED TO THE ORIGINAL CHARACTER, WHICH IS LATER RETRIEVED.
-			// THIS IS DUE ALL THE OPERATION IS CONFIRMED TO BE APPLIED. OTHERWISE NOTHING OF THIS HAPPENS.
-			
-			//ConfirmEdit();
-			//Utilities.AssignFakeValuesToOriginal(fakeCharacter, character);
-
-			//Utilities.SyncFamilyTies(fakeCharacter, character);
 		}
 
 		//-----------------------------------------------------
@@ -510,36 +496,7 @@ namespace Views
 
 		private void PopulateCharsCmbBox()
 		{
-			cmbBox_Characters.Items.Clear();
-
-			foreach (Character aCharacter in _mainPresenter.Characters)
-			{
-				if (aCharacter.ID != _characterSheetPresenter.Character.ID)
-				{
-					if (_characterSheetPresenter.FakeCharacter.Family.Count > 0)
-					{
-						bool addChar = true;
-
-						foreach (FamilyTieNode familyTie in _characterSheetPresenter.FakeCharacter.Family)
-						{
-							if (aCharacter.ID == familyTie.Id)
-							{
-								addChar = false;
-							}
-						}
-
-						if (addChar == true)
-						{
-							cmbBox_Characters.Items.Add(aCharacter);
-						}
-
-					}
-					else
-					{
-						cmbBox_Characters.Items.Add(aCharacter);
-					}
-				}
-			}
+			PopulateFamilyCombobox(this, cmbBox_Characters);
 		}
 
 		//--------------------------------------------
@@ -979,6 +936,7 @@ namespace Views
 		public event EventHandler<Character> EditCharData;
 		public event EventHandler<FamilyTieNodeEventArgs> AddFamilyTie;
 		public event EventHandler<int> RemoveFamilyTie;
+		public event EventHandler<ComboBox> PopulateFamilyCombobox;
 
         void FrmViewCharKeyDown(object sender, KeyEventArgs e)
         {

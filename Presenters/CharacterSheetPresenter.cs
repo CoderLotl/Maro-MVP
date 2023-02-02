@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 using Model;
 using Views;
 using Presenter;
+using System.Windows.Forms;
 
 namespace Presenter
 {
-    internal class CharacterSheetPresenter
+    public class CharacterSheetPresenter
     {
         //*************************************************
         Character character;
@@ -103,6 +104,11 @@ namespace Presenter
             {
                 RemoveFamilyNode(o);
             };
+
+            _iCharacterSheet.PopulateFamilyCombobox += (e, o) =>
+            {
+                PopulateFamilyCombobox(o);
+            };
         }
 
         private Character CopyCharacter(Character copyFrom_Character)
@@ -171,6 +177,12 @@ namespace Presenter
                     break;
                 }
             }
+        }
+
+        private void PopulateFamilyCombobox(ComboBox comboBox)
+        {
+            FamilyComboboxPopulator familyComboboxPopulator = new FamilyComboboxPopulator(_mainPresenter, this);
+            familyComboboxPopulator.PopulateCharsCmbBox(comboBox);
         }
     }
 }

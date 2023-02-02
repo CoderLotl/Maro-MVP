@@ -58,6 +58,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Services\ImagePicker.cs" />
+    <Compile Include="Views\Forms\FrmNewFamilyNode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Forms\FrmNewFamilyNode.Designer.cs">
+      <DependentUpon>FrmNewFamilyNode.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,6 +118,7 @@
     <Compile Include="Views\Interfaces\ICharacters.cs" />
     <Compile Include="Views\Interfaces\ICharacterSheet.cs" />
     <Compile Include="Views\Interfaces\IMainView.cs" />
+    <Compile Include="Views\View Services\FamilyComboboxPopulator.cs" />
     <Compile Include="Views\View Services\ProgressBarFiller.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +143,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Forms\FrmDateSetter.resx">
       <DependentUpon>FrmDateSetter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Forms\FrmNewFamilyNode.resx">
+      <DependentUpon>FrmNewFamilyNode.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
