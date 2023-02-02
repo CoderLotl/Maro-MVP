@@ -852,7 +852,7 @@ namespace Views
 					cmbBox_Condition.Enabled = true;
 				}
 			}			
-			_imagePicker.ImagePickerMain("Race", cmbBox_Race.Text, picBox_Race);
+			_imagePicker.ImagePickerMain("Race", cmbBox_Race.Text, picBox_Race);			
 		}
 
 		//--------------------------------------------

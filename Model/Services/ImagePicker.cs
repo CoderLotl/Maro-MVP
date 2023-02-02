@@ -48,7 +48,7 @@ namespace Model
                     image = (Image)Resources.ResourceManager.GetObject("third_gender");
                     break;
             }
-            control.BackgroundImage = image;
+            control.BackgroundImage = image;            
         }
 
         private void RacePicker(string arg, Control control)
