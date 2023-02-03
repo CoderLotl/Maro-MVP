@@ -16,7 +16,7 @@ namespace Views
 	/// MAY THE CHANGES NOT BE CONFIRMED AT THE END OF THIS FORM, NOTHING REALLY REACHES THE ORIGINAL CHARACTER. OTHERWISE ANY CHANGES
 	/// ARE PASSED FROM THE FAKE CHAR TO THE ORIGINAL CHAR, AND FROM THE ORIGINAL TO THE OTHERS.
 	/// </summary>
-	public partial class FrmCharacterSheet : Form , ICharacterSheet
+	public partial class FrmCharacterSheet : Form , ICharacterSheetView
 	{
 		//*************************************************
 
@@ -62,8 +62,7 @@ namespace Views
                 this.Text = "Character Sheet";
             }
 
-            this.option = option;
-            lbl_FamilyNode.Text = "";
+            this.option = option;            
         }
 
         //-----------------------------------------------------
@@ -143,36 +142,34 @@ namespace Views
 
         //--------------------------------------------
 
-        private void btn_AddFamilyTie_Click(object sender, EventArgs e)
-		{
-			try
-			{
-				if (tv_Family.SelectedNode.Level == 1 && cmbBox_Characters.SelectedItem != null)
-				{
-					FamilyTieNodeEventArgs familyTieNodeEventArgs = new FamilyTieNodeEventArgs((Character)cmbBox_Characters.SelectedItem, tv_Family.SelectedNode.Text);
-					AddFamilyTie(this, familyTieNodeEventArgs);
+        private void Btn_AddNewNode_Click(object sender, EventArgs e)
+        {
+            FrmNewFamilyNode frmNewFamilyNode = new FrmNewFamilyNode(_characterService, _characterSheetPresenter);
+            if (frmNewFamilyNode.ShowDialog() == DialogResult.OK)
+            {
+                AddFamilyTie(this, frmNewFamilyNode.Presenter.EventArgs);
 
-					TreeNode newNode = new TreeNode(); // I CREATE A NEW TREE NODE.
+                TreeNode newNode = new TreeNode(); // I CREATE A NEW TREE NODE.
 
-                    newNode.Text = familyTieNodeEventArgs.Character.ToString(); // SET THE NODE'S TEXT AS THE CHAR IT REPRESENTS
-                    newNode.Name = familyTieNodeEventArgs.Character.ID.ToString(); // AND THE ID IS THE CHAR'S ID.
+                newNode.Text = frmNewFamilyNode.Presenter.EventArgs.Character.ToString(); // SET THE NODE'S TEXT AS THE CHAR IT REPRESENTS
+                newNode.Name = frmNewFamilyNode.Presenter.EventArgs.Character.ID.ToString(); // AND THE ID IS THE CHAR'S ID.
 
-                    tv_Family.SelectedNode.Nodes.Add(newNode); // ADD THE NODE TO THE TREE
-					tv_Family.SelectedNode.ExpandAll(); // AND EXPAND.
+                foreach (TreeNode tvNode in tv_Family.Nodes[0].Nodes)
+                {
+                    if (tvNode.Text == frmNewFamilyNode.Presenter.EventArgs.Tie)
+                    {
+                        tvNode.Nodes.Add(newNode);
+                        tvNode.ExpandAll();
+                        break;
+                    }
+                }                
+                InitializedConditional();
+            }
+        }
 
-					PopulateCharsCmbBox(); // REPOPULATE THE COMBOBOX FROM WHICH I CAN PICK A DIFFERENT CHAR.
-					InitializedConditional();
-				}
-			}
-			catch
-			{
+        //--------------------------------------------
 
-			}
-		}
-
-		//--------------------------------------------
-
-		private void btn_RmvFamilyTie_Click(object sender, EventArgs e)
+        private void btn_RmvFamilyTie_Click(object sender, EventArgs e)
 		{
 			try
 			{
@@ -183,8 +180,7 @@ namespace Views
 
 					RemoveFamilyTie.Invoke(this, Convert.ToInt32(tv_Family.SelectedNode.Name));
 
-					tv_Family.SelectedNode.Remove(); // I FINALLY REMOVE THE NODE FROM THE TREEVIEW.
-					PopulateCharsCmbBox(); // AND REPOPULATE THE COMBO BOX.
+					tv_Family.SelectedNode.Remove(); // I FINALLY REMOVE THE NODE FROM THE TREEVIEW.					
 					InitializedConditional();
 				}
 
@@ -452,13 +448,12 @@ namespace Views
 		private void DrawTreeView()
 		{
 			tv_Family.Nodes.Add("Character: " + _characterSheetPresenter.Character.Name);
-			tv_Family.Nodes[0].Nodes.Add("Parents");
-			tv_Family.Nodes[0].Nodes.Add("Siblings");
-			tv_Family.Nodes[0].Nodes.Add("Spouses");
-			tv_Family.Nodes[0].Nodes.Add("Children");
-
+			
+			foreach(var tie in Enum.GetNames(typeof(FamilyTie)))
+			{
+				tv_Family.Nodes[0].Nodes.Add(tie);
+			}
 			tv_Family.Nodes[0].ExpandAll();
-			PopulateCharsCmbBox();
 
 			PopulateTree();
 		}
@@ -490,13 +485,6 @@ namespace Views
 				}
 			}
 			tv_Family.ExpandAll();
-		}
-
-		//--------------------------------------------
-
-		private void PopulateCharsCmbBox()
-		{
-			PopulateFamilyCombobox(this, cmbBox_Characters);
 		}
 
 		//--------------------------------------------
@@ -616,7 +604,7 @@ namespace Views
 			btn_LoadPicture.Enabled = false;
 			btn_DiscardPicture.Enabled = false;
 			btn_EditBirthday.Enabled = false;
-			btn_AddFamilyTie.Enabled = false;
+			btn_AddNewNode.Enabled = false;
 			btn_RmvFamilyTie.Enabled = false;
 
 			//---------- NUDS
@@ -637,9 +625,7 @@ namespace Views
 			nud_Alchemy.Enabled = false;
 			nud_Engineering.Enabled = false;
 			nud_Guile.Enabled = false;
-			nud_Manufacturing.Enabled = false;
-
-			cmbBox_Characters.Enabled = false;
+			nud_Manufacturing.Enabled = false;			
 		}
 
 		//--------------------------------------------
@@ -675,9 +661,8 @@ namespace Views
 			nud_Engineering.Enabled = true;
 			nud_Guile.Enabled = true;
 			nud_Manufacturing.Enabled = true;
-
-			cmbBox_Characters.Enabled = true;
-			btn_AddFamilyTie.Enabled = true;
+						
+			btn_AddNewNode.Enabled = true;
 			btn_RmvFamilyTie.Enabled = true;
 		}
 
@@ -783,13 +768,17 @@ namespace Views
 			}
 		}
 
-		//--------------------------------------------
+        //--------------------------------------------
 
-		/// <summary>
-		/// A PARTICULAR EVENT. GOLEMS CAN ONLY BE NORMAL, SO IF THE RACE IS GOLEM THE CONDITION HAS TO BE DISABLED.
-		/// ELSE, IT HAS TO BE ENABLED. THIS CHECK MUST ONLY HAPPEN AFTER THE INITIALIZATION.
-		/// </summary>
-		private void cmbBox_Race_SelectedIndexChanged(object sender, EventArgs e)
+        //-----------------------------------------------------
+        //------------------ [ EVENTS ]
+        //-----------------------------------------------------
+
+        /// <summary>
+        /// A PARTICULAR EVENT. GOLEMS CAN ONLY BE NORMAL, SO IF THE RACE IS GOLEM THE CONDITION HAS TO BE DISABLED.
+        /// ELSE, IT HAS TO BE ENABLED. THIS CHECK MUST ONLY HAPPEN AFTER THE INITIALIZATION.
+        /// </summary>
+        private void cmbBox_Race_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			InitializedConditional();
 
@@ -832,19 +821,7 @@ namespace Views
 			_imagePicker.ImagePickerMain("SpCondition", cmbBox_SpCondition.Text, picBox_SpCondition);
 		}
 
-		private void tv_Family_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
-		{
-			if (e.Node.Level == 1)
-			{
-				lbl_FamilyNode.Text = e.Node.Text;
-			}
-			else
-			{
-				lbl_FamilyNode.Text = "";
-			}
-		}
-
-		private void txtBox_Name_TextChanged(object sender, EventArgs e)
+        private void txtBox_Name_TextChanged(object sender, EventArgs e)
 		{
 			if (initialized == 1)
 			{
@@ -928,16 +905,6 @@ namespace Views
 			pictureBox1.BackgroundImage = null;
 		}
 
-		//-----------------------------------------------------
-		//------------------ [ EVENTS ]
-		//-----------------------------------------------------
-
-		public event EventHandler Undo;
-		public event EventHandler<Character> EditCharData;
-		public event EventHandler<FamilyTieNodeEventArgs> AddFamilyTie;
-		public event EventHandler<int> RemoveFamilyTie;
-		public event EventHandler<ComboBox> PopulateFamilyCombobox;
-
         void FrmViewCharKeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
@@ -957,5 +924,11 @@ namespace Views
                 UnderlineText();
             }
         }
+
+        public event EventHandler Undo;
+        public event EventHandler<Character> EditCharData;
+        public event EventHandler<FamilyTieNodeEventArgs> AddFamilyTie;
+        public event EventHandler<int> RemoveFamilyTie;
+        public event EventHandler<ComboBox> PopulateFamilyCombobox;
     }
 }

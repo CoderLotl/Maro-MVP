@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Presenters;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,14 +8,58 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Views;
+using Model;
+using Presenter;
 
-namespace Maro_MVP.Views.Forms
+namespace Views
 {
-    public partial class FrmNewFamilyNode : Form
+    public partial class FrmNewFamilyNode : Form, INewFamilyNodeView
     {
-        public FrmNewFamilyNode()
+        //*************************************************
+
+        readonly NewFamilyNodePresenter newFamilyNodePresenter;
+
+        //*************************************************
+
+        public NewFamilyNodePresenter Presenter
+        {
+            get { return newFamilyNodePresenter; }
+        }
+
+        public FrmNewFamilyNode(ICharactersService charactersService, CharacterSheetPresenter characterSheetPresenter)
         {
             InitializeComponent();
+            newFamilyNodePresenter = new NewFamilyNodePresenter(this, charactersService, characterSheetPresenter);
+
+            PopulateCharactersComboBox.Invoke(this, comboBox1);
+            PopulateRelationshipsComboBox.Invoke(this, comboBox2);
         }
+
+        //-----------------------------------------------------
+        //------------------ [ BUTTONS ]
+        //-----------------------------------------------------
+
+        private void btn_Cancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        private void btn_Accept_Click(object sender, EventArgs e)
+        {
+            if(comboBox1.Text != "" && comboBox2.Text != "")
+            {
+                newFamilyNodePresenter.EventArgs.Character = (Character)comboBox1.SelectedItem;
+                newFamilyNodePresenter.EventArgs.Tie = comboBox2.Text;
+                this.DialogResult = DialogResult.OK;
+            }
+        }
+
+        //-----------------------------------------------------
+        //------------------ [ EVENTS ]
+        //-----------------------------------------------------
+
+        public event EventHandler<Control> PopulateRelationshipsComboBox;
+        public event EventHandler<Control> PopulateCharactersComboBox;
+
     }
 }

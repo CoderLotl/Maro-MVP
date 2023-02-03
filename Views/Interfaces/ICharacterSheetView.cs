@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Views
 {
-    public interface ICharacterSheet
+    public interface ICharacterSheetView
     {
         int Option { get; set;  }
         Character CharacterEventArgs { get; set; }

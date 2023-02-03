@@ -15,7 +15,7 @@ namespace Model
 		Parent,
 		Sibling,
 		Spouse,
-		Child,
+		Children,
 	}
 	
 	public enum Race{

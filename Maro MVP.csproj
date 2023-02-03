@@ -58,8 +58,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\ServicesInterface\ICharactersService.cs" />
+    <Compile Include="Model\ServicesInterface\IValidRelationships.cs" />
     <Compile Include="Model\Services\CharactersService.cs" />
     <Compile Include="Model\Services\ImagePicker.cs" />
+    <Compile Include="Model\Services\ValidRelationships.cs" />
+    <Compile Include="Presenters\NewFamilyNodePresenter.cs" />
     <Compile Include="Views\Forms\FrmNewFamilyNode.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,7 +88,6 @@
     <Compile Include="Model\Services\DateRetriever.cs" />
     <Compile Include="Model\Exceptions\TimeoutConnectionException.cs" />
     <Compile Include="Model\Classes\Variables.cs" />
-    <Compile Include="Model\Services\Utilities.cs" />
     <Compile Include="Presenters\CharacterSheetPresenter.cs" />
     <Compile Include="Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
@@ -118,10 +120,12 @@
       <DependentUpon>FrmDateSetter.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Interfaces\ICharactersView.cs" />
-    <Compile Include="Views\Interfaces\ICharacterSheet.cs" />
+    <Compile Include="Views\Interfaces\ICharacterSheetView.cs" />
     <Compile Include="Views\Interfaces\IMainView.cs" />
-    <Compile Include="Views\View Services\FamilyComboboxPopulator.cs" />
+    <Compile Include="Views\Interfaces\INewFamilyNodeView.cs" />
+    <Compile Include="Views\View Services\CharactersComboboxPopulator.cs" />
     <Compile Include="Views\View Services\ProgressBarFiller.cs" />
+    <Compile Include="Views\View Services\RelationshipsComboboxPopulator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

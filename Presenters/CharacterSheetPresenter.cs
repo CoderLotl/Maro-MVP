@@ -21,10 +21,10 @@ namespace Presenter
         int initialized = 0;
         Image raceImage; Image genderImage; Image conditionImage; Image spConditionImage;
         readonly ICharactersService _characterService;
-        readonly ICharacterSheet _iCharacterSheet;        
+        readonly ICharacterSheetView _iCharacterSheet;        
         //*************************************************
 
-        public CharacterSheetPresenter(ICharacterSheet frmCharacterSheet, ICharactersService charactersService, Character character, int option)
+        public CharacterSheetPresenter(ICharacterSheetView frmCharacterSheet, ICharactersService charactersService, Character character, int option)
         {
             _iCharacterSheet = frmCharacterSheet;
             _characterService = charactersService;
@@ -179,7 +179,7 @@ namespace Presenter
 
         private void PopulateFamilyCombobox(ComboBox comboBox)
         {
-            FamilyComboboxPopulator familyComboboxPopulator = new FamilyComboboxPopulator(_characterService, this);
+            CharactersComboboxPopulator familyComboboxPopulator = new CharactersComboboxPopulator(_characterService, this);
             familyComboboxPopulator.PopulateCharsCmbBox(comboBox);
         }
     }

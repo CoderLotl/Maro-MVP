@@ -60,10 +60,7 @@
             this.cmbBox_IsAlive = new System.Windows.Forms.ComboBox();
             this.lbl_Characer = new System.Windows.Forms.Label();
             this.grpBox_FamilyTies = new System.Windows.Forms.GroupBox();
-            this.grpBox_FamilyNode = new System.Windows.Forms.GroupBox();
-            this.lbl_FamilyNode = new System.Windows.Forms.Label();
-            this.btn_AddFamilyTie = new System.Windows.Forms.Button();
-            this.cmbBox_Characters = new System.Windows.Forms.ComboBox();
+            this.btn_AddNewNode = new System.Windows.Forms.Button();
             this.btn_RmvFamilyTie = new System.Windows.Forms.Button();
             this.tv_Family = new System.Windows.Forms.TreeView();
             this.grpBox_SkillTracker = new System.Windows.Forms.GroupBox();
@@ -74,18 +71,33 @@
             this.nud_Mining = new System.Windows.Forms.NumericUpDown();
             this.nud_Melee = new System.Windows.Forms.NumericUpDown();
             this.nud_Strength = new System.Windows.Forms.NumericUpDown();
+            this.pBar_Melee = new Framework.Controls.XpProgressBar();
+            this.pBar_Smithing = new Framework.Controls.XpProgressBar();
+            this.pBar_Harvesting = new Framework.Controls.XpProgressBar();
+            this.pBar_Mining = new Framework.Controls.XpProgressBar();
+            this.pBar_Strength = new Framework.Controls.XpProgressBar();
             this.tab_Dexterity = new System.Windows.Forms.TabPage();
             this.nud_Cooking = new System.Windows.Forms.NumericUpDown();
             this.nud_Tailoring = new System.Windows.Forms.NumericUpDown();
             this.nud_Ranching = new System.Windows.Forms.NumericUpDown();
             this.nud_Marksman = new System.Windows.Forms.NumericUpDown();
             this.nud_Dexterity = new System.Windows.Forms.NumericUpDown();
+            this.pBar_Marksman = new Framework.Controls.XpProgressBar();
+            this.pBar_Cooking = new Framework.Controls.XpProgressBar();
+            this.pBar_Tailoring = new Framework.Controls.XpProgressBar();
+            this.pBar_Ranching = new Framework.Controls.XpProgressBar();
+            this.pBar_Dexterity = new Framework.Controls.XpProgressBar();
             this.tab_Knowledge = new System.Windows.Forms.TabPage();
             this.nud_Manufacturing = new System.Windows.Forms.NumericUpDown();
             this.nud_Guile = new System.Windows.Forms.NumericUpDown();
             this.nud_Engineering = new System.Windows.Forms.NumericUpDown();
             this.nud_Alchemy = new System.Windows.Forms.NumericUpDown();
             this.nud_Knowledge = new System.Windows.Forms.NumericUpDown();
+            this.pBar_Alchemy = new Framework.Controls.XpProgressBar();
+            this.pBar_Manufacturing = new Framework.Controls.XpProgressBar();
+            this.pBar_Guile = new Framework.Controls.XpProgressBar();
+            this.pBar_Engineering = new Framework.Controls.XpProgressBar();
+            this.pBar_Knowledge = new Framework.Controls.XpProgressBar();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.picBox_Banner = new System.Windows.Forms.PictureBox();
             this.picBox_Race = new System.Windows.Forms.PictureBox();
@@ -102,21 +114,6 @@
             this.btn_LoadPicture = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btn_DiscardPicture = new System.Windows.Forms.Button();
-            this.pBar_Melee = new Framework.Controls.XpProgressBar();
-            this.pBar_Smithing = new Framework.Controls.XpProgressBar();
-            this.pBar_Harvesting = new Framework.Controls.XpProgressBar();
-            this.pBar_Mining = new Framework.Controls.XpProgressBar();
-            this.pBar_Strength = new Framework.Controls.XpProgressBar();
-            this.pBar_Marksman = new Framework.Controls.XpProgressBar();
-            this.pBar_Cooking = new Framework.Controls.XpProgressBar();
-            this.pBar_Tailoring = new Framework.Controls.XpProgressBar();
-            this.pBar_Ranching = new Framework.Controls.XpProgressBar();
-            this.pBar_Dexterity = new Framework.Controls.XpProgressBar();
-            this.pBar_Alchemy = new Framework.Controls.XpProgressBar();
-            this.pBar_Manufacturing = new Framework.Controls.XpProgressBar();
-            this.pBar_Guile = new Framework.Controls.XpProgressBar();
-            this.pBar_Engineering = new Framework.Controls.XpProgressBar();
-            this.pBar_Knowledge = new Framework.Controls.XpProgressBar();
             this.grpBox_Name.SuspendLayout();
             this.grpBox_Age.SuspendLayout();
             this.grpBox_Edit.SuspendLayout();
@@ -128,7 +125,6 @@
             this.grpBox_Description.SuspendLayout();
             this.grpBox_Alive.SuspendLayout();
             this.grpBox_FamilyTies.SuspendLayout();
-            this.grpBox_FamilyNode.SuspendLayout();
             this.grpBox_SkillTracker.SuspendLayout();
             this.tabControl_Skills.SuspendLayout();
             this.tab_Strength.SuspendLayout();
@@ -460,9 +456,7 @@
             // grpBox_FamilyTies
             // 
             this.grpBox_FamilyTies.BackColor = System.Drawing.Color.Transparent;
-            this.grpBox_FamilyTies.Controls.Add(this.grpBox_FamilyNode);
-            this.grpBox_FamilyTies.Controls.Add(this.btn_AddFamilyTie);
-            this.grpBox_FamilyTies.Controls.Add(this.cmbBox_Characters);
+            this.grpBox_FamilyTies.Controls.Add(this.btn_AddNewNode);
             this.grpBox_FamilyTies.Controls.Add(this.btn_RmvFamilyTie);
             this.grpBox_FamilyTies.Controls.Add(this.tv_Family);
             this.grpBox_FamilyTies.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -473,46 +467,15 @@
             this.grpBox_FamilyTies.TabStop = false;
             this.grpBox_FamilyTies.Text = "Family Ties";
             // 
-            // grpBox_FamilyNode
+            // btn_AddNewNode
             // 
-            this.grpBox_FamilyNode.Controls.Add(this.lbl_FamilyNode);
-            this.grpBox_FamilyNode.Location = new System.Drawing.Point(16, 328);
-            this.grpBox_FamilyNode.Name = "grpBox_FamilyNode";
-            this.grpBox_FamilyNode.Size = new System.Drawing.Size(296, 61);
-            this.grpBox_FamilyNode.TabIndex = 4;
-            this.grpBox_FamilyNode.TabStop = false;
-            this.grpBox_FamilyNode.Text = "Selected Family Tie";
-            // 
-            // lbl_FamilyNode
-            // 
-            this.lbl_FamilyNode.AutoSize = true;
-            this.lbl_FamilyNode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_FamilyNode.Location = new System.Drawing.Point(20, 28);
-            this.lbl_FamilyNode.Name = "lbl_FamilyNode";
-            this.lbl_FamilyNode.Size = new System.Drawing.Size(57, 20);
-            this.lbl_FamilyNode.TabIndex = 0;
-            this.lbl_FamilyNode.Text = "label1";
-            // 
-            // btn_AddFamilyTie
-            // 
-            this.btn_AddFamilyTie.Enabled = false;
-            this.btn_AddFamilyTie.Location = new System.Drawing.Point(375, 351);
-            this.btn_AddFamilyTie.Name = "btn_AddFamilyTie";
-            this.btn_AddFamilyTie.Size = new System.Drawing.Size(89, 30);
-            this.btn_AddFamilyTie.TabIndex = 3;
-            this.btn_AddFamilyTie.Text = "Add";
-            this.btn_AddFamilyTie.UseVisualStyleBackColor = true;
-            this.btn_AddFamilyTie.Click += new System.EventHandler(this.btn_AddFamilyTie_Click);
-            // 
-            // cmbBox_Characters
-            // 
-            this.cmbBox_Characters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbBox_Characters.Enabled = false;
-            this.cmbBox_Characters.FormattingEnabled = true;
-            this.cmbBox_Characters.Location = new System.Drawing.Point(16, 396);
-            this.cmbBox_Characters.Name = "cmbBox_Characters";
-            this.cmbBox_Characters.Size = new System.Drawing.Size(296, 28);
-            this.cmbBox_Characters.TabIndex = 2;
+            this.btn_AddNewNode.Location = new System.Drawing.Point(375, 360);
+            this.btn_AddNewNode.Name = "btn_AddNewNode";
+            this.btn_AddNewNode.Size = new System.Drawing.Size(89, 30);
+            this.btn_AddNewNode.TabIndex = 1;
+            this.btn_AddNewNode.Text = "Add";
+            this.btn_AddNewNode.UseVisualStyleBackColor = true;
+            this.btn_AddNewNode.Click += new System.EventHandler(this.Btn_AddNewNode_Click);
             // 
             // btn_RmvFamilyTie
             // 
@@ -533,7 +496,6 @@
             this.tv_Family.Size = new System.Drawing.Size(448, 280);
             this.tv_Family.TabIndex = 0;
             this.tv_Family.NodeMouseHover += new System.Windows.Forms.TreeNodeMouseHoverEventHandler(this.tv_Family_NodeMouseHover);
-            this.tv_Family.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tv_Family_NodeMouseClick);
             this.tv_Family.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tv_Family_NodeMouseDoubleClick);
             // 
             // grpBox_SkillTracker
@@ -655,6 +617,96 @@
             this.nud_Strength.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nud_Strength.ValueChanged += new System.EventHandler(this.Nud_StrengthValueChanged);
             // 
+            // pBar_Melee
+            // 
+            this.pBar_Melee.ColorBackGround = System.Drawing.Color.White;
+            this.pBar_Melee.ColorBarBorder = System.Drawing.Color.PaleTurquoise;
+            this.pBar_Melee.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.pBar_Melee.ColorText = System.Drawing.Color.Black;
+            this.pBar_Melee.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pBar_Melee.Location = new System.Drawing.Point(16, 72);
+            this.pBar_Melee.Name = "pBar_Melee";
+            this.pBar_Melee.Position = 0;
+            this.pBar_Melee.PositionMax = 100;
+            this.pBar_Melee.PositionMin = 0;
+            this.pBar_Melee.Size = new System.Drawing.Size(234, 29);
+            this.pBar_Melee.SteepDistance = ((byte)(0));
+            this.pBar_Melee.TabIndex = 5;
+            this.pBar_Melee.Text = "Melee";
+            this.pBar_Melee.TextShadow = false;
+            // 
+            // pBar_Smithing
+            // 
+            this.pBar_Smithing.ColorBackGround = System.Drawing.Color.White;
+            this.pBar_Smithing.ColorBarBorder = System.Drawing.Color.PaleTurquoise;
+            this.pBar_Smithing.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.pBar_Smithing.ColorText = System.Drawing.Color.Black;
+            this.pBar_Smithing.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pBar_Smithing.Location = new System.Drawing.Point(16, 240);
+            this.pBar_Smithing.Name = "pBar_Smithing";
+            this.pBar_Smithing.Position = 0;
+            this.pBar_Smithing.PositionMax = 100;
+            this.pBar_Smithing.PositionMin = 0;
+            this.pBar_Smithing.Size = new System.Drawing.Size(234, 29);
+            this.pBar_Smithing.SteepDistance = ((byte)(0));
+            this.pBar_Smithing.TabIndex = 4;
+            this.pBar_Smithing.Text = "Smithing";
+            this.pBar_Smithing.TextShadow = false;
+            // 
+            // pBar_Harvesting
+            // 
+            this.pBar_Harvesting.ColorBackGround = System.Drawing.Color.White;
+            this.pBar_Harvesting.ColorBarBorder = System.Drawing.Color.PaleTurquoise;
+            this.pBar_Harvesting.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.pBar_Harvesting.ColorText = System.Drawing.Color.Black;
+            this.pBar_Harvesting.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pBar_Harvesting.Location = new System.Drawing.Point(16, 184);
+            this.pBar_Harvesting.Name = "pBar_Harvesting";
+            this.pBar_Harvesting.Position = 0;
+            this.pBar_Harvesting.PositionMax = 100;
+            this.pBar_Harvesting.PositionMin = 0;
+            this.pBar_Harvesting.Size = new System.Drawing.Size(234, 29);
+            this.pBar_Harvesting.SteepDistance = ((byte)(0));
+            this.pBar_Harvesting.TabIndex = 3;
+            this.pBar_Harvesting.Text = "Harvesting";
+            this.pBar_Harvesting.TextShadow = false;
+            // 
+            // pBar_Mining
+            // 
+            this.pBar_Mining.ColorBackGround = System.Drawing.Color.White;
+            this.pBar_Mining.ColorBarBorder = System.Drawing.Color.PaleTurquoise;
+            this.pBar_Mining.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.pBar_Mining.ColorText = System.Drawing.Color.Black;
+            this.pBar_Mining.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pBar_Mining.Location = new System.Drawing.Point(16, 128);
+            this.pBar_Mining.Name = "pBar_Mining";
+            this.pBar_Mining.Position = 0;
+            this.pBar_Mining.PositionMax = 100;
+            this.pBar_Mining.PositionMin = 0;
+            this.pBar_Mining.Size = new System.Drawing.Size(234, 29);
+            this.pBar_Mining.SteepDistance = ((byte)(0));
+            this.pBar_Mining.TabIndex = 2;
+            this.pBar_Mining.Text = "Mining";
+            this.pBar_Mining.TextShadow = false;
+            // 
+            // pBar_Strength
+            // 
+            this.pBar_Strength.ColorBackGround = System.Drawing.Color.White;
+            this.pBar_Strength.ColorBarBorder = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(240)))), ((int)(((byte)(170)))));
+            this.pBar_Strength.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(150)))), ((int)(((byte)(10)))));
+            this.pBar_Strength.ColorText = System.Drawing.Color.Black;
+            this.pBar_Strength.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pBar_Strength.Location = new System.Drawing.Point(16, 16);
+            this.pBar_Strength.Name = "pBar_Strength";
+            this.pBar_Strength.Position = 0;
+            this.pBar_Strength.PositionMax = 100;
+            this.pBar_Strength.PositionMin = 0;
+            this.pBar_Strength.Size = new System.Drawing.Size(234, 29);
+            this.pBar_Strength.SteepDistance = ((byte)(0));
+            this.pBar_Strength.TabIndex = 0;
+            this.pBar_Strength.Text = "Strength";
+            this.pBar_Strength.TextShadow = false;
+            // 
             // tab_Dexterity
             // 
             this.tab_Dexterity.BackColor = System.Drawing.Color.MediumAquamarine;
@@ -751,6 +803,96 @@
             this.nud_Dexterity.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nud_Dexterity.ValueChanged += new System.EventHandler(this.Nud_DexterityValueChanged);
             // 
+            // pBar_Marksman
+            // 
+            this.pBar_Marksman.ColorBackGround = System.Drawing.Color.White;
+            this.pBar_Marksman.ColorBarBorder = System.Drawing.Color.PaleTurquoise;
+            this.pBar_Marksman.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.pBar_Marksman.ColorText = System.Drawing.Color.Black;
+            this.pBar_Marksman.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pBar_Marksman.Location = new System.Drawing.Point(16, 72);
+            this.pBar_Marksman.Name = "pBar_Marksman";
+            this.pBar_Marksman.Position = 0;
+            this.pBar_Marksman.PositionMax = 100;
+            this.pBar_Marksman.PositionMin = 0;
+            this.pBar_Marksman.Size = new System.Drawing.Size(234, 29);
+            this.pBar_Marksman.SteepDistance = ((byte)(0));
+            this.pBar_Marksman.TabIndex = 5;
+            this.pBar_Marksman.Text = "Marksman";
+            this.pBar_Marksman.TextShadow = false;
+            // 
+            // pBar_Cooking
+            // 
+            this.pBar_Cooking.ColorBackGround = System.Drawing.Color.White;
+            this.pBar_Cooking.ColorBarBorder = System.Drawing.Color.PaleTurquoise;
+            this.pBar_Cooking.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.pBar_Cooking.ColorText = System.Drawing.Color.Black;
+            this.pBar_Cooking.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pBar_Cooking.Location = new System.Drawing.Point(16, 240);
+            this.pBar_Cooking.Name = "pBar_Cooking";
+            this.pBar_Cooking.Position = 0;
+            this.pBar_Cooking.PositionMax = 100;
+            this.pBar_Cooking.PositionMin = 0;
+            this.pBar_Cooking.Size = new System.Drawing.Size(234, 29);
+            this.pBar_Cooking.SteepDistance = ((byte)(0));
+            this.pBar_Cooking.TabIndex = 4;
+            this.pBar_Cooking.Text = "Cooking";
+            this.pBar_Cooking.TextShadow = false;
+            // 
+            // pBar_Tailoring
+            // 
+            this.pBar_Tailoring.ColorBackGround = System.Drawing.Color.White;
+            this.pBar_Tailoring.ColorBarBorder = System.Drawing.Color.PaleTurquoise;
+            this.pBar_Tailoring.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.pBar_Tailoring.ColorText = System.Drawing.Color.Black;
+            this.pBar_Tailoring.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pBar_Tailoring.Location = new System.Drawing.Point(16, 184);
+            this.pBar_Tailoring.Name = "pBar_Tailoring";
+            this.pBar_Tailoring.Position = 0;
+            this.pBar_Tailoring.PositionMax = 100;
+            this.pBar_Tailoring.PositionMin = 0;
+            this.pBar_Tailoring.Size = new System.Drawing.Size(234, 29);
+            this.pBar_Tailoring.SteepDistance = ((byte)(0));
+            this.pBar_Tailoring.TabIndex = 3;
+            this.pBar_Tailoring.Text = "Tailoring";
+            this.pBar_Tailoring.TextShadow = false;
+            // 
+            // pBar_Ranching
+            // 
+            this.pBar_Ranching.ColorBackGround = System.Drawing.Color.White;
+            this.pBar_Ranching.ColorBarBorder = System.Drawing.Color.PaleTurquoise;
+            this.pBar_Ranching.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.pBar_Ranching.ColorText = System.Drawing.Color.Black;
+            this.pBar_Ranching.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pBar_Ranching.Location = new System.Drawing.Point(16, 128);
+            this.pBar_Ranching.Name = "pBar_Ranching";
+            this.pBar_Ranching.Position = 0;
+            this.pBar_Ranching.PositionMax = 100;
+            this.pBar_Ranching.PositionMin = 0;
+            this.pBar_Ranching.Size = new System.Drawing.Size(234, 29);
+            this.pBar_Ranching.SteepDistance = ((byte)(0));
+            this.pBar_Ranching.TabIndex = 2;
+            this.pBar_Ranching.Text = "Ranching";
+            this.pBar_Ranching.TextShadow = false;
+            // 
+            // pBar_Dexterity
+            // 
+            this.pBar_Dexterity.ColorBackGround = System.Drawing.Color.White;
+            this.pBar_Dexterity.ColorBarBorder = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(240)))), ((int)(((byte)(170)))));
+            this.pBar_Dexterity.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(150)))), ((int)(((byte)(10)))));
+            this.pBar_Dexterity.ColorText = System.Drawing.Color.Black;
+            this.pBar_Dexterity.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pBar_Dexterity.Location = new System.Drawing.Point(16, 16);
+            this.pBar_Dexterity.Name = "pBar_Dexterity";
+            this.pBar_Dexterity.Position = 0;
+            this.pBar_Dexterity.PositionMax = 100;
+            this.pBar_Dexterity.PositionMin = 0;
+            this.pBar_Dexterity.Size = new System.Drawing.Size(234, 29);
+            this.pBar_Dexterity.SteepDistance = ((byte)(0));
+            this.pBar_Dexterity.TabIndex = 0;
+            this.pBar_Dexterity.Text = "Dexterity";
+            this.pBar_Dexterity.TextShadow = false;
+            // 
             // tab_Knowledge
             // 
             this.tab_Knowledge.BackColor = System.Drawing.Color.DarkSlateBlue;
@@ -846,6 +988,96 @@
             this.nud_Knowledge.TabIndex = 6;
             this.nud_Knowledge.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nud_Knowledge.ValueChanged += new System.EventHandler(this.nud_Knowledge_ValueChanged);
+            // 
+            // pBar_Alchemy
+            // 
+            this.pBar_Alchemy.ColorBackGround = System.Drawing.Color.White;
+            this.pBar_Alchemy.ColorBarBorder = System.Drawing.Color.PaleTurquoise;
+            this.pBar_Alchemy.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.pBar_Alchemy.ColorText = System.Drawing.Color.Black;
+            this.pBar_Alchemy.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pBar_Alchemy.Location = new System.Drawing.Point(16, 72);
+            this.pBar_Alchemy.Name = "pBar_Alchemy";
+            this.pBar_Alchemy.Position = 0;
+            this.pBar_Alchemy.PositionMax = 100;
+            this.pBar_Alchemy.PositionMin = 0;
+            this.pBar_Alchemy.Size = new System.Drawing.Size(234, 29);
+            this.pBar_Alchemy.SteepDistance = ((byte)(0));
+            this.pBar_Alchemy.TabIndex = 5;
+            this.pBar_Alchemy.Text = "Alchemy";
+            this.pBar_Alchemy.TextShadow = false;
+            // 
+            // pBar_Manufacturing
+            // 
+            this.pBar_Manufacturing.ColorBackGround = System.Drawing.Color.White;
+            this.pBar_Manufacturing.ColorBarBorder = System.Drawing.Color.PaleTurquoise;
+            this.pBar_Manufacturing.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.pBar_Manufacturing.ColorText = System.Drawing.Color.Black;
+            this.pBar_Manufacturing.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pBar_Manufacturing.Location = new System.Drawing.Point(16, 240);
+            this.pBar_Manufacturing.Name = "pBar_Manufacturing";
+            this.pBar_Manufacturing.Position = 0;
+            this.pBar_Manufacturing.PositionMax = 100;
+            this.pBar_Manufacturing.PositionMin = 0;
+            this.pBar_Manufacturing.Size = new System.Drawing.Size(234, 29);
+            this.pBar_Manufacturing.SteepDistance = ((byte)(0));
+            this.pBar_Manufacturing.TabIndex = 4;
+            this.pBar_Manufacturing.Text = "Manufacturing";
+            this.pBar_Manufacturing.TextShadow = false;
+            // 
+            // pBar_Guile
+            // 
+            this.pBar_Guile.ColorBackGround = System.Drawing.Color.White;
+            this.pBar_Guile.ColorBarBorder = System.Drawing.Color.PaleTurquoise;
+            this.pBar_Guile.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.pBar_Guile.ColorText = System.Drawing.Color.Black;
+            this.pBar_Guile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pBar_Guile.Location = new System.Drawing.Point(16, 184);
+            this.pBar_Guile.Name = "pBar_Guile";
+            this.pBar_Guile.Position = 0;
+            this.pBar_Guile.PositionMax = 100;
+            this.pBar_Guile.PositionMin = 0;
+            this.pBar_Guile.Size = new System.Drawing.Size(234, 29);
+            this.pBar_Guile.SteepDistance = ((byte)(0));
+            this.pBar_Guile.TabIndex = 3;
+            this.pBar_Guile.Text = "Guile";
+            this.pBar_Guile.TextShadow = false;
+            // 
+            // pBar_Engineering
+            // 
+            this.pBar_Engineering.ColorBackGround = System.Drawing.Color.White;
+            this.pBar_Engineering.ColorBarBorder = System.Drawing.Color.PaleTurquoise;
+            this.pBar_Engineering.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.pBar_Engineering.ColorText = System.Drawing.Color.Black;
+            this.pBar_Engineering.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pBar_Engineering.Location = new System.Drawing.Point(16, 128);
+            this.pBar_Engineering.Name = "pBar_Engineering";
+            this.pBar_Engineering.Position = 0;
+            this.pBar_Engineering.PositionMax = 100;
+            this.pBar_Engineering.PositionMin = 0;
+            this.pBar_Engineering.Size = new System.Drawing.Size(234, 29);
+            this.pBar_Engineering.SteepDistance = ((byte)(0));
+            this.pBar_Engineering.TabIndex = 2;
+            this.pBar_Engineering.Text = "Engineering";
+            this.pBar_Engineering.TextShadow = false;
+            // 
+            // pBar_Knowledge
+            // 
+            this.pBar_Knowledge.ColorBackGround = System.Drawing.Color.White;
+            this.pBar_Knowledge.ColorBarBorder = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(240)))), ((int)(((byte)(170)))));
+            this.pBar_Knowledge.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(150)))), ((int)(((byte)(10)))));
+            this.pBar_Knowledge.ColorText = System.Drawing.Color.Black;
+            this.pBar_Knowledge.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pBar_Knowledge.Location = new System.Drawing.Point(16, 16);
+            this.pBar_Knowledge.Name = "pBar_Knowledge";
+            this.pBar_Knowledge.Position = 0;
+            this.pBar_Knowledge.PositionMax = 100;
+            this.pBar_Knowledge.PositionMin = 0;
+            this.pBar_Knowledge.Size = new System.Drawing.Size(234, 29);
+            this.pBar_Knowledge.SteepDistance = ((byte)(0));
+            this.pBar_Knowledge.TabIndex = 0;
+            this.pBar_Knowledge.Text = "Knowledge";
+            this.pBar_Knowledge.TextShadow = false;
             // 
             // picBox_Banner
             // 
@@ -1008,276 +1240,6 @@
             this.btn_DiscardPicture.UseVisualStyleBackColor = true;
             this.btn_DiscardPicture.Click += new System.EventHandler(this.btn_DiscardPicture_Click);
             // 
-            // pBar_Melee
-            // 
-            this.pBar_Melee.ColorBackGround = System.Drawing.Color.White;
-            this.pBar_Melee.ColorBarBorder = System.Drawing.Color.PaleTurquoise;
-            this.pBar_Melee.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.pBar_Melee.ColorText = System.Drawing.Color.Black;
-            this.pBar_Melee.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pBar_Melee.Location = new System.Drawing.Point(16, 72);
-            this.pBar_Melee.Name = "pBar_Melee";
-            this.pBar_Melee.Position = 0;
-            this.pBar_Melee.PositionMax = 100;
-            this.pBar_Melee.PositionMin = 0;
-            this.pBar_Melee.Size = new System.Drawing.Size(234, 29);
-            this.pBar_Melee.SteepDistance = ((byte)(0));
-            this.pBar_Melee.TabIndex = 5;
-            this.pBar_Melee.Text = "Melee";
-            this.pBar_Melee.TextShadow = false;
-            // 
-            // pBar_Smithing
-            // 
-            this.pBar_Smithing.ColorBackGround = System.Drawing.Color.White;
-            this.pBar_Smithing.ColorBarBorder = System.Drawing.Color.PaleTurquoise;
-            this.pBar_Smithing.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.pBar_Smithing.ColorText = System.Drawing.Color.Black;
-            this.pBar_Smithing.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pBar_Smithing.Location = new System.Drawing.Point(16, 240);
-            this.pBar_Smithing.Name = "pBar_Smithing";
-            this.pBar_Smithing.Position = 0;
-            this.pBar_Smithing.PositionMax = 100;
-            this.pBar_Smithing.PositionMin = 0;
-            this.pBar_Smithing.Size = new System.Drawing.Size(234, 29);
-            this.pBar_Smithing.SteepDistance = ((byte)(0));
-            this.pBar_Smithing.TabIndex = 4;
-            this.pBar_Smithing.Text = "Smithing";
-            this.pBar_Smithing.TextShadow = false;
-            // 
-            // pBar_Harvesting
-            // 
-            this.pBar_Harvesting.ColorBackGround = System.Drawing.Color.White;
-            this.pBar_Harvesting.ColorBarBorder = System.Drawing.Color.PaleTurquoise;
-            this.pBar_Harvesting.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.pBar_Harvesting.ColorText = System.Drawing.Color.Black;
-            this.pBar_Harvesting.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pBar_Harvesting.Location = new System.Drawing.Point(16, 184);
-            this.pBar_Harvesting.Name = "pBar_Harvesting";
-            this.pBar_Harvesting.Position = 0;
-            this.pBar_Harvesting.PositionMax = 100;
-            this.pBar_Harvesting.PositionMin = 0;
-            this.pBar_Harvesting.Size = new System.Drawing.Size(234, 29);
-            this.pBar_Harvesting.SteepDistance = ((byte)(0));
-            this.pBar_Harvesting.TabIndex = 3;
-            this.pBar_Harvesting.Text = "Harvesting";
-            this.pBar_Harvesting.TextShadow = false;
-            // 
-            // pBar_Mining
-            // 
-            this.pBar_Mining.ColorBackGround = System.Drawing.Color.White;
-            this.pBar_Mining.ColorBarBorder = System.Drawing.Color.PaleTurquoise;
-            this.pBar_Mining.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.pBar_Mining.ColorText = System.Drawing.Color.Black;
-            this.pBar_Mining.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pBar_Mining.Location = new System.Drawing.Point(16, 128);
-            this.pBar_Mining.Name = "pBar_Mining";
-            this.pBar_Mining.Position = 0;
-            this.pBar_Mining.PositionMax = 100;
-            this.pBar_Mining.PositionMin = 0;
-            this.pBar_Mining.Size = new System.Drawing.Size(234, 29);
-            this.pBar_Mining.SteepDistance = ((byte)(0));
-            this.pBar_Mining.TabIndex = 2;
-            this.pBar_Mining.Text = "Mining";
-            this.pBar_Mining.TextShadow = false;
-            // 
-            // pBar_Strength
-            // 
-            this.pBar_Strength.ColorBackGround = System.Drawing.Color.White;
-            this.pBar_Strength.ColorBarBorder = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(240)))), ((int)(((byte)(170)))));
-            this.pBar_Strength.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(150)))), ((int)(((byte)(10)))));
-            this.pBar_Strength.ColorText = System.Drawing.Color.Black;
-            this.pBar_Strength.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pBar_Strength.Location = new System.Drawing.Point(16, 16);
-            this.pBar_Strength.Name = "pBar_Strength";
-            this.pBar_Strength.Position = 0;
-            this.pBar_Strength.PositionMax = 100;
-            this.pBar_Strength.PositionMin = 0;
-            this.pBar_Strength.Size = new System.Drawing.Size(234, 29);
-            this.pBar_Strength.SteepDistance = ((byte)(0));
-            this.pBar_Strength.TabIndex = 0;
-            this.pBar_Strength.Text = "Strength";
-            this.pBar_Strength.TextShadow = false;
-            // 
-            // pBar_Marksman
-            // 
-            this.pBar_Marksman.ColorBackGround = System.Drawing.Color.White;
-            this.pBar_Marksman.ColorBarBorder = System.Drawing.Color.PaleTurquoise;
-            this.pBar_Marksman.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.pBar_Marksman.ColorText = System.Drawing.Color.Black;
-            this.pBar_Marksman.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pBar_Marksman.Location = new System.Drawing.Point(16, 72);
-            this.pBar_Marksman.Name = "pBar_Marksman";
-            this.pBar_Marksman.Position = 0;
-            this.pBar_Marksman.PositionMax = 100;
-            this.pBar_Marksman.PositionMin = 0;
-            this.pBar_Marksman.Size = new System.Drawing.Size(234, 29);
-            this.pBar_Marksman.SteepDistance = ((byte)(0));
-            this.pBar_Marksman.TabIndex = 5;
-            this.pBar_Marksman.Text = "Marksman";
-            this.pBar_Marksman.TextShadow = false;
-            // 
-            // pBar_Cooking
-            // 
-            this.pBar_Cooking.ColorBackGround = System.Drawing.Color.White;
-            this.pBar_Cooking.ColorBarBorder = System.Drawing.Color.PaleTurquoise;
-            this.pBar_Cooking.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.pBar_Cooking.ColorText = System.Drawing.Color.Black;
-            this.pBar_Cooking.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pBar_Cooking.Location = new System.Drawing.Point(16, 240);
-            this.pBar_Cooking.Name = "pBar_Cooking";
-            this.pBar_Cooking.Position = 0;
-            this.pBar_Cooking.PositionMax = 100;
-            this.pBar_Cooking.PositionMin = 0;
-            this.pBar_Cooking.Size = new System.Drawing.Size(234, 29);
-            this.pBar_Cooking.SteepDistance = ((byte)(0));
-            this.pBar_Cooking.TabIndex = 4;
-            this.pBar_Cooking.Text = "Cooking";
-            this.pBar_Cooking.TextShadow = false;
-            // 
-            // pBar_Tailoring
-            // 
-            this.pBar_Tailoring.ColorBackGround = System.Drawing.Color.White;
-            this.pBar_Tailoring.ColorBarBorder = System.Drawing.Color.PaleTurquoise;
-            this.pBar_Tailoring.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.pBar_Tailoring.ColorText = System.Drawing.Color.Black;
-            this.pBar_Tailoring.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pBar_Tailoring.Location = new System.Drawing.Point(16, 184);
-            this.pBar_Tailoring.Name = "pBar_Tailoring";
-            this.pBar_Tailoring.Position = 0;
-            this.pBar_Tailoring.PositionMax = 100;
-            this.pBar_Tailoring.PositionMin = 0;
-            this.pBar_Tailoring.Size = new System.Drawing.Size(234, 29);
-            this.pBar_Tailoring.SteepDistance = ((byte)(0));
-            this.pBar_Tailoring.TabIndex = 3;
-            this.pBar_Tailoring.Text = "Tailoring";
-            this.pBar_Tailoring.TextShadow = false;
-            // 
-            // pBar_Ranching
-            // 
-            this.pBar_Ranching.ColorBackGround = System.Drawing.Color.White;
-            this.pBar_Ranching.ColorBarBorder = System.Drawing.Color.PaleTurquoise;
-            this.pBar_Ranching.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.pBar_Ranching.ColorText = System.Drawing.Color.Black;
-            this.pBar_Ranching.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pBar_Ranching.Location = new System.Drawing.Point(16, 128);
-            this.pBar_Ranching.Name = "pBar_Ranching";
-            this.pBar_Ranching.Position = 0;
-            this.pBar_Ranching.PositionMax = 100;
-            this.pBar_Ranching.PositionMin = 0;
-            this.pBar_Ranching.Size = new System.Drawing.Size(234, 29);
-            this.pBar_Ranching.SteepDistance = ((byte)(0));
-            this.pBar_Ranching.TabIndex = 2;
-            this.pBar_Ranching.Text = "Ranching";
-            this.pBar_Ranching.TextShadow = false;
-            // 
-            // pBar_Dexterity
-            // 
-            this.pBar_Dexterity.ColorBackGround = System.Drawing.Color.White;
-            this.pBar_Dexterity.ColorBarBorder = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(240)))), ((int)(((byte)(170)))));
-            this.pBar_Dexterity.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(150)))), ((int)(((byte)(10)))));
-            this.pBar_Dexterity.ColorText = System.Drawing.Color.Black;
-            this.pBar_Dexterity.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pBar_Dexterity.Location = new System.Drawing.Point(16, 16);
-            this.pBar_Dexterity.Name = "pBar_Dexterity";
-            this.pBar_Dexterity.Position = 0;
-            this.pBar_Dexterity.PositionMax = 100;
-            this.pBar_Dexterity.PositionMin = 0;
-            this.pBar_Dexterity.Size = new System.Drawing.Size(234, 29);
-            this.pBar_Dexterity.SteepDistance = ((byte)(0));
-            this.pBar_Dexterity.TabIndex = 0;
-            this.pBar_Dexterity.Text = "Dexterity";
-            this.pBar_Dexterity.TextShadow = false;
-            // 
-            // pBar_Alchemy
-            // 
-            this.pBar_Alchemy.ColorBackGround = System.Drawing.Color.White;
-            this.pBar_Alchemy.ColorBarBorder = System.Drawing.Color.PaleTurquoise;
-            this.pBar_Alchemy.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.pBar_Alchemy.ColorText = System.Drawing.Color.Black;
-            this.pBar_Alchemy.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pBar_Alchemy.Location = new System.Drawing.Point(16, 72);
-            this.pBar_Alchemy.Name = "pBar_Alchemy";
-            this.pBar_Alchemy.Position = 0;
-            this.pBar_Alchemy.PositionMax = 100;
-            this.pBar_Alchemy.PositionMin = 0;
-            this.pBar_Alchemy.Size = new System.Drawing.Size(234, 29);
-            this.pBar_Alchemy.SteepDistance = ((byte)(0));
-            this.pBar_Alchemy.TabIndex = 5;
-            this.pBar_Alchemy.Text = "Alchemy";
-            this.pBar_Alchemy.TextShadow = false;
-            // 
-            // pBar_Manufacturing
-            // 
-            this.pBar_Manufacturing.ColorBackGround = System.Drawing.Color.White;
-            this.pBar_Manufacturing.ColorBarBorder = System.Drawing.Color.PaleTurquoise;
-            this.pBar_Manufacturing.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.pBar_Manufacturing.ColorText = System.Drawing.Color.Black;
-            this.pBar_Manufacturing.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pBar_Manufacturing.Location = new System.Drawing.Point(16, 240);
-            this.pBar_Manufacturing.Name = "pBar_Manufacturing";
-            this.pBar_Manufacturing.Position = 0;
-            this.pBar_Manufacturing.PositionMax = 100;
-            this.pBar_Manufacturing.PositionMin = 0;
-            this.pBar_Manufacturing.Size = new System.Drawing.Size(234, 29);
-            this.pBar_Manufacturing.SteepDistance = ((byte)(0));
-            this.pBar_Manufacturing.TabIndex = 4;
-            this.pBar_Manufacturing.Text = "Manufacturing";
-            this.pBar_Manufacturing.TextShadow = false;
-            // 
-            // pBar_Guile
-            // 
-            this.pBar_Guile.ColorBackGround = System.Drawing.Color.White;
-            this.pBar_Guile.ColorBarBorder = System.Drawing.Color.PaleTurquoise;
-            this.pBar_Guile.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.pBar_Guile.ColorText = System.Drawing.Color.Black;
-            this.pBar_Guile.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pBar_Guile.Location = new System.Drawing.Point(16, 184);
-            this.pBar_Guile.Name = "pBar_Guile";
-            this.pBar_Guile.Position = 0;
-            this.pBar_Guile.PositionMax = 100;
-            this.pBar_Guile.PositionMin = 0;
-            this.pBar_Guile.Size = new System.Drawing.Size(234, 29);
-            this.pBar_Guile.SteepDistance = ((byte)(0));
-            this.pBar_Guile.TabIndex = 3;
-            this.pBar_Guile.Text = "Guile";
-            this.pBar_Guile.TextShadow = false;
-            // 
-            // pBar_Engineering
-            // 
-            this.pBar_Engineering.ColorBackGround = System.Drawing.Color.White;
-            this.pBar_Engineering.ColorBarBorder = System.Drawing.Color.PaleTurquoise;
-            this.pBar_Engineering.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.pBar_Engineering.ColorText = System.Drawing.Color.Black;
-            this.pBar_Engineering.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pBar_Engineering.Location = new System.Drawing.Point(16, 128);
-            this.pBar_Engineering.Name = "pBar_Engineering";
-            this.pBar_Engineering.Position = 0;
-            this.pBar_Engineering.PositionMax = 100;
-            this.pBar_Engineering.PositionMin = 0;
-            this.pBar_Engineering.Size = new System.Drawing.Size(234, 29);
-            this.pBar_Engineering.SteepDistance = ((byte)(0));
-            this.pBar_Engineering.TabIndex = 2;
-            this.pBar_Engineering.Text = "Engineering";
-            this.pBar_Engineering.TextShadow = false;
-            // 
-            // pBar_Knowledge
-            // 
-            this.pBar_Knowledge.ColorBackGround = System.Drawing.Color.White;
-            this.pBar_Knowledge.ColorBarBorder = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(240)))), ((int)(((byte)(170)))));
-            this.pBar_Knowledge.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(150)))), ((int)(((byte)(10)))));
-            this.pBar_Knowledge.ColorText = System.Drawing.Color.Black;
-            this.pBar_Knowledge.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pBar_Knowledge.Location = new System.Drawing.Point(16, 16);
-            this.pBar_Knowledge.Name = "pBar_Knowledge";
-            this.pBar_Knowledge.Position = 0;
-            this.pBar_Knowledge.PositionMax = 100;
-            this.pBar_Knowledge.PositionMin = 0;
-            this.pBar_Knowledge.Size = new System.Drawing.Size(234, 29);
-            this.pBar_Knowledge.SteepDistance = ((byte)(0));
-            this.pBar_Knowledge.TabIndex = 0;
-            this.pBar_Knowledge.Text = "Knowledge";
-            this.pBar_Knowledge.TextShadow = false;
-            // 
             // FrmCharacterSheet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1332,8 +1294,6 @@
             this.grpBox_Description.ResumeLayout(false);
             this.grpBox_Alive.ResumeLayout(false);
             this.grpBox_FamilyTies.ResumeLayout(false);
-            this.grpBox_FamilyNode.ResumeLayout(false);
-            this.grpBox_FamilyNode.PerformLayout();
             this.grpBox_SkillTracker.ResumeLayout(false);
             this.tabControl_Skills.ResumeLayout(false);
             this.tab_Strength.ResumeLayout(false);
@@ -1426,16 +1386,12 @@
         private Framework.Controls.XpProgressBar pBar_Knowledge;
         private System.Windows.Forms.TreeView tv_Family;
         private System.Windows.Forms.Button btn_RmvFamilyTie;
-        private System.Windows.Forms.ComboBox cmbBox_Characters;
-        private System.Windows.Forms.Button btn_AddFamilyTie;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.PictureBox picBox_Banner;
         private System.Windows.Forms.PictureBox picBox_Race;
         private System.Windows.Forms.PictureBox picBox_Gender;
         private System.Windows.Forms.PictureBox picBox_Condition;
         private System.Windows.Forms.PictureBox picBox_SpCondition;
-        private System.Windows.Forms.GroupBox grpBox_FamilyNode;
-        private System.Windows.Forms.Label lbl_FamilyNode;
         private System.Windows.Forms.GroupBox grpBox_Birthday;
         private System.Windows.Forms.TextBox txtBox_Deathday;
         private System.Windows.Forms.TextBox txtBox_Birthday;
@@ -1447,5 +1403,6 @@
         private System.Windows.Forms.Button btn_LoadPicture;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btn_DiscardPicture;
+        private System.Windows.Forms.Button btn_AddNewNode;
     }
 }

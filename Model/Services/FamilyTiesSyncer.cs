@@ -45,17 +45,17 @@ namespace Model
                                         string opositeFamilyTie = "";
                                         switch (originalFamilyTieNode.Tie)
                                         {
-                                            case "Parents":
+                                            case "Parent":
                                                 opositeFamilyTie = "Children";
                                                 break;
                                             case "Children":
-                                                opositeFamilyTie = "Parents";
+                                                opositeFamilyTie = "Parent";
                                                 break;
-                                            case "Spouses":
-                                                opositeFamilyTie = "Spouses";
+                                            case "Spouse":
+                                                opositeFamilyTie = "Spouse";
                                                 break;
-                                            case "Siblings":
-                                                opositeFamilyTie = "Siblings";
+                                            case "Sibling":
+                                                opositeFamilyTie = "Sibling";
                                                 break;
                                         }
 
@@ -95,17 +95,17 @@ namespace Model
                         string opositeFamilyTie = "";
                         switch (fakeFamilyNode.Tie)
                         {
-                            case "Parents":
+                            case "Parent":
                                 opositeFamilyTie = "Children";
                                 break;
                             case "Children":
-                                opositeFamilyTie = "Parents";
+                                opositeFamilyTie = "Parent";
                                 break;
-                            case "Spouses":
-                                opositeFamilyTie = "Spouses";
+                            case "Spouse":
+                                opositeFamilyTie = "Spouse";
                                 break;
-                            case "Siblings":
-                                opositeFamilyTie = "Siblings";
+                            case "Sibling":
+                                opositeFamilyTie = "Sibling";
                                 break;
                         }
 
