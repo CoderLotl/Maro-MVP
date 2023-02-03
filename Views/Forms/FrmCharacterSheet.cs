@@ -539,9 +539,7 @@ namespace Views
 			cmbBox_Race.Text = _characterSheetPresenter.Character.Race.ToString();
 			cmbBox_Gender.Text = _characterSheetPresenter.Character.Gender.ToString();
 			cmbBox_Condition.Text = _characterSheetPresenter.Character.Condition.ToString();
-			cmbBox_SpCondition.Text = _characterSheetPresenter.Character.SpecialCondition.ToString();
-
-			//Utilities.RaceImagePicker(_characterSheetPresenter.Character.Race.ToString(), picBox_Race, raceImage);
+			cmbBox_SpCondition.Text = _characterSheetPresenter.Character.SpecialCondition.ToString();			
 		}
 
 		//--------------------------------------------

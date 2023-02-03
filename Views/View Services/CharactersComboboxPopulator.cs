@@ -24,7 +24,7 @@ namespace Views
         {
             comboBox.Items.Clear();
 
-            ValidRelationships validRelationships = new ValidRelationships();
+            RelationshipsValidator validRelationships = new RelationshipsValidator();
 
             foreach(Character character in validRelationships.CalculateValidRelationships(_charactersService, _characterSheetPresenter))
             {

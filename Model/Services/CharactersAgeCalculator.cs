@@ -5,13 +5,13 @@ using System.Windows.Forms;
 
 namespace Model
 {
-    public class CalculateCharactersAge
+    public class CharactersAgeCalculator
     {        
         string _date;
         int _year;
         int _day;
 
-        public CalculateCharactersAge()
+        public CharactersAgeCalculator()
         {            
         }
 
@@ -63,8 +63,6 @@ namespace Model
             {
                 message("Ages couldn't be updated. Check your connection!");
             }
-            //message("All ages have been updated.");
-            //message("Ages couldn't be updated. Check your connection!");
         }
 
         private void ParseDate()

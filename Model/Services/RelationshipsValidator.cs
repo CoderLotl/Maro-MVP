@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public class ValidRelationships 
+    public class RelationshipsValidator 
     {
         public List<Character> CalculateValidRelationships(ICharactersService charactersService, CharacterSheetPresenter characterSheetPresenter)
         {

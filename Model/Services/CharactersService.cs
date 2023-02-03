@@ -57,7 +57,7 @@ namespace Model
 
         public void CalculateCharactersAge(Action<string> message)
         {
-            CalculateCharactersAge calculateCharactersAge = new CalculateCharactersAge();
+            CharactersAgeCalculator calculateCharactersAge = new CharactersAgeCalculator();
             calculateCharactersAge.CalcCharsAge(message, Characters);
         }
     }

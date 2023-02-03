@@ -1,12 +1,4 @@
-﻿/*
- * Created by SharpDevelop.
- * User: 107
- * Date: 14/01/2023
- * Time: 17:38
- * 
- * To change this template use Tools | Options | Coding | Edit Standard Headers.
- */
-using System;
+﻿using System;
 
 namespace Model
 {

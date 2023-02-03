@@ -57,11 +57,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Classes\RelationshipUnit.cs" />
     <Compile Include="Model\ServicesInterface\ICharactersService.cs" />
     <Compile Include="Model\ServicesInterface\IValidRelationships.cs" />
     <Compile Include="Model\Services\CharactersService.cs" />
     <Compile Include="Model\Services\ImagePicker.cs" />
-    <Compile Include="Model\Services\ValidRelationships.cs" />
+    <Compile Include="Model\Services\RelationshipsValidator.cs" />
+    <Compile Include="Model\Services\Variables.cs" />
     <Compile Include="Presenters\NewFamilyNodePresenter.cs" />
     <Compile Include="Views\Forms\FrmNewFamilyNode.cs">
       <SubType>Form</SubType>
@@ -77,17 +79,17 @@
     </Compile>
     <Compile Include="Model\Classes\Character.cs" />
     <Compile Include="Model\Classes\CharAttribute.cs" />
-    <Compile Include="Model\Classes\DataSerializer.cs" />
+    <Compile Include="Model\Classes\JSONSerializer.cs" />
     <Compile Include="Model\Classes\Date.cs" />
     <Compile Include="Model\Classes\FamilyTie.cs" />
     <Compile Include="Model\EventArgs\FamilyTieNodeEventArgs.cs" />
-    <Compile Include="Model\Services\CalculateCharactersAge.cs" />
+    <Compile Include="Model\Services\CharactersAgeCalculator.cs" />
     <Compile Include="Model\Services\FamilyTieNodeComparer.cs" />
     <Compile Include="Model\Services\FamilyTiesSyncer.cs" />
     <Compile Include="Model\Services\PictureSerializer.cs" />
     <Compile Include="Model\Services\DateRetriever.cs" />
     <Compile Include="Model\Exceptions\TimeoutConnectionException.cs" />
-    <Compile Include="Model\Classes\Variables.cs" />
+    <Compile Include="Model\Classes\OldVariables.cs" />
     <Compile Include="Presenters\CharacterSheetPresenter.cs" />
     <Compile Include="Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
