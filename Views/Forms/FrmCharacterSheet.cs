@@ -32,14 +32,16 @@ namespace Views
 
 		readonly CharacterSheetPresenter _characterSheetPresenter;
 		readonly ICharactersService _characterService;
+		readonly IVariables _variables;
 		//*************************************************
 
-        public FrmCharacterSheet(Character character, int option, ICharactersService charactersService)
+        public FrmCharacterSheet(Character character, int option, ICharactersService charactersService, IVariables variables)
         {
             InitializeComponent();
 
 			_characterService = charactersService;
-            _characterSheetPresenter = new CharacterSheetPresenter(this, _characterService, character, option);
+			_variables = variables;
+            _characterSheetPresenter = new CharacterSheetPresenter(this, _characterService, _variables, character, option);
 			_imagePicker = new ImagePicker();
 
             if (option == 0) // IF THE FORM IS ONLY TO VIEW A CHAR, I DISABLE THE EDIT.
@@ -144,7 +146,7 @@ namespace Views
 
         private void Btn_AddNewNode_Click(object sender, EventArgs e)
         {
-            FrmNewFamilyNode frmNewFamilyNode = new FrmNewFamilyNode(_characterService, _characterSheetPresenter);
+            FrmNewFamilyNode frmNewFamilyNode = new FrmNewFamilyNode(_characterService, _variables, _characterSheetPresenter);
             if (frmNewFamilyNode.ShowDialog() == DialogResult.OK)
             {
                 AddFamilyTie(this, frmNewFamilyNode.Presenter.EventArgs);
@@ -205,7 +207,7 @@ namespace Views
 				{
 					if (aCharacter.ID == Convert.ToInt32(e.Node.Name))
 					{
-						FrmCharacterSheet viewThisChar = new FrmCharacterSheet(aCharacter, 0, _characterService);
+						FrmCharacterSheet viewThisChar = new FrmCharacterSheet(aCharacter, 0, _characterService, _variables);
 						viewThisChar.Show();
 						break;
 					}
@@ -223,29 +225,29 @@ namespace Views
 		{
 			LoadCharacter();
 
-			foreach (var value in Enum.GetValues(typeof(Race)))
+			foreach (string race in _variables.Races)
 			{
-				cmbBox_Race.Items.Add(value.ToString());
+				cmbBox_Race.Items.Add(race);
 			}
-			cmbBox_Race.Text = _characterSheetPresenter.Character.Race.ToString();
+			cmbBox_Race.Text = _characterSheetPresenter.Character.Race;
 
-			foreach (var value in Enum.GetValues(typeof(Gender)))
+			foreach (string gender in _variables.Genders)
 			{
-				cmbBox_Gender.Items.Add(value.ToString());
+				cmbBox_Gender.Items.Add(gender);
 			}
-			cmbBox_Gender.Text = _characterSheetPresenter.Character.Gender.ToString();
+			cmbBox_Gender.Text = _characterSheetPresenter.Character.Gender;
 
-			foreach (var value in Enum.GetValues(typeof(Condition)))
+			foreach (string condition in _variables.Conditions)
 			{
-				cmbBox_Condition.Items.Add(value.ToString());
+				cmbBox_Condition.Items.Add(condition);
 			}
-			cmbBox_Condition.Text = _characterSheetPresenter.Character.Condition.ToString();
+			cmbBox_Condition.Text = _characterSheetPresenter.Character.Condition;
 
-			foreach (var value in Enum.GetValues(typeof(SpecialCondition)))
+			foreach (string spCondition in _variables.SpecialConditions)
 			{
-				cmbBox_SpCondition.Items.Add(value.ToString());
+				cmbBox_SpCondition.Items.Add(spCondition);
 			}
-			cmbBox_SpCondition.Text = _characterSheetPresenter.Character.SpecialCondition.ToString();
+			cmbBox_SpCondition.Text = _characterSheetPresenter.Character.SpecialCondition;
 
 			cmbBox_IsAlive.Items.Add("Yes");
 			cmbBox_IsAlive.Items.Add("No");
@@ -327,10 +329,10 @@ namespace Views
 			characterEventArgs.Name = txtBox_Name.Text;
             characterEventArgs.Age = Convert.ToInt32(nud_Age.Value);
 			nud_Age.Visible = false;
-            characterEventArgs.Race = (Race)Enum.Parse(typeof(Race), cmbBox_Race.Text);
-            characterEventArgs.Gender = (Gender)Enum.Parse(typeof(Gender), cmbBox_Gender.Text);
-            characterEventArgs.Condition = (Condition)Enum.Parse(typeof(Condition), cmbBox_Condition.Text);
-            characterEventArgs.SpecialCondition = (SpecialCondition)Enum.Parse(typeof(SpecialCondition), cmbBox_SpCondition.Text);
+            characterEventArgs.Race = cmbBox_Race.Text;
+            characterEventArgs.Gender = cmbBox_Gender.Text;
+            characterEventArgs.Condition = cmbBox_Condition.Text;
+            characterEventArgs.SpecialCondition = cmbBox_SpCondition.Text;
             characterEventArgs.Description = rchTxtBox_Description.Rtf;
 
 			if (cmbBox_IsAlive.Text == "Yes")
@@ -449,10 +451,11 @@ namespace Views
 		{
 			tv_Family.Nodes.Add("Character: " + _characterSheetPresenter.Character.Name);
 			
-			foreach(var tie in Enum.GetNames(typeof(FamilyTie)))
+			foreach(RelationshipUnit relationshipUnit in _variables.Relations)
 			{
-				tv_Family.Nodes[0].Nodes.Add(tie);
+				tv_Family.Nodes[0].Nodes.Add(relationshipUnit.TieName);
 			}
+			
 			tv_Family.Nodes[0].ExpandAll();
 
 			PopulateTree();

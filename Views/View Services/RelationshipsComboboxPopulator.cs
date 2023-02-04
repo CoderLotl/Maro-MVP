@@ -10,12 +10,12 @@ namespace Views
 {
     public class RelationshipsComboboxPopulator
     {
-        public void PopulateRelationshipsCmbBox(ComboBox comboBox)
+        public void PopulateRelationshipsCmbBox(ComboBox comboBox, IVariables variables)
         {
             comboBox.Items.Clear();
-            foreach(var familyTie in Enum.GetNames(typeof(FamilyTie)))
+            foreach(RelationshipUnit relationshipUnit in variables.Relations)
             {
-                comboBox.Items.Add(familyTie);
+                comboBox.Items.Add(relationshipUnit.TieName);
             }
         }
     }

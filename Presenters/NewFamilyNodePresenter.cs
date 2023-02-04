@@ -1,33 +1,31 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Views;
 using Model;
-using Presenter;
 
-namespace Presenters
+namespace Presenter
 {
     public class NewFamilyNodePresenter
     {
         readonly INewFamilyNodeView _newFamilyNodeView;
         readonly ICharactersService _charactersService;
+        readonly IVariables _variables;
         readonly CharacterSheetPresenter _characterSheetPresenter;
         FamilyTieNodeEventArgs eventArgs;
 
-        public NewFamilyNodePresenter(INewFamilyNodeView newFamilyNodeView, ICharactersService charactersService, CharacterSheetPresenter characterSheetPresenter)
+        public NewFamilyNodePresenter(INewFamilyNodeView newFamilyNodeView, ICharactersService charactersService, IVariables variables, CharacterSheetPresenter characterSheetPresenter)
         {
             _newFamilyNodeView = newFamilyNodeView;
             _charactersService = charactersService;
+            _variables = variables;
             _characterSheetPresenter = characterSheetPresenter;
             eventArgs = new FamilyTieNodeEventArgs();
 
             Subscribe();
         }
 
-        public FamilyTieNodeEventArgs EventArgs { get => eventArgs; set => eventArgs = value; }
+        public FamilyTieNodeEventArgs EventArgs { get {	return eventArgs; }	set { eventArgs = value; }	}
 
         private void Subscribe()
         {
@@ -41,7 +39,7 @@ namespace Presenters
             _newFamilyNodeView.PopulateRelationshipsComboBox += (e, o) =>
             {
                 RelationshipsComboboxPopulator relationshipsComboboxPopulator = new RelationshipsComboboxPopulator();
-                relationshipsComboboxPopulator.PopulateRelationshipsCmbBox((ComboBox)o);
+                relationshipsComboboxPopulator.PopulateRelationshipsCmbBox((ComboBox)o, _variables);
             };
         }
         

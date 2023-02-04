@@ -21,13 +21,15 @@ namespace Presenter
         int initialized = 0;
         Image raceImage; Image genderImage; Image conditionImage; Image spConditionImage;
         readonly ICharactersService _characterService;
+        readonly IVariables _variables;
         readonly ICharacterSheetView _iCharacterSheet;        
         //*************************************************
 
-        public CharacterSheetPresenter(ICharacterSheetView frmCharacterSheet, ICharactersService charactersService, Character character, int option)
+        public CharacterSheetPresenter(ICharacterSheetView frmCharacterSheet, ICharactersService charactersService, IVariables variables, Character character, int option)
         {
             _iCharacterSheet = frmCharacterSheet;
             _characterService = charactersService;
+            _variables = variables;
             _iCharacterSheet.CharacterEventArgs = new Character(1);
             _iCharacterSheet.ProgressBarFiller = new ProgressBarFiller();
 
@@ -81,9 +83,9 @@ namespace Presenter
 
             _iCharacterSheet.EditCharData += (e, o) =>
             {
-                FamilyTiesSyncer familyTiesSyncer = new FamilyTiesSyncer();
+                NewFamilyTiesSyncer familyTiesSyncer = new NewFamilyTiesSyncer();
 
-                familyTiesSyncer.SyncFamilyTies(fakeCharacter, character, _characterService.Characters);
+                familyTiesSyncer.SyncFamilyTies(fakeCharacter, character, _characterService.Characters, _variables);
                 character = CopyCharacter(o);
 
                 if(newCharacter == true)

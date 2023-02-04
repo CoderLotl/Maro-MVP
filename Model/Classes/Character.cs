@@ -18,10 +18,10 @@ namespace Model
 		string description;
 		Date birthday;
 		Date deathday;
-        Race race;
-		Gender gender;		
-		Condition condition;		
-		SpecialCondition specialCondition;
+        string race;
+		string gender;
+		string condition;
+		string specialCondition;
 		string charPicture;
 
         // - - - FAMILY
@@ -63,15 +63,16 @@ namespace Model
 		public int Age{
 			set{	age = value;	}	get{	return age;		}
 		}
-		public Race Race{
+		public string Race{
 			set{	race = value;	}	get{	return race;	}
-		}		public Gender Gender{
+		}
+        public string Gender{
 			set{	gender = value;	}	get{	return gender;	}
 		}
-		public Condition Condition{
+		public string Condition{
 			set{	condition = value;}	get{	return condition;}
 		}
-		public SpecialCondition SpecialCondition{
+		public string SpecialCondition{
 			set{	specialCondition = value;	}	get{	return specialCondition;	}
 		}
 		public bool IsAlive{
@@ -142,7 +143,7 @@ namespace Model
 
         // ----------------------------- CONSTRUCTOR
 
-        public Character(int id, string name, int age, Race race, Gender gender, Condition condition, SpecialCondition specialCondition){
+        public Character(int id, string name, int age, string race, string gender, string condition, string specialCondition){
 			this.id = id;			
 			this.name = name;
 			this.age = age;

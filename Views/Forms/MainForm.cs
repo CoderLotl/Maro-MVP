@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
-using Model;
 using Presenter;
 
 namespace Views
 {
     public partial class MainForm : Form, IMainView
     {
-        //*************************************************		
+        //*************************************************	
 
         readonly MainPresenter presenter;
 
@@ -42,10 +39,18 @@ namespace Views
 
         void Btn_CharactersClick(object sender, EventArgs e)
         {
-            FrmCharactersMain characters = new FrmCharactersMain(this, presenter.charactersService);
+            FrmCharactersMain characters = new FrmCharactersMain(this, presenter.charactersService, presenter.variables);
             characters.Show();
             this.Hide();
         }
+        
+        //------------------ [ MAPPER ]
+        
+		void Btn_MapperClick(object sender, EventArgs e)
+		{
+			FrmMapperMain mapperMain = new FrmMapperMain();
+			mapperMain.Show();
+		}
 
         //------------------ [ OPTIONS ]
 
@@ -66,7 +71,8 @@ namespace Views
         //------------------ [ EVENTS ]
         //-----------------------------------------------------	
 
-        public event EventHandler RetrieveData;
+        public event EventHandler RetrieveData;    
+
 
     }
 }

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Model
 {    
@@ -19,7 +16,7 @@ namespace Model
             this.oppositeTie = oppositeTie;
         }
 
-        public string TieName { get => tieName; set => tieName = value; }
-        public string OppositeTie { get => oppositeTie; set => oppositeTie = value; }
+        public string TieName { get { return tieName; }	set { tieName = value; }	}
+        public string OppositeTie { get { return oppositeTie; }	set { oppositeTie = value; }	}
     }
 }

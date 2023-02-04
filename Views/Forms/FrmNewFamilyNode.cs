@@ -1,5 +1,4 @@
-﻿using Presenters;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,7 +17,7 @@ namespace Views
     {
         //*************************************************
 
-        readonly NewFamilyNodePresenter newFamilyNodePresenter;
+        readonly NewFamilyNodePresenter newFamilyNodePresenter;        
 
         //*************************************************
 
@@ -27,10 +26,10 @@ namespace Views
             get { return newFamilyNodePresenter; }
         }
 
-        public FrmNewFamilyNode(ICharactersService charactersService, CharacterSheetPresenter characterSheetPresenter)
+        public FrmNewFamilyNode(ICharactersService charactersService, IVariables variables, CharacterSheetPresenter characterSheetPresenter)
         {
             InitializeComponent();
-            newFamilyNodePresenter = new NewFamilyNodePresenter(this, charactersService, characterSheetPresenter);
+            newFamilyNodePresenter = new NewFamilyNodePresenter(this, charactersService, variables, characterSheetPresenter);
 
             PopulateCharactersComboBox.Invoke(this, comboBox1);
             PopulateRelationshipsComboBox.Invoke(this, comboBox2);

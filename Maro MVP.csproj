@@ -57,13 +57,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Classes\Mapper\Data.cs" />
+    <Compile Include="Model\Classes\Mapper\LocationNode.cs" />
     <Compile Include="Model\Classes\RelationshipUnit.cs" />
-    <Compile Include="Model\ServicesInterface\ICharactersService.cs" />
-    <Compile Include="Model\ServicesInterface\IValidRelationships.cs" />
-    <Compile Include="Model\Services\CharactersService.cs" />
-    <Compile Include="Model\Services\ImagePicker.cs" />
-    <Compile Include="Model\Services\RelationshipsValidator.cs" />
-    <Compile Include="Model\Services\Variables.cs" />
+    <Compile Include="Model\Services Interface\ICharactersAgeCalculator.cs" />
+    <Compile Include="Model\Services Interface\ICharactersService.cs" />
+    <Compile Include="Model\Services Interface\IDataRetriever.cs" />
+    <Compile Include="Model\Services Interface\IFamilyTieNodeComparer.cs" />
+    <Compile Include="Model\Services Interface\IImagePicker.cs" />
+    <Compile Include="Model\Services Interface\INewFamilyTieSyncer.cs" />
+    <Compile Include="Model\Services Interface\IPictureSerializer.cs" />
+    <Compile Include="Model\Services Interface\IRelationshipsValidator.cs" />
+    <Compile Include="Model\Services Interface\IVariables.cs" />
+    <Compile Include="Model\Model Services\CharactersService.cs" />
+    <Compile Include="Model\Model Services\ImagePicker.cs" />
+    <Compile Include="Model\Model Services\NewFamilyTieSyncer.cs" />
+    <Compile Include="Model\Model Services\RelationshipsValidator.cs" />
+    <Compile Include="Model\Model Services\Variables.cs" />
+    <Compile Include="Presenters\Mapper Presenters\MapperMainPresenter.cs" />
     <Compile Include="Presenters\NewFamilyNodePresenter.cs" />
     <Compile Include="Views\Forms\FrmNewFamilyNode.cs">
       <SubType>Form</SubType>
@@ -83,13 +94,12 @@
     <Compile Include="Model\Classes\Date.cs" />
     <Compile Include="Model\Classes\FamilyTie.cs" />
     <Compile Include="Model\EventArgs\FamilyTieNodeEventArgs.cs" />
-    <Compile Include="Model\Services\CharactersAgeCalculator.cs" />
-    <Compile Include="Model\Services\FamilyTieNodeComparer.cs" />
-    <Compile Include="Model\Services\FamilyTiesSyncer.cs" />
-    <Compile Include="Model\Services\PictureSerializer.cs" />
-    <Compile Include="Model\Services\DateRetriever.cs" />
+    <Compile Include="Model\Model Services\CharactersAgeCalculator.cs" />
+    <Compile Include="Model\Model Services\FamilyTieNodeComparer.cs" />
+    <Compile Include="Model\Model Services\FamilyTiesSyncer.cs" />
+    <Compile Include="Model\Model Services\PictureSerializer.cs" />
+    <Compile Include="Model\Model Services\DateRetriever.cs" />
     <Compile Include="Model\Exceptions\TimeoutConnectionException.cs" />
-    <Compile Include="Model\Classes\OldVariables.cs" />
     <Compile Include="Presenters\CharacterSheetPresenter.cs" />
     <Compile Include="Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
@@ -121,10 +131,31 @@
     <Compile Include="Views\Forms\FrmDateSetter.designer.cs">
       <DependentUpon>FrmDateSetter.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Interfaces\ICharactersView.cs" />
-    <Compile Include="Views\Interfaces\ICharacterSheetView.cs" />
-    <Compile Include="Views\Interfaces\IMainView.cs" />
-    <Compile Include="Views\Interfaces\INewFamilyNodeView.cs" />
+    <Compile Include="Views\Forms\Mapper Forms\FrmEditColumnOrRow.cs" />
+    <Compile Include="Views\Forms\Mapper Forms\FrmEditColumnOrRow.Designer.cs">
+      <DependentUpon>FrmEditColumnOrRow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Forms\Mapper Forms\FrmInsertColumn.cs" />
+    <Compile Include="Views\Forms\Mapper Forms\FrmInsertColumn.Designer.cs">
+      <DependentUpon>FrmInsertColumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Forms\Mapper Forms\FrmMapperMain.cs" />
+    <Compile Include="Views\Forms\Mapper Forms\FrmMapperMain.Designer.cs">
+      <DependentUpon>FrmMapperMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Forms\Mapper Forms\FrmNewMap.cs" />
+    <Compile Include="Views\Forms\Mapper Forms\FrmNewMap.Designer.cs">
+      <DependentUpon>FrmNewMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Forms\Mapper Forms\FrmTileDetails.cs" />
+    <Compile Include="Views\Forms\Mapper Forms\FrmTileDetails.Designer.cs">
+      <DependentUpon>FrmTileDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\View Interfaces\ICharactersView.cs" />
+    <Compile Include="Views\View Interfaces\ICharacterSheetView.cs" />
+    <Compile Include="Views\View Interfaces\IMainView.cs" />
+    <Compile Include="Views\View Interfaces\INewFamilyNodeView.cs" />
+    <Compile Include="Views\View Interfaces\Mapper Interfaces\IMapperMain.cs" />
     <Compile Include="Views\View Services\CharactersComboboxPopulator.cs" />
     <Compile Include="Views\View Services\ProgressBarFiller.cs" />
     <Compile Include="Views\View Services\RelationshipsComboboxPopulator.cs" />
@@ -157,6 +188,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Forms\Mapper Forms\FrmEditColumnOrRow.resx">
+      <DependentUpon>FrmEditColumnOrRow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Forms\Mapper Forms\FrmInsertColumn.resx">
+      <DependentUpon>FrmInsertColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Forms\Mapper Forms\FrmMapperMain.resx">
+      <DependentUpon>FrmMapperMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Forms\Mapper Forms\FrmNewMap.resx">
+      <DependentUpon>FrmNewMap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Forms\Mapper Forms\FrmTileDetails.resx">
+      <DependentUpon>FrmTileDetails.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -263,6 +309,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\Classes\Mapper" />
+    <Folder Include="Presenters\Mapper Presenters" />
+    <Folder Include="Views\Forms\Mapper Forms" />
+    <Folder Include="Views\View Interfaces\Mapper Interfaces" />
+    <Folder Include="Views\View Services\Mapper Services" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -15,15 +15,17 @@ namespace Views
         MainForm main;
 		readonly CharactersPresenter _charPresenter;
         readonly ICharactersService _charactersService;
+        readonly IVariables _variables;
 
         //*************************************************
 
-        public FrmCharactersMain(MainForm mainform, ICharactersService charactersService)
+        public FrmCharactersMain(MainForm mainform, ICharactersService charactersService, IVariables variables)
 
         {
             InitializeComponent();
             main = mainform;
             _charactersService = charactersService;
+            _variables = variables;
 
             _charPresenter = new CharactersPresenter(this, charactersService);
             lbl_MaroDate.Text = main.Lbl_MaroDate;
@@ -55,7 +57,7 @@ namespace Views
         
         private void btn_AddCharacter_Click(object sender, EventArgs e)
         {
-            FrmCharacterSheet frmCharacterSheet = new FrmCharacterSheet(null, 1, _charactersService);
+            FrmCharacterSheet frmCharacterSheet = new FrmCharacterSheet(null, 1, _charactersService, _variables);
             if(frmCharacterSheet.ShowDialog() == DialogResult.OK)
             {
                 DrawDataTable(1);
@@ -205,7 +207,7 @@ namespace Views
 
             if (dataGridView1.Columns[e.ColumnIndex].Name == "DGV_ViewChar")
             {
-                FrmCharacterSheet viewChar = new FrmCharacterSheet(_charactersService.Characters[dataGridView1.CurrentRow.Index], 2, _charactersService);
+                FrmCharacterSheet viewChar = new FrmCharacterSheet(_charactersService.Characters[dataGridView1.CurrentRow.Index], 2, _charactersService, _variables);
                 if (viewChar.ShowDialog() == DialogResult.OK)
                 {
                     _charactersService.Characters[dataGridView1.CurrentRow.Index] = viewChar.PresenterCharacter;
