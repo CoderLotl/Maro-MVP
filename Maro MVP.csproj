@@ -76,10 +76,28 @@
     <Compile Include="Model\Model Services\Variables.cs" />
     <Compile Include="Presenters\Mapper Presenters\MapperMainPresenter.cs" />
     <Compile Include="Presenters\NewFamilyNodePresenter.cs" />
-    <Compile Include="Views\Forms\FrmNewFamilyNode.cs">
+    <Compile Include="Views\Forms\Characters Forms\FrmCharacterSheet.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\Forms\FrmNewFamilyNode.Designer.cs">
+    <Compile Include="Views\Forms\Characters Forms\FrmCharacterSheet.designer.cs">
+      <DependentUpon>FrmCharacterSheet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Forms\Characters Forms\FrmCharactersMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Forms\Characters Forms\FrmCharactersMain.Designer.cs">
+      <DependentUpon>FrmCharactersMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Forms\Characters Forms\FrmDateSetter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Forms\Characters Forms\FrmDateSetter.designer.cs">
+      <DependentUpon>FrmDateSetter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Forms\Characters Forms\FrmNewFamilyNode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Forms\Characters Forms\FrmNewFamilyNode.Designer.cs">
       <DependentUpon>FrmNewFamilyNode.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Forms\MainForm.cs">
@@ -113,41 +131,33 @@
     <Compile Include="Presenters\MainPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\Forms\FrmCharacterSheet.cs">
+    <Compile Include="Views\Forms\Mapper Forms\FrmEditColumnOrRow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\Forms\FrmCharacterSheet.designer.cs">
-      <DependentUpon>FrmCharacterSheet.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Forms\FrmCharactersMain.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\Forms\FrmCharactersMain.Designer.cs">
-      <DependentUpon>FrmCharactersMain.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Forms\FrmDateSetter.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\Forms\FrmDateSetter.designer.cs">
-      <DependentUpon>FrmDateSetter.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Forms\Mapper Forms\FrmEditColumnOrRow.cs" />
     <Compile Include="Views\Forms\Mapper Forms\FrmEditColumnOrRow.Designer.cs">
       <DependentUpon>FrmEditColumnOrRow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Forms\Mapper Forms\FrmInsertColumn.cs" />
+    <Compile Include="Views\Forms\Mapper Forms\FrmInsertColumn.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Views\Forms\Mapper Forms\FrmInsertColumn.Designer.cs">
       <DependentUpon>FrmInsertColumn.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Forms\Mapper Forms\FrmMapperMain.cs" />
+    <Compile Include="Views\Forms\Mapper Forms\FrmMapperMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Views\Forms\Mapper Forms\FrmMapperMain.Designer.cs">
       <DependentUpon>FrmMapperMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Forms\Mapper Forms\FrmNewMap.cs" />
+    <Compile Include="Views\Forms\Mapper Forms\FrmNewMap.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Views\Forms\Mapper Forms\FrmNewMap.Designer.cs">
       <DependentUpon>FrmNewMap.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Forms\Mapper Forms\FrmTileDetails.cs" />
+    <Compile Include="Views\Forms\Mapper Forms\FrmTileDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Views\Forms\Mapper Forms\FrmTileDetails.Designer.cs">
       <DependentUpon>FrmTileDetails.cs</DependentUpon>
     </Compile>
@@ -174,16 +184,16 @@
     <EmbeddedResource Include="Views\Controls\XpProgressBar.resx">
       <DependentUpon>XpProgressBar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Forms\FrmCharacterSheet.resx">
+    <EmbeddedResource Include="Views\Forms\Characters Forms\FrmCharacterSheet.resx">
       <DependentUpon>FrmCharacterSheet.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Forms\FrmCharactersMain.resx">
+    <EmbeddedResource Include="Views\Forms\Characters Forms\FrmCharactersMain.resx">
       <DependentUpon>FrmCharactersMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Forms\FrmDateSetter.resx">
+    <EmbeddedResource Include="Views\Forms\Characters Forms\FrmDateSetter.resx">
       <DependentUpon>FrmDateSetter.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Forms\FrmNewFamilyNode.resx">
+    <EmbeddedResource Include="Views\Forms\Characters Forms\FrmNewFamilyNode.resx">
       <DependentUpon>FrmNewFamilyNode.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Forms\MainForm.resx">
@@ -311,11 +321,8 @@
     <Content Include="favicon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Model\Classes\Mapper" />
-    <Folder Include="Presenters\Mapper Presenters" />
-    <Folder Include="Views\Forms\Mapper Forms" />
-    <Folder Include="Views\View Interfaces\Mapper Interfaces" />
-    <Folder Include="Views\View Services\Mapper Services" />
+    <Folder Include="Views\Forms\Characters Forms" />
+    <Folder Include="Views\View Services\Mapper Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
