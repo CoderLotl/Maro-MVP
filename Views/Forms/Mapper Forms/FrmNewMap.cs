@@ -10,12 +10,10 @@ namespace Views
 		
 		public FrmNewMap()
 		{
-
 			InitializeComponent();
 			
 			int height = 0;
 			int width = 0;
-
 		}
 
 		public int CellHeight

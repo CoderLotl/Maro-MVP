@@ -225,7 +225,6 @@ namespace Presenter
 						locationNodes[rowIndex][columnIndex].LocationName = frmTileDetails.FakeLocationNode.LocationName;
 						locationNodes[rowIndex][columnIndex].LocationType = frmTileDetails.FakeLocationNode.LocationType;
 
-						//DrawTable();
 						DrawTable2();
 	                    SetNewCellDimenssions(mapWidht, mapHeight);
 	                }	

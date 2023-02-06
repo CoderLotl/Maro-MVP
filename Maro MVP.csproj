@@ -138,12 +138,6 @@
     <Compile Include="Views\Forms\Mapper Forms\FrmEditColumnOrRow.Designer.cs">
       <DependentUpon>FrmEditColumnOrRow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Forms\Mapper Forms\FrmInsertColumn.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\Forms\Mapper Forms\FrmInsertColumn.Designer.cs">
-      <DependentUpon>FrmInsertColumn.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\Forms\Mapper Forms\FrmMapperMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -203,9 +197,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Forms\Mapper Forms\FrmEditColumnOrRow.resx">
       <DependentUpon>FrmEditColumnOrRow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Forms\Mapper Forms\FrmInsertColumn.resx">
-      <DependentUpon>FrmInsertColumn.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Forms\Mapper Forms\FrmMapperMain.resx">
       <DependentUpon>FrmMapperMain.cs</DependentUpon>

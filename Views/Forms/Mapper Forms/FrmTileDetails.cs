@@ -23,8 +23,7 @@ namespace Views
 			pictureBox1.BackgroundImage = pictureSerializer.TurnStringToImage( fakeLocationNode.LocationImage );
 			richTextBox1.Text = fakeLocationNode.Description;
 			textBox1.Text = fakeLocationNode.LocationName;
-			textBox2.Text = fakeLocationNode.LocationType;
-			
+			textBox2.Text = fakeLocationNode.LocationType;			
 		}
 
 
@@ -32,12 +31,6 @@ namespace Views
         {
         	get { return fakeLocationNode; }
         }
-
-
-		void FrmTileDetailsLoad(object sender, EventArgs e)
-		{
-	
-		}
 		
 		void Btn_CancelClick(object sender, EventArgs e)
 		{
@@ -46,8 +39,6 @@ namespace Views
 		
 		void Btn_AcceptClick(object sender, EventArgs e)
 		{
-
-			//fakeLocationNode.LocationImage
 			fakeLocationNode.Description = richTextBox1.Text;
 			fakeLocationNode.LocationName = textBox1.Text;
 			fakeLocationNode.LocationType = textBox2.Text;

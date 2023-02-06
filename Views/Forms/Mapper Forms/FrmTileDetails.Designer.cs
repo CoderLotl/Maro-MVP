@@ -163,8 +163,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "FrmTileDetails";
-            this.Text = "FrmTileDetails";
-            this.Load += new System.EventHandler(this.FrmTileDetailsLoad);
+            this.Text = "FrmTileDetails";            
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox2.ResumeLayout(false);
