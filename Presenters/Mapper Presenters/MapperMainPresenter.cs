@@ -21,7 +21,7 @@ namespace Presenter
 		string title;
 		bool savedFile;
 		string filePath;
-		static List<List<LocationNode>> locationNodes;
+		List<List<LocationNode>> locationNodes;
 		IMapperMain _mapperMain;
 				
 		//*************************************************
@@ -363,7 +363,7 @@ namespace Presenter
 		{
 			if(locationNodes != null && locationNodes.Count > 0)
 			{
-				FrmEditColumnOrRow insertColumn = new FrmEditColumnOrRow(locationNodes[0].Count, "Index to insert at", 1);
+				FrmEditColumnOrRow insertColumn = new FrmEditColumnOrRow(locationNodes[0].Count, "Index to insert at", 1, locationNodes);
 				
 				if( insertColumn.ShowDialog() == DialogResult.OK )
 				{
@@ -389,7 +389,7 @@ namespace Presenter
 		{
 			if(locationNodes != null && locationNodes.Count > 0)
 			{
-				FrmEditColumnOrRow insertColumn = new FrmEditColumnOrRow(locationNodes.Count, "Index to insert at", 1);
+				FrmEditColumnOrRow insertColumn = new FrmEditColumnOrRow(locationNodes.Count, "Index to insert at", 1, locationNodes);
 				
 				if( insertColumn.ShowDialog() == DialogResult.OK )
 				{
@@ -592,7 +592,7 @@ namespace Presenter
 		
 		void RemoveColumn()
 		{
-			FrmEditColumnOrRow removeColumn = new FrmEditColumnOrRow(locationNodes[0].Count, "Index to remove at", 2);
+			FrmEditColumnOrRow removeColumn = new FrmEditColumnOrRow(locationNodes[0].Count, "Index to remove at", 2, locationNodes);
 			
 			if(removeColumn.ShowDialog() == DialogResult.OK)
 			{
@@ -609,7 +609,7 @@ namespace Presenter
 		
 		void RemoveRow()
 		{
-			FrmEditColumnOrRow removeRow = new FrmEditColumnOrRow(locationNodes.Count, "Index to remove at", 3);
+			FrmEditColumnOrRow removeRow = new FrmEditColumnOrRow(locationNodes.Count, "Index to remove at", 3, locationNodes);
 			
 			if(removeRow.ShowDialog() == DialogResult.OK)
 			{

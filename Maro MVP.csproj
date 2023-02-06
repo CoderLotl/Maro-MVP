@@ -59,7 +59,7 @@
   <ItemGroup>
     <Compile Include="Model\Classes\Mapper\Data.cs" />
     <Compile Include="Model\Classes\Mapper\LocationNode.cs" />
-    <Compile Include="Model\Classes\RelationshipUnit.cs" />
+    <Compile Include="Model\Classes\Characters\RelationshipUnit.cs" />
     <Compile Include="Model\Services Interface\ICharactersAgeCalculator.cs" />
     <Compile Include="Model\Services Interface\ICharactersService.cs" />
     <Compile Include="Model\Services Interface\IDataRetriever.cs" />
@@ -74,8 +74,9 @@
     <Compile Include="Model\Model Services\NewFamilyTieSyncer.cs" />
     <Compile Include="Model\Model Services\RelationshipsValidator.cs" />
     <Compile Include="Model\Model Services\Variables.cs" />
+    <Compile Include="Presenters\Mapper Presenters\EditColumnOrRowPresenter.cs" />
     <Compile Include="Presenters\Mapper Presenters\MapperMainPresenter.cs" />
-    <Compile Include="Presenters\NewFamilyNodePresenter.cs" />
+    <Compile Include="Presenters\Characters\NewFamilyNodePresenter.cs" />
     <Compile Include="Views\Forms\Characters Forms\FrmCharacterSheet.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,11 +107,11 @@
     <Compile Include="Views\Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model\Classes\Character.cs" />
-    <Compile Include="Model\Classes\CharAttribute.cs" />
+    <Compile Include="Model\Classes\Characters\Character.cs" />
+    <Compile Include="Model\Classes\Characters\CharAttribute.cs" />
     <Compile Include="Model\Classes\JSONSerializer.cs" />
-    <Compile Include="Model\Classes\Date.cs" />
-    <Compile Include="Model\Classes\FamilyTie.cs" />
+    <Compile Include="Model\Classes\Characters\Date.cs" />
+    <Compile Include="Model\Classes\Characters\FamilyTie.cs" />
     <Compile Include="Model\EventArgs\FamilyTieNodeEventArgs.cs" />
     <Compile Include="Model\Model Services\CharactersAgeCalculator.cs" />
     <Compile Include="Model\Model Services\FamilyTieNodeComparer.cs" />
@@ -118,7 +119,7 @@
     <Compile Include="Model\Model Services\PictureSerializer.cs" />
     <Compile Include="Model\Model Services\DateRetriever.cs" />
     <Compile Include="Model\Exceptions\TimeoutConnectionException.cs" />
-    <Compile Include="Presenters\CharacterSheetPresenter.cs" />
+    <Compile Include="Presenters\Characters\CharacterSheetPresenter.cs" />
     <Compile Include="Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -127,7 +128,7 @@
     <Compile Include="Views\Controls\XpProgressBar.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Presenters\CharactersPresenter.cs" />
+    <Compile Include="Presenters\Characters\CharactersPresenter.cs" />
     <Compile Include="Presenters\MainPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -165,6 +166,7 @@
     <Compile Include="Views\View Interfaces\ICharacterSheetView.cs" />
     <Compile Include="Views\View Interfaces\IMainView.cs" />
     <Compile Include="Views\View Interfaces\INewFamilyNodeView.cs" />
+    <Compile Include="Views\View Interfaces\Mapper Interfaces\IEditColumnOrRow.cs" />
     <Compile Include="Views\View Interfaces\Mapper Interfaces\IMapperMain.cs" />
     <Compile Include="Views\View Services\CharactersComboboxPopulator.cs" />
     <Compile Include="Views\View Services\ProgressBarFiller.cs" />
@@ -321,7 +323,6 @@
     <Content Include="favicon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Forms\Characters Forms" />
     <Folder Include="Views\View Services\Mapper Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
