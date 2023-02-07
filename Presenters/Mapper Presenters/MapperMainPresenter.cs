@@ -110,16 +110,15 @@ namespace Presenter
 		private void LoadFileToolStripMenuItemClick()
 		{
 			OpenFileDialog openFile = new OpenFileDialog();
-			openFile.Filter = "JSON Files ( *.json )|*.json";
-			bool filler = true;
+			openFile.Filter = "JSON Files ( *.json )|*.json";			
 
 			if(openFile.ShowDialog() == DialogResult.OK)
 			{
 				try
 				{
 					locationNodes.Clear();
-					JSONSerializer<List<List<LocationNode>>> serializer = new JSONSerializer<List<List<LocationNode>>>( openFile.FileName, filler);
-					locationNodes = serializer.DeSerialize(filler);
+					JSONSerializer<List<List<LocationNode>>> serializer = new JSONSerializer<List<List<LocationNode>>>( openFile.FileName, 0);
+					locationNodes = serializer.DeSerialize();
 
 					filePath = openFile.FileName;
 					
@@ -147,7 +146,7 @@ namespace Presenter
 			{
 				try
 				{
-					JSONSerializer<List<List<LocationNode>>> serializer = new JSONSerializer<List<List<LocationNode>>>(saveFile.FileName);
+					JSONSerializer<List<List<LocationNode>>> serializer = new JSONSerializer<List<List<LocationNode>>>(saveFile.FileName, 1);
 
 					serializer.Serialize(locationNodes);
 
@@ -442,7 +441,7 @@ namespace Presenter
 			}
 			else
 			{
-                JSONSerializer<List<List<LocationNode>>> serializer = new JSONSerializer<List<List<LocationNode>>>(filePath);
+                JSONSerializer<List<List<LocationNode>>> serializer = new JSONSerializer<List<List<LocationNode>>>(filePath, 1);
 
                 serializer.Serialize(locationNodes);
             }

@@ -34,22 +34,22 @@ namespace Model
         	JSONSerializer<List<string>> jsonSerializer;
         	
         	string variable = "Genders";        	
-        	jsonSerializer = new JSONSerializer<List<string>>(variable); this._genders = jsonSerializer.DeSerialize();
+        	jsonSerializer = new JSONSerializer<List<string>>(variable, 1); this._genders = jsonSerializer.DeSerialize();
         	
         	variable = "Races";
-        	jsonSerializer = new JSONSerializer<List<string>>(variable); this._races = jsonSerializer.DeSerialize();
+        	jsonSerializer = new JSONSerializer<List<string>>(variable, 1); this._races = jsonSerializer.DeSerialize();
         	
         	variable = "Conditions";
-        	jsonSerializer = new JSONSerializer<List<string>>(variable); this._conditions = jsonSerializer.DeSerialize();
+        	jsonSerializer = new JSONSerializer<List<string>>(variable, 1); this._conditions = jsonSerializer.DeSerialize();
         	
         	variable = "Special_Conditions";
-        	jsonSerializer = new JSONSerializer<List<string>>(variable); this._specialConditions = jsonSerializer.DeSerialize();
+        	jsonSerializer = new JSONSerializer<List<string>>(variable, 1); this._specialConditions = jsonSerializer.DeSerialize();
         	
         	// ---------------------
         	
         	JSONSerializer<List<RelationshipUnit>> anotherJsonSerializer;
         	variable = "Relationships";
-        	anotherJsonSerializer = new JSONSerializer<List<RelationshipUnit>>(variable);
+        	anotherJsonSerializer = new JSONSerializer<List<RelationshipUnit>>(variable, 1);
         	this._relations = anotherJsonSerializer.DeSerialize();        	
         }
     }

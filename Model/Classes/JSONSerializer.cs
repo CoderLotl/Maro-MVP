@@ -7,21 +7,20 @@ namespace Model
     public class JSONSerializer<T> where T : class, new()
     {
         public string path;
+        int mode;
 
-        public JSONSerializer(string fileName)
+        public JSONSerializer(string fileName, int mode)
         {
-            path = ".\\" + fileName;
-        }
-
-        /// <summary>
-        /// This constructor is a variant of the original one, which was designed for working on the app's root folder.
-        /// This one will work instead with the path given through string.
-        /// </summary>
-        /// <param name="fileName"></param>
-        /// <param name="filler"></param>
-        public JSONSerializer(string fileName, bool filler)
-        {
-            path = fileName;
+            if(mode == 1)
+            {
+                path = ".\\" + fileName;
+            }
+            else
+            {
+                path = fileName;
+            }
+            
+            this.mode = mode;
         }
 
         // - - - - - - - - - -
@@ -29,36 +28,22 @@ namespace Model
         public T DeSerialize()
         {
             T obj = new T();
+            string jsonFile;
             try
             {
-                string jsonFile = File.ReadAllText(path + ".json");
+                if(mode == 1)
+                {
+                    jsonFile = File.ReadAllText(path + ".json");
+                }
+                else
+                {
+                    jsonFile = File.ReadAllText(path);
+                }                
 
                 obj = JsonConvert.DeserializeObject<T>(jsonFile);
             }
             catch (Exception)
             {                
-                return null;
-            }
-            return obj;
-        }
-
-        /// <summary>
-        /// This method is a variant of the original one, which was designed for deserializing files on the app's root folder.
-        /// This one looks for the path set instead. - Requires the object to have been instantiated with the filler version.
-        /// </summary>
-        /// <param name="filler"></param>
-        /// <returns></returns>
-        public T DeSerialize(bool filler)
-        {
-            T obj = new T();
-            try
-            {
-                string jsonFile = File.ReadAllText(path);
-
-                obj = JsonConvert.DeserializeObject<T>(jsonFile);
-            }
-            catch (Exception)
-            {
                 return null;
             }
             return obj;

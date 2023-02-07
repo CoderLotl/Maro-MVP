@@ -11,12 +11,12 @@ namespace Views
 {
     public class CharactersComboboxPopulator
     {
-        readonly ICharactersRepository _charactersService;
+        readonly ICharactersRepository _charactersRepository;
         readonly CharacterSheetPresenter _characterSheetPresenter;
 
-        public CharactersComboboxPopulator(ICharactersRepository charactersService, CharacterSheetPresenter characterSheetPresenter)
+        public CharactersComboboxPopulator(ICharactersRepository charactersRepository, CharacterSheetPresenter characterSheetPresenter)
         {
-            _charactersService = charactersService;
+            _charactersRepository = charactersRepository;
             _characterSheetPresenter = characterSheetPresenter;
         }
 
@@ -24,9 +24,9 @@ namespace Views
         {
             comboBox.Items.Clear();
 
-            RelationshipsValidator validRelationships = new RelationshipsValidator();
+            CharactersService charactersService = new CharactersService();
 
-            foreach(Character character in validRelationships.CalculateValidRelationships(_charactersService, _characterSheetPresenter))
+            foreach(Character character in charactersService.CalculateValidRelationships(_charactersRepository, _characterSheetPresenter))
             {
                 comboBox.Items.Add(character);
             }

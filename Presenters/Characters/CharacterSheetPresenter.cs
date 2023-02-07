@@ -80,9 +80,9 @@ namespace Presenter
 
             _iCharacterSheet.EditCharData += (e, o) =>
             {
-                NewFamilyTiesSyncer familyTiesSyncer = new NewFamilyTiesSyncer();
+                CharactersService charactersService = new CharactersService();
 
-                familyTiesSyncer.SyncFamilyTies(fakeCharacter, character, _characterService.Characters, _variables);
+                charactersService.SyncFamilyTies(fakeCharacter, character, _characterService.Characters, _variables);
                 character = CopyCharacter(o);
 
                 if(newCharacter == true)
