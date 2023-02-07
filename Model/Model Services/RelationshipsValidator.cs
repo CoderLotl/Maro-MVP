@@ -9,7 +9,7 @@ namespace Model
 {
 	public class RelationshipsValidator : IRelationshipsValidator
     {
-        public List<Character> CalculateValidRelationships(ICharactersService charactersService, CharacterSheetPresenter characterSheetPresenter)
+        public List<Character> CalculateValidRelationships(ICharactersRepository charactersService, CharacterSheetPresenter characterSheetPresenter)
         {
             List<Character> result = new List<Character>();
 

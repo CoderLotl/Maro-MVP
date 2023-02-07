@@ -16,8 +16,7 @@ namespace Presenter
 		
 		DataTable DataDT;	
 		int mapHeight;
-		int mapWidht;
-		string mapName;
+		int mapWidht;		
 		string title;
 		bool savedFile;
 		string filePath;
@@ -32,7 +31,7 @@ namespace Presenter
 
 			Subscribe();
 			InitializeData();
-			DrawTable2();
+			DrawTable();
 			InitializeGridWidth();
 		}
 		
@@ -40,75 +39,33 @@ namespace Presenter
 		
 		private void Subscribe()
 		{
-			_mapperMain.UpdateTitle += (e, o) =>
-			{				
-				UpdateTitle(o);
-			};
+			_mapperMain.UpdateTitle += (e, o) =>	UpdateTitle(o);
 
-			_mapperMain.InitializeData += (e, o) =>
-			{
-				InitializeData();
-			};
+			_mapperMain.InitializeData += (e, o) =>	InitializeData();
 			
-			_mapperMain.LoadFileToolStripMenu += (e, o) =>
-			{
-				LoadFileToolStripMenuItemClick();
-			};
+			_mapperMain.LoadFileToolStripMenu += (e, o) =>	LoadFileToolStripMenuItemClick();
 			
-			_mapperMain.SaveFileToolStripMenu += (e, o) =>
-			{
-				SaveFileAs();
-			};
+			_mapperMain.SaveFileToolStripMenu += (e, o) =>	SaveFileAs();
 			
-			_mapperMain.DataGridViewCellDoubleClick += (e, o) =>
-			{
-				DVGridDoubleClick(o);
-			};
+			_mapperMain.DataGridViewCellDoubleClick += (e, o) =>	DVGridDoubleClick(o);
 			
-			_mapperMain.NewMap += (e, o) =>
-			{
-				NewMap();
-			};
+			_mapperMain.NewMap += (e, o) =>	NewMap();
 			
-			_mapperMain.InsertNewColumn += (e, o) =>
-			{
-				InsertColumn();
-			};
+			_mapperMain.InsertNewColumn += (e, o) =>	InsertColumn();
 			
-			_mapperMain.InsertNewRow += (e, o) =>
-			{
-				InsertRow();
-			};
+			_mapperMain.InsertNewRow += (e, o) =>	InsertRow();
 			
-			_mapperMain.TrackbarChanged += (e, o) =>
-			{
-				TrackBarValueChanged();
-			};
+			_mapperMain.TrackbarChanged += (e, o) =>	TrackBarValueChanged();
 			
-			_mapperMain.ClearMap += (e, o) =>
-			{
-				ClearMap();
-			};
+			_mapperMain.ClearMap += (e, o) =>	ClearMap();
 			
-			_mapperMain.SaveFile += (e, o) =>
-			{
-				SaveFile();
-			};
+			_mapperMain.SaveFile += (e, o) =>	SaveFile();
 			
-			_mapperMain.GenerateMap += (e, o) =>
-			{
-				GenerateMap();
-			};
+			_mapperMain.GenerateMap += (e, o) =>	GenerateMap();
 			
-			_mapperMain.RemoveColumn += (e, o) =>
-			{
-				RemoveColumn();
-			};
+			_mapperMain.RemoveColumn += (e, o) =>	RemoveColumn();
 			
-			_mapperMain.RemoveRow += (e, o) =>
-			{
-				RemoveRow();
-			};
+			_mapperMain.RemoveRow += (e, o) =>	RemoveRow();
 		}
 		
 		//------------------
@@ -154,20 +111,21 @@ namespace Presenter
 		{
 			OpenFileDialog openFile = new OpenFileDialog();
 			openFile.Filter = "JSON Files ( *.json )|*.json";
+			bool filler = true;
 
 			if(openFile.ShowDialog() == DialogResult.OK)
 			{
 				try
 				{
 					locationNodes.Clear();
-					JSONSerializer<List<List<LocationNode>>> serializer = new JSONSerializer<List<List<LocationNode>>>(openFile.FileName);
-					locationNodes = serializer.DeSerialize();
+					JSONSerializer<List<List<LocationNode>>> serializer = new JSONSerializer<List<List<LocationNode>>>( openFile.FileName, filler);
+					locationNodes = serializer.DeSerialize(filler);
 
 					filePath = openFile.FileName;
 					
 					UpdateTitle( Path.GetFileNameWithoutExtension( openFile.FileName ));
 					
-					DrawTable2();
+					DrawTable();
 					SetNewCellDimenssions(mapWidht, mapHeight);
 					savedFile = true;
 				}
@@ -225,7 +183,7 @@ namespace Presenter
 						locationNodes[rowIndex][columnIndex].LocationName = frmTileDetails.FakeLocationNode.LocationName;
 						locationNodes[rowIndex][columnIndex].LocationType = frmTileDetails.FakeLocationNode.LocationType;
 
-						DrawTable2();
+						DrawTable();
 	                    SetNewCellDimenssions(mapWidht, mapHeight);
 	                }	
 				}			
@@ -240,7 +198,7 @@ namespace Presenter
 	                    locationNodes[rowIndex][columnIndex].LocationImage = newImage;
 
                         //DrawTable();
-                        DrawTable2();
+                        DrawTable();
                         SetNewCellDimenssions(mapWidht, mapHeight);
 	                }
 	            }
@@ -249,7 +207,7 @@ namespace Presenter
 		
 		//------------------
 		
-		private void DrawTable2()
+		private void DrawTable()
 		{
 			PictureSerializer pictureSerializer = new PictureSerializer();
 
@@ -352,7 +310,7 @@ namespace Presenter
 				
 				savedFile = false;
 				filePath = "";
-				DrawTable2();
+				DrawTable();
 			}
 		}
 		
@@ -377,7 +335,7 @@ namespace Presenter
                         locationNodes[i].Insert(insertAtIndex, newLocationNode);
 					}
 					
-					DrawTable2();
+					DrawTable();
 				}
 			}			
 		}
@@ -407,7 +365,7 @@ namespace Presenter
 					
 					locationNodes.Insert(insertAtIndex, newNodesList);
 					
-					DrawTable2();
+					DrawTable();
 				}
 			}
 		}
@@ -469,7 +427,7 @@ namespace Presenter
 					}
 				}
 				
-				DrawTable2();
+				DrawTable();
 				SetNewCellDimenssions(mapWidht, mapHeight);
 			}
 		}
@@ -599,7 +557,7 @@ namespace Presenter
 				{
 					listOfNodes.RemoveAt(removeColumn.WorkAtIndex);
 				}
-				DrawTable2();
+				DrawTable();
 				SetNewCellDimenssions(mapWidht, mapHeight);
 			}
 		}
@@ -613,7 +571,7 @@ namespace Presenter
 			if(removeRow.ShowDialog() == DialogResult.OK)
 			{
 				locationNodes.RemoveAt(removeRow.WorkAtIndex);
-				DrawTable2();
+				DrawTable();
 				SetNewCellDimenssions(mapWidht, mapHeight);
 			}			
 		}	

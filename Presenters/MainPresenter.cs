@@ -10,7 +10,7 @@ namespace Presenter
 		//*************************************************	
 		
 		private readonly IMainView _iMainView;
-		readonly public ICharactersService charactersService;
+		readonly public ICharactersRepository charactersService;
 		readonly public IVariables variables;
 		string date;
 		
@@ -19,7 +19,7 @@ namespace Presenter
 		public MainPresenter(IMainView iMainView)
 		{
 			_iMainView = iMainView;
-			charactersService = new CharactersService();
+			charactersService = new CharactersRepository();
 			variables = new Variables();
 			
 			iMainView.RetrieveData += (o, e) =>

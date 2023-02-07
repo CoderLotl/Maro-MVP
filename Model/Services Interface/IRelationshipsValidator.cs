@@ -8,6 +8,6 @@ namespace Model
 {
     public interface IRelationshipsValidator
     {
-    	List<Character> CalculateValidRelationships(ICharactersService charactersService, CharacterSheetPresenter characterSheetPresenter);
+    	List<Character> CalculateValidRelationships(ICharactersRepository charactersService, CharacterSheetPresenter characterSheetPresenter);
     }
 }

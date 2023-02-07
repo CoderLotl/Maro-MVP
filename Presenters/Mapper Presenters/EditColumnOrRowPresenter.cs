@@ -18,7 +18,7 @@ namespace Presenter
         //*************************************************
 
         int insertAtIndex;
-        int mode;
+        int _mode;
         List<List<LocationNode>> _locationNodes;
         IEditColumnOrRow _editColumnOrRow;
 
@@ -28,6 +28,7 @@ namespace Presenter
         {
             _locationNodes = locationNodes;
             _editColumnOrRow = editColumnOrRow;
+            _mode = mode;
 
             for (int i = 0; i < index; i++)
             {
@@ -51,15 +52,15 @@ namespace Presenter
 
         private void Accept()
         {
-            if (_editColumnOrRow.ComboBox1.SelectedItem != null && mode == 1)
+            if (_editColumnOrRow.ComboBox1.SelectedItem != null && _mode == 1)
             {
                 insertAtIndex = (int)_editColumnOrRow.ComboBox1.SelectedItem;
 
                 _editColumnOrRow.DialogResult = DialogResult.OK;
             }
-            else if (_editColumnOrRow.ComboBox1.SelectedItem != null && mode == 2)
+            else if (_editColumnOrRow.ComboBox1.SelectedItem != null && _mode == 2)
             {
-                if (Data.LocationNodes[0].Count == 1)
+                if (_locationNodes[0].Count == 1)
                 {
                     _editColumnOrRow.Label1.Visible = true;
                     _editColumnOrRow.Label1.Text = "You cannot remove any more columns.";
@@ -71,9 +72,9 @@ namespace Presenter
                     _editColumnOrRow.DialogResult = DialogResult.OK;
                 }
             }
-            else if (_editColumnOrRow.ComboBox1.SelectedItem != null && mode == 3)
+            else if (_editColumnOrRow.ComboBox1.SelectedItem != null && _mode == 3)
             {
-                if (Data.LocationNodes.Count == 1)
+                if (_locationNodes.Count == 1)
                 {
                     _editColumnOrRow.Label1.Visible = true;
                     _editColumnOrRow.Label1.Text = "You cannot remove any more rows.";

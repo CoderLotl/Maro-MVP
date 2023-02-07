@@ -9,12 +9,12 @@ namespace Presenter
     public class NewFamilyNodePresenter
     {
         readonly INewFamilyNodeView _newFamilyNodeView;
-        readonly ICharactersService _charactersService;
+        readonly ICharactersRepository _charactersService;
         readonly IVariables _variables;
         readonly CharacterSheetPresenter _characterSheetPresenter;
         FamilyTieNodeEventArgs eventArgs;
 
-        public NewFamilyNodePresenter(INewFamilyNodeView newFamilyNodeView, ICharactersService charactersService, IVariables variables, CharacterSheetPresenter characterSheetPresenter)
+        public NewFamilyNodePresenter(INewFamilyNodeView newFamilyNodeView, ICharactersRepository charactersService, IVariables variables, CharacterSheetPresenter characterSheetPresenter)
         {
             _newFamilyNodeView = newFamilyNodeView;
             _charactersService = charactersService;

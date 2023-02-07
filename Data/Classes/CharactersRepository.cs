@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Views;
 
 namespace Model
 {
-    public class CharactersService : ICharactersService
+    public class CharactersRepository : ICharactersRepository
     {
-        public CharactersService()
+        public CharactersRepository()
         {
             Characters = new List<Character>();
             ID = 0;
@@ -60,5 +61,22 @@ namespace Model
             CharactersAgeCalculator calculateCharactersAge = new CharactersAgeCalculator();
             calculateCharactersAge.CalcCharsAge(message, Characters);
         }
+
+        public void Add(Character entity)
+        {
+            Characters.Add(entity);
+            ID++;
+        }
+
+        //public interface ICharactersRepository
+        //{
+        //    Characters GetById(int id);
+        //    IEnumerable<Characters> GetAll();
+        //    IEnumerable<Characters> GetWhere(Expression<Func<T, bool>> predicate);
+        //    void Add(Characters entity);
+        //    void Delete(Characters entity);
+        //    void Edit(Characters entity);
+        //    void SaveChanges();
+        //}
     }
 }

@@ -11,10 +11,10 @@ namespace Views
 {
     public class CharactersComboboxPopulator
     {
-        readonly ICharactersService _charactersService;
+        readonly ICharactersRepository _charactersService;
         readonly CharacterSheetPresenter _characterSheetPresenter;
 
-        public CharactersComboboxPopulator(ICharactersService charactersService, CharacterSheetPresenter characterSheetPresenter)
+        public CharactersComboboxPopulator(ICharactersRepository charactersService, CharacterSheetPresenter characterSheetPresenter)
         {
             _charactersService = charactersService;
             _characterSheetPresenter = characterSheetPresenter;

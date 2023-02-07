@@ -162,9 +162,10 @@ namespace Views
 		{
 			RemoveColumn.Invoke(this, EventArgs.Empty);
 		}
-		
-		
-		void Btn_RemoveRowClick(object sender, EventArgs e)
+
+        // * * * * * * * * * *
+
+        void Btn_RemoveRowClick(object sender, EventArgs e)
 		{
 			RemoveRow.Invoke(this, EventArgs.Empty);
 		}

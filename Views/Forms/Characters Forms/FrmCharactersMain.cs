@@ -7,19 +7,19 @@ using Presenter;
 
 namespace Views
 {
-	public partial class FrmCharactersMain : Form, ICharactersView
+	public partial class FrmCharactersMain : Form, ICharactersMain
     {
 
         //*************************************************
 
         MainForm main;
-		readonly CharactersPresenter _charPresenter;
-        readonly ICharactersService _charactersService;
+		readonly CharactersMainPresenter _charPresenter;
+        readonly ICharactersRepository _charactersService;
         readonly IVariables _variables;
 
         //*************************************************
 
-        public FrmCharactersMain(MainForm mainform, ICharactersService charactersService, IVariables variables)
+        public FrmCharactersMain(MainForm mainform, ICharactersRepository charactersService, IVariables variables)
 
         {
             InitializeComponent();
@@ -27,7 +27,7 @@ namespace Views
             _charactersService = charactersService;
             _variables = variables;
 
-            _charPresenter = new CharactersPresenter(this, charactersService);
+            _charPresenter = new CharactersMainPresenter(this, charactersService);
             lbl_MaroDate.Text = main.Lbl_MaroDate;
             DrawDataTable(0);
         }
@@ -101,14 +101,14 @@ namespace Views
                     if (dialogResult == DialogResult.Yes)
                     {
                     	LoadFile.Invoke(this, EventArgs.Empty);
-                    	DrawDataTable(0);
+                    	DrawDataTable(1);
                         UpdateInfo();
                     }
                 }
                 else
                 {
                 	LoadFile.Invoke(this, EventArgs.Empty);
-					DrawDataTable(0);
+					DrawDataTable(1);
                     UpdateInfo();
                 }
             }
@@ -236,19 +236,12 @@ namespace Views
                 btn_ClearList.Enabled = false;                
                 btn_CalcAgeAll.Enabled = false;
             }
-            //			/*if(loaded!=0){
-            //				lbl_LoadedValue.Text = "Yes";
-            //			}
-            //			else{
-            //				lbl_LoadedValue.Text = "No";
-            //			}*/
         }
 
 		void Btn_CalcAgeAllClick(object sender, EventArgs e)
 		{
             Action<string> message = (string text) => MessageBox.Show(text);
-            //DELEGATE. USED TO PASS A LAMBDA METHOD.
-            //			
+            //DELEGATE. USED TO PASS A LAMBDA METHOD.            
             CalculateCharsAge(this, message);
             DrawDataTable(1);
         }

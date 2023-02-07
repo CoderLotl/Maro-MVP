@@ -20,12 +20,12 @@ namespace Presenter
         bool newCharacter;
         int initialized = 0;
         Image raceImage; Image genderImage; Image conditionImage; Image spConditionImage;
-        readonly ICharactersService _characterService;
+        readonly ICharactersRepository _characterService;
         readonly IVariables _variables;
         readonly ICharacterSheetView _iCharacterSheet;        
         //*************************************************
 
-        public CharacterSheetPresenter(ICharacterSheetView frmCharacterSheet, ICharactersService charactersService, IVariables variables, Character character, int option)
+        public CharacterSheetPresenter(ICharacterSheetView frmCharacterSheet, ICharactersRepository charactersService, IVariables variables, Character character, int option)
         {
             _iCharacterSheet = frmCharacterSheet;
             _characterService = charactersService;
@@ -76,10 +76,7 @@ namespace Presenter
 
         private void Subscribe()
         {
-            _iCharacterSheet.Undo += (e, o) =>
-            {
-                 fakeCharacter = CopyCharacter(this.character);
-            };
+            _iCharacterSheet.Undo += (e, o) =>  fakeCharacter = CopyCharacter(this.character);
 
             _iCharacterSheet.EditCharData += (e, o) =>
             {
@@ -89,26 +86,16 @@ namespace Presenter
                 character = CopyCharacter(o);
 
                 if(newCharacter == true)
-                {
-                    _characterService.ID += 1;
-                    _characterService.Characters.Add(this.character);
+                {                    
+                    _characterService.Add(this.character);
                 }
             };
 
-            _iCharacterSheet.AddFamilyTie += (e, o) =>
-            {
-                AddFamilyNode(o);
-            };
+            _iCharacterSheet.AddFamilyTie += (e, o) =>  AddFamilyNode(o);
 
-            _iCharacterSheet.RemoveFamilyTie += (e, o) =>
-            {
-                RemoveFamilyNode(o);
-            };
+            _iCharacterSheet.RemoveFamilyTie += (e, o) =>   RemoveFamilyNode(o);
 
-            _iCharacterSheet.PopulateFamilyCombobox += (e, o) =>
-            {
-                PopulateFamilyCombobox(o);
-            };
+            _iCharacterSheet.PopulateFamilyCombobox += (e, o) =>    PopulateFamilyCombobox(o);
         }
 
         private Character CopyCharacter(Character copyFrom_Character)

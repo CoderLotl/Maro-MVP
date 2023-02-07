@@ -26,7 +26,7 @@ namespace Views
             get { return newFamilyNodePresenter; }
         }
 
-        public FrmNewFamilyNode(ICharactersService charactersService, IVariables variables, CharacterSheetPresenter characterSheetPresenter)
+        public FrmNewFamilyNode(ICharactersRepository charactersService, IVariables variables, CharacterSheetPresenter characterSheetPresenter)
         {
             InitializeComponent();
             newFamilyNodePresenter = new NewFamilyNodePresenter(this, charactersService, variables, characterSheetPresenter);

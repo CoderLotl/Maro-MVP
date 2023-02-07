@@ -31,11 +31,11 @@ namespace Views
 		ImagePicker _imagePicker;
 
 		readonly CharacterSheetPresenter _characterSheetPresenter;
-		readonly ICharactersService _characterService;
+		readonly ICharactersRepository _characterService;
 		readonly IVariables _variables;
 		//*************************************************
 
-        public FrmCharacterSheet(Character character, int option, ICharactersService charactersService, IVariables variables)
+        public FrmCharacterSheet(Character character, int option, ICharactersRepository charactersService, IVariables variables)
         {
             InitializeComponent();
 

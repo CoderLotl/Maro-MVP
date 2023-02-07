@@ -61,7 +61,7 @@
     <Compile Include="Model\Classes\Mapper\LocationNode.cs" />
     <Compile Include="Model\Classes\Characters\RelationshipUnit.cs" />
     <Compile Include="Model\Services Interface\ICharactersAgeCalculator.cs" />
-    <Compile Include="Model\Services Interface\ICharactersService.cs" />
+    <Compile Include="Data\Interfaces\ICharactersRepository.cs" />
     <Compile Include="Model\Services Interface\IDataRetriever.cs" />
     <Compile Include="Model\Services Interface\IFamilyTieNodeComparer.cs" />
     <Compile Include="Model\Services Interface\IImagePicker.cs" />
@@ -69,7 +69,7 @@
     <Compile Include="Model\Services Interface\IPictureSerializer.cs" />
     <Compile Include="Model\Services Interface\IRelationshipsValidator.cs" />
     <Compile Include="Model\Services Interface\IVariables.cs" />
-    <Compile Include="Model\Model Services\CharactersService.cs" />
+    <Compile Include="Data\Classes\CharactersRepository.cs" />
     <Compile Include="Model\Model Services\ImagePicker.cs" />
     <Compile Include="Model\Model Services\NewFamilyTieSyncer.cs" />
     <Compile Include="Model\Model Services\RelationshipsValidator.cs" />
@@ -128,7 +128,7 @@
     <Compile Include="Views\Controls\XpProgressBar.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Presenters\Characters\CharactersPresenter.cs" />
+    <Compile Include="Presenters\Characters\CharactersMainPresenter.cs" />
     <Compile Include="Presenters\MainPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -156,10 +156,10 @@
     <Compile Include="Views\Forms\Mapper Forms\FrmTileDetails.Designer.cs">
       <DependentUpon>FrmTileDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\View Interfaces\ICharactersView.cs" />
-    <Compile Include="Views\View Interfaces\ICharacterSheetView.cs" />
+    <Compile Include="Views\View Interfaces\Characters Interfaces\ICharactersMain.cs" />
+    <Compile Include="Views\View Interfaces\Characters Interfaces\ICharacterSheetView.cs" />
     <Compile Include="Views\View Interfaces\IMainView.cs" />
-    <Compile Include="Views\View Interfaces\INewFamilyNodeView.cs" />
+    <Compile Include="Views\View Interfaces\Characters Interfaces\INewFamilyNodeView.cs" />
     <Compile Include="Views\View Interfaces\Mapper Interfaces\IEditColumnOrRow.cs" />
     <Compile Include="Views\View Interfaces\Mapper Interfaces\IMapperMain.cs" />
     <Compile Include="Views\View Services\CharactersComboboxPopulator.cs" />
