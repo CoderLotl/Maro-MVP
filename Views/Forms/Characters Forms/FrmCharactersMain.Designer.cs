@@ -304,7 +304,6 @@
             this.Name = "FrmCharactersMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Characters Main";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmCharactersMain_FormClosing);
             this.Load += new System.EventHandler(this.FrmCharactersMain_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmCharactersMain_KeyDown);
             this.groupBox1.ResumeLayout(false);
