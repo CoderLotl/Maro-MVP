@@ -12,34 +12,26 @@ namespace Views
 
         //*************************************************
 
-        MainForm main;
 		readonly CharactersMainPresenter _charPresenter;
         readonly ICharactersRepository _charactersService;
         readonly IVariables _variables;
 
         //*************************************************
 
-        public FrmCharactersMain(MainForm mainform, ICharactersRepository charactersService, IVariables variables)
+        public FrmCharactersMain(ICharactersRepository charactersService, IVariables variables)
 
         {
             InitializeComponent();
-            main = mainform;
             _charactersService = charactersService;
             _variables = variables;
 
             _charPresenter = new CharactersMainPresenter(this, charactersService);
-            lbl_MaroDate.Text = main.Lbl_MaroDate;
             DrawDataTable(0);
         }
 
         //-----------------------------------------------------
 		//------------------ [ PROPERTIES ]
 		//-----------------------------------------------------
-		
-		public MainForm Main
-		{
-			get { return main; }			
-		}
 		
 		public string Lbl_Characters
 		{
@@ -122,14 +114,6 @@ namespace Views
         //------------------ [ EVENTS ]
         //-----------------------------------------------------
 
-
-        //------------------
-
-        private void FrmCharactersMain_FormClosing(object sender, FormClosingEventArgs e)
-        {
-        	main.Show();
-        }
-        
         //------------------
 
         private void FrmCharactersMain_Load(object sender, EventArgs e)

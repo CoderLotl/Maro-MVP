@@ -39,9 +39,11 @@ namespace Views
 
         void Btn_CharactersClick(object sender, EventArgs e)
         {
-            FrmCharactersMain characters = new FrmCharactersMain(this, presenter.charactersService, presenter.variables);
-            characters.Show();
+            FrmCharactersMain characters = new FrmCharactersMain(presenter.charactersService, presenter.variables);
+            characters.Lbl_MaroDate = lbl_MaroDate.Text;
+            characters.FormClosing += (ea, o) => this.Show();
             this.Hide();
+            characters.Show();
         }
         
         //------------------ [ MAPPER ]
@@ -72,7 +74,5 @@ namespace Views
         //-----------------------------------------------------	
 
         public event EventHandler RetrieveData;    
-
-
     }
 }

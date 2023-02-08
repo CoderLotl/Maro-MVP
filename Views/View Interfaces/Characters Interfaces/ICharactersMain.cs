@@ -7,8 +7,6 @@ namespace Views
 
 	public interface ICharactersMain
 	{
-		MainForm Main	{	get;	}
-		
 		string Lbl_Characters { set; }
 				
 		event EventHandler AddCharacter;
