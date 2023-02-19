@@ -2,14 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Views;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
 
 namespace Presenter
 {
@@ -40,7 +35,7 @@ namespace Presenter
             Subscribe();
         }
 
-        public int InsertAtIndex { get => insertAtIndex; set => insertAtIndex = value; }
+        public int InsertAtIndex { get { return insertAtIndex;	} set { insertAtIndex = value; }	}
 
         private void Subscribe()
         {

@@ -57,7 +57,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Classes\Mapper\Data.cs" />
     <Compile Include="Model\Classes\Mapper\LocationNode.cs" />
     <Compile Include="Model\Classes\Characters\RelationshipUnit.cs" />
     <Compile Include="Model\Model Services\CharactersService.cs" />
@@ -107,7 +106,7 @@
     <Compile Include="Model\Classes\Characters\Character.cs" />
     <Compile Include="Model\Classes\Characters\CharAttribute.cs" />
     <Compile Include="Model\Classes\JSONSerializer.cs" />
-    <Compile Include="Model\Classes\Characters\Date.cs" />
+    <Compile Include="Model\Classes\Characters\TimeUnit.cs" />
     <Compile Include="Model\Classes\Characters\FamilyTie.cs" />
     <Compile Include="Model\EventArgs\FamilyTieNodeEventArgs.cs" />
     <Compile Include="Model\Model Services\FamilyTieNodeComparer.cs" />

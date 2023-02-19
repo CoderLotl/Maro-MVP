@@ -517,7 +517,7 @@ namespace Views
 				txtBox_Birthday.Text = "-- / -- / --";
 				if (_characterSheetPresenter.Character.Birthday == null)
 				{
-					Date newBirthday = new Date("--", "--", "--");
+					TimeUnit newBirthday = new TimeUnit("--", "--", "--");
 					_characterSheetPresenter.Character.Birthday = newBirthday;
 				}
 			}
@@ -525,13 +525,14 @@ namespace Views
 			{
 				txtBox_Birthday.Text = _characterSheetPresenter.Character.Birthday.ToString();
 			}
+			
 			if (_characterSheetPresenter.Character.Deathday == null || _characterSheetPresenter.Character.Deathday.Year == null ||
 				_characterSheetPresenter.Character.Deathday.Day == null || _characterSheetPresenter.Character.Deathday.Hour == null)
 			{
 				txtBox_Deathday.Text = "-- / -- / --";
 				if (_characterSheetPresenter.Character.Deathday == null)
 				{
-					Date newDeathday = new Date("--", "--", "--"); // NOTE TO MYSELF: REWRITE THIS!! - 10/30/22 NAH, IT'S FINE.
+					TimeUnit newDeathday = new TimeUnit("--", "--", "--"); // NOTE TO MYSELF: REWRITE THIS!! - 10/30/22 NAH, IT'S FINE.
 					_characterSheetPresenter.Character.Deathday = newDeathday;
 				}
 			}
@@ -539,10 +540,42 @@ namespace Views
 			{
 				txtBox_Deathday.Text = _characterSheetPresenter.Character.Deathday.ToString();
 			}
-			cmbBox_Race.Text = _characterSheetPresenter.Character.Race.ToString();
-			cmbBox_Gender.Text = _characterSheetPresenter.Character.Gender.ToString();
-			cmbBox_Condition.Text = _characterSheetPresenter.Character.Condition.ToString();
-			cmbBox_SpCondition.Text = _characterSheetPresenter.Character.SpecialCondition.ToString();			
+			
+			if( _characterSheetPresenter.Character.Race != null )
+			{
+				cmbBox_Race.Text = _characterSheetPresenter.Character.Race.ToString();
+			}
+			else
+			{
+				cmbBox_Race.Text = "";
+			}
+			
+			if( _characterSheetPresenter.Character.Gender != null )
+			{
+				cmbBox_Gender.Text = _characterSheetPresenter.Character.Gender.ToString();
+			}
+			else
+			{
+				cmbBox_Gender.Text = "";
+			}
+			
+			if( _characterSheetPresenter.Character.Condition != null )
+			{
+				cmbBox_Condition.Text = _characterSheetPresenter.Character.Condition.ToString();
+			}
+			else
+			{
+				cmbBox_Condition.Text = "";
+			}
+			
+			if( _characterSheetPresenter.Character.Condition != null )
+			{
+				cmbBox_SpCondition.Text = _characterSheetPresenter.Character.SpecialCondition.ToString();
+			}
+			else
+			{
+				cmbBox_SpCondition.Text = "";
+			}			
 		}
 
 		//--------------------------------------------

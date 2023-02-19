@@ -16,8 +16,8 @@ namespace Model
         int age;		
 		bool isAlive;		
 		string description;
-		Date birthday;
-		Date deathday;
+		TimeUnit birthday;
+		TimeUnit deathday;
         string race;
 		string gender;
 		string condition;
@@ -27,6 +27,7 @@ namespace Model
         // - - - FAMILY
 
         List<FamilyTieNode> family;
+		List<TimeUnit> timeouts;
 
         // - - - STATS
         // SRENGTH
@@ -51,6 +52,9 @@ namespace Model
 
         // ----------------------------- SETTERS & GETTERS
 
+		public List<TimeUnit> TimeOuts{
+			set { timeouts = value; }	get { return timeouts; }
+		}
         public int ID{
 			set{	id = value;		}	get{	return id;		}
 		}
@@ -129,10 +133,10 @@ namespace Model
         public int Manufacturing{
         	get{ return manufacturing;	} set{ manufacturing = value; }
         }
-        public Date Birthday { 
+        public TimeUnit Birthday { 
         	get{ return birthday;	} set{ birthday = value; }
         }
-        public Date Deathday {
+        public TimeUnit Deathday {
 			get{ return deathday;	} set{ deathday = value; }
         }
 
@@ -155,8 +159,8 @@ namespace Model
 
 			this.family = new List<FamilyTieNode>();
 
-			this.birthday = new Date("--","--","--");
-			this.deathday = new Date("--","--","--");
+			this.birthday = new TimeUnit("--","--","--");
+			this.deathday = new TimeUnit("--","--","--");
 
 			this.strength = 0;
 			this.melee = 0;
@@ -187,8 +191,8 @@ namespace Model
 			this.id = 0;
 			this.name = "fill this field";
 			this.age = 0;
-			this.birthday = new Date("--","--","--");
-			this.deathday = new Date("--","--","--");
+			this.birthday = new TimeUnit("--","--","--");
+			this.deathday = new TimeUnit("--","--","--");
 			this.isAlive = false;
 			this.description = "";
 			this.family = new List<FamilyTieNode>();

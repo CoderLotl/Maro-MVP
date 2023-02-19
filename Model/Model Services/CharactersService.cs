@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Windows.Forms.AxHost;
-using System.Windows.Forms;
 using Presenter;
 
 namespace Model
@@ -173,29 +169,33 @@ namespace Model
                 {
                     if (character.Birthday != null)
                     {
-                        int Year;
-                        int Day;
-                        if (int.TryParse(character.Birthday.Year, out Year) == true && int.TryParse(character.Birthday.Day, out Day) == true)
+                        int year = 0;
+                        int day = 0;
+                        bool longDate = false;
+                        if (int.TryParse(character.Birthday.Year, out year) == true && int.TryParse(character.Birthday.Day, out day) == true)
                         {
-                            if (Year < _year && Day < _day)
+                            longDate = true;
+                            if (year < _year && day < _day)
                             {
-                                character.Age = _year - Year;
+                                character.Age = _year - year;
                                 calcPerformed = true;
                             }
-                            if (Year < _year && Day > _day)
+                            if (year < _year && day > _day)
                             {
-                                character.Age = _year - Year - 1;
+                                character.Age = _year - year - 1;
                                 calcPerformed = true;
                             }
                         }
-                        else if (int.TryParse(character.Birthday.Year, out Year) == true)
+                        else if (int.TryParse(character.Birthday.Year, out year) == true)
                         {
-                            if (Year < _year)
+                            if (year < _year)
                             {
-                                character.Age = _year - Year;
+                                character.Age = _year - year;
                                 calcPerformed = true;
-                            }
+                            }                            
                         }
+
+                        AdjustAgeByTimeOuts(character, year, day, longDate);
                     }
                 }
             }
@@ -206,6 +206,48 @@ namespace Model
             else
             {
                 message("Ages couldn't be updated. Check your connection!");
+            }
+        }
+
+        private void AdjustAgeByTimeOuts(Character character, int year, int day, bool longDate)
+        {
+            if (character.TimeOuts != null && character.TimeOuts.Count != 0)
+            {
+                int yearsToTake = 0;
+                int daysToTake = 0;
+                foreach (TimeUnit timeUnit in character.TimeOuts)
+                {
+                    int timeUnitYears = 0;
+                    int timeUnitDays = 0;
+
+                    int.TryParse(timeUnit.Year, out timeUnitYears);
+                    int.TryParse(timeUnit.Day, out timeUnitDays);
+
+                    yearsToTake += timeUnitYears;
+                    daysToTake += timeUnitDays;
+
+                    if (daysToTake >= 20)
+                    {
+                        daysToTake -= 20;
+                        yearsToTake++;
+                    }
+                }
+
+                if(longDate == true)
+                {
+                    if(Convert.ToInt32(character.Birthday.Day) < daysToTake)
+                    {
+                        character.Age -= (yearsToTake + 1);
+                    }
+                    else
+                    {
+                        character.Age -= yearsToTake;
+                    }
+                }
+                else
+                {
+                    character.Age -= yearsToTake;
+                }
             }
         }
 

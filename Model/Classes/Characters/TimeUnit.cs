@@ -1,25 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Model
 {
-    public class Date
+    public class TimeUnit
     {
         string year;
         string day;
         string hour;
 
-        public Date(string year, string day, string hour)
+        public TimeUnit(string year, string day, string hour)
         {
             this.year = year;
             this.day = day;
             this.hour = hour;
         }
 
-        public Date()
+        public TimeUnit()
         {
 			//EMPTY CONSTRUCTOR. NEEDED FOR SERIALIZATION.
         }

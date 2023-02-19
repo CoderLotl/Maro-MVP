@@ -9,8 +9,8 @@ namespace Views
 
 	public partial class FrmDateSetter : Form
 	{
-		Date date;
-		public FrmDateSetter(Date date)
+		TimeUnit date;
+		public FrmDateSetter(TimeUnit date)
 		{
 			InitializeComponent();
 			this.date = date;
@@ -19,7 +19,7 @@ namespace Views
 
 		}
 		
-		public Date GetDate
+		public TimeUnit GetDate
 		{
 			get{ return date;	}
 		}
